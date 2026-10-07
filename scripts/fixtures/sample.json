@@ -1,0 +1,11 @@
+{
+  "user": {"login": "kazeemhabeeb", "name": "Kazeem Habeeb", "followers": 12, "created_at": "2021-06-01T00:00:00Z"},
+  "repos": [
+    {"name": "kazeemhabeeb", "fork": false, "language": null, "stargazers_count": 0, "forks_count": 0, "pushed_at": "2026-10-07T00:00:00Z", "html_url": "https://github.com/kazeemhabeeb/kazeemhabeeb", "description": null},
+    {"name": "php-blog", "fork": false, "language": "PHP", "stargazers_count": 3, "forks_count": 1, "pushed_at": "2026-09-20T00:00:00Z", "html_url": "https://github.com/kazeemhabeeb/php-blog", "description": "A tiny blog | built with plain PHP"},
+    {"name": "todo-app", "fork": false, "language": "JavaScript", "stargazers_count": 1, "forks_count": 0, "pushed_at": "2026-08-01T00:00:00Z", "html_url": "https://github.com/kazeemhabeeb/todo-app", "description": "Todo list"},
+    {"name": "landing", "fork": false, "language": "HTML", "stargazers_count": 0, "forks_count": 0, "pushed_at": "2026-05-01T00:00:00Z", "html_url": "https://github.com/kazeemhabeeb/landing", "description": null},
+    {"name": "auth-api", "fork": false, "language": "PHP", "stargazers_count": 2, "forks_count": 0, "pushed_at": "2026-09-30T00:00:00Z", "html_url": "https://github.com/kazeemhabeeb/auth-api", "description": "JWT auth API"},
+    {"name": "laravel", "fork": true, "language": "PHP", "stargazers_count": 0, "forks_count": 0, "pushed_at": "2026-10-01T00:00:00Z", "html_url": "https://github.com/kazeemhabeeb/laravel", "description": "fork"}
+  ]
+}

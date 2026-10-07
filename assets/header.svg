@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="220" viewBox="0 0 840 220" role="img" aria-label="Terminal: Hi, I'm Kazeem Habeeb, a web and software developer learning PHP">
+  <style>
+    :root { --bg:#f6f8fa; --bar:#e6e9ed; --fg:#1f2328; --dim:#656d76; --accent:#777BB4; --green:#1a7f37; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#0d1117; --bar:#161b22; --fg:#e6edf3; --dim:#8b949e; --accent:#a5a8e6; --green:#3fb950; }
+    }
+    text { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 18px; fill: var(--fg); }
+    .dim { fill: var(--dim); }
+    .accent { fill: var(--accent); font-weight: 700; }
+    .ok { fill: var(--green); }
+
+    /* Each line is revealed by a clip rect that types it out, character by character. */
+    .type { animation: type var(--d) steps(var(--n)) forwards; animation-delay: var(--t); width: 0; }
+    .show { opacity: 0; animation: show 0s forwards; animation-delay: var(--t); }
+    @keyframes type { to { width: 800px; } }
+    @keyframes show { to { opacity: 1; } }
+
+    .cursor { animation: blink 1s step-end infinite; animation-delay: 6.2s; opacity: 0; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .type { animation: none; width: 800px; }
+      .show { animation: none; opacity: 1; }
+      .cursor { animation: none; opacity: 1; }
+    }
+  </style>
+
+  <rect width="840" height="220" rx="12" fill="var(--bg)"/>
+  <path d="M0 12a12 12 0 0 1 12-12h816a12 12 0 0 1 12 12v24H0z" fill="var(--bar)"/>
+  <circle cx="22" cy="18" r="6" fill="#ff5f57"/>
+  <circle cx="42" cy="18" r="6" fill="#febc2e"/>
+  <circle cx="62" cy="18" r="6" fill="#28c840"/>
+  <text x="420" y="23" text-anchor="middle" class="dim" font-size="13">kazeem@github: ~</text>
+
+  <defs>
+    <clipPath id="l1"><rect class="type" x="24" y="56" height="30" style="--t:.3s;--d:1.2s;--n:24"/></clipPath>
+    <clipPath id="l3"><rect class="type" x="24" y="122" height="30" style="--t:2.4s;--d:1.4s;--n:28"/></clipPath>
+  </defs>
+
+  <text x="24" y="78" clip-path="url(#l1)"><tspan class="ok">$</tspan> php -r 'echo whoami();'</text>
+  <text x="24" y="108" class="show" style="--t:1.7s">Hi, I'm <tspan class="accent">Kazeem Habeeb</tspan> 👋 web &amp; software developer</text>
+
+  <text x="24" y="144" clip-path="url(#l3)"><tspan class="ok">$</tspan> cat ./currently.txt</text>
+  <text x="24" y="174" class="show" style="--t:4.0s"><tspan class="dim">→</tspan> learning PHP · building for the web · open to collabs</text>
+
+  <text x="24" y="204" class="show" style="--t:5.4s"><tspan class="ok">$</tspan> <tspan class="cursor">▌</tspan></text>
+</svg>
