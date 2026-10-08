@@ -90,8 +90,6 @@ td.num,th.num{text-align:right}
 .post{padding-bottom:20px;border-bottom:1px solid #eee;margin-bottom:20px}
 .post h2{margin-top:10px;font-size:22px}
 .post h2 a{color:var(--text)} .post h2 a:hover{color:var(--primary)}
-.img-ph{display:flex;align-items:center;justify-content:center;background:#dee2e6;color:#6c757d;border-radius:4px;aspect-ratio:850/350;max-width:100%;font-size:15px;text-align:center;padding:10px;margin-bottom:12px}
-.img-ph small{display:block;font-size:12px}
 .post .meta{color:var(--muted);font-size:13px;margin-bottom:10px}
 .page-header{padding-bottom:9px;margin:30px 0 20px;border-bottom:1px solid #eee}
 .page-header h1{margin:0}
@@ -158,12 +156,12 @@ footer.site{background:var(--well);border-top:1px solid #e7e7e7;padding:20px 0;c
 
 <script>
 const SOURCES = [
-  {id:1,name:"Lagos Wire",url:"https://lagoswire.example/feed",status:"Active",last:"Oct 8, 10:00",count:412,health:"OK"},
-  {id:2,name:"Continental Times",url:"https://continentaltimes.example/rss.xml",status:"Active",last:"Oct 8, 10:00",count:356,health:"OK"},
-  {id:3,name:"Abuja Observer",url:"https://abujaobserver.example/feed",status:"Active",last:"Oct 8, 10:00",count:241,health:"OK"},
-  {id:4,name:"Metro Pulse",url:"https://metropulse.example/rss",status:"Active",last:"Oct 8, 09:00",count:158,health:"Failed"},
-  {id:5,name:"Global Desk",url:"https://globaldesk.example/world/rss",status:"Active",last:"Oct 8, 10:00",count:117,health:"OK"},
-  {id:6,name:"Daily Ledger",url:"https://dailyledger.example/feed",status:"Inactive",last:"Oct 2, 14:00",count:0,health:"-"}
+  {id:1,name:"Lagos Wire",url:"https://lagoswire.example/feed",status:"Active"},
+  {id:2,name:"Continental Times",url:"https://continentaltimes.example/rss.xml",status:"Active"},
+  {id:3,name:"Abuja Observer",url:"https://abujaobserver.example/feed",status:"Active"},
+  {id:4,name:"Metro Pulse",url:"https://metropulse.example/rss",status:"Active"},
+  {id:5,name:"Global Desk",url:"https://globaldesk.example/world/rss",status:"Active"},
+  {id:6,name:"Daily Ledger",url:"https://dailyledger.example/feed",status:"Inactive"}
 ];
 const ARTICLES = [
   {id:101,cat:"Business",src:"Lagos Wire",title:"Central bank holds benchmark rate as inflation eases for third month",sum:"The monetary policy committee kept its key rate unchanged after its two-day meeting, citing slowing food prices and a steadier exchange rate. Analysts expect the next review in November to follow the same path if the trend holds.",date:"October 8, 2026 at 9:42 AM",score:88,status:"Real",views:1204},
@@ -174,17 +172,16 @@ const ARTICLES = [
   {id:106,cat:"Sports",src:"Lagos Wire",title:"Super Eagles name 25-man squad for November qualifiers",sum:"The head coach recalled two defenders and handed a first call-up to a 19-year-old midfielder ahead of the two away fixtures.",date:"October 8, 2026 at 7:20 AM",score:93,status:"Real",views:2650},
   {id:107,cat:"Business",src:"Continental Times",title:"Fuel price to drop to ₦150 per litre from Monday, sources say",sum:"Unnamed sources claim a new pricing template will cut pump prices sharply next week. The regulator has not issued a statement.",date:"October 8, 2026 at 6:45 AM",score:31,status:"Misinformation",views:1540},
   {id:108,cat:"Health",src:"Abuja Observer",title:"Ministry launches nationwide measles vaccination drive for under-fives",sum:"The two-week campaign targets 21 million children and will run through primary health centres in all 36 states and the FCT.",date:"October 7, 2026 at 6:10 PM",score:84,status:"Real",views:615},
-  {id:109,cat:"Politics",src:"Global Desk",title:"Governor's aide responds to claims about state budget allocation",sum:"The aide said figures circulating online mix up the approved budget with a draft version from earlier in the year.",date:"October 7, 2026 at 5:02 PM",score:null,status:"Pending Verification",views:98,img:false}
+  {id:109,cat:"Politics",src:"Global Desk",title:"Governor's aide responds to claims about state budget allocation",sum:"The aide said figures circulating online mix up the approved budget with a draft version from earlier in the year.",date:"October 7, 2026 at 5:02 PM",score:null,status:"Pending Verification",views:98}
 ];
+/* FR-3.5: operational execution logs, highlighting API timeouts and failed RSS feed connections */
 const LOGS = [
-  {t:"2026-10-08 10:00:41",type:"Ingestion run",lvl:"Info",msg:"Hourly run finished: 5 feeds read, 23 new articles, 4 duplicates skipped."},
-  {t:"2026-10-08 10:00:37",type:"API timeout",lvl:"Warning",msg:"Fact-check request timed out after 15 s for article #104. Saved as Pending Verification."},
-  {t:"2026-10-08 10:00:12",type:"Feed failed",lvl:"Error",msg:"Metro Pulse (https://metropulse.example/rss) returned HTTP 503. Feed skipped this run."},
-  {t:"2026-10-08 09:00:39",type:"Ingestion run",lvl:"Info",msg:"Hourly run finished: 6 feeds read, 18 new articles, 7 duplicates skipped."},
-  {t:"2026-10-08 09:00:22",type:"API timeout",lvl:"Warning",msg:"Fact-check request timed out after 15 s for article #109. Saved as Pending Verification."},
-  {t:"2026-10-08 08:00:40",type:"Ingestion run",lvl:"Info",msg:"Hourly run finished: 6 feeds read, 21 new articles, 3 duplicates skipped."},
-  {t:"2026-10-08 07:14:05",type:"Admin login",lvl:"Info",msg:"Admin \"habeeb\" signed in."},
-  {t:"2026-10-07 23:00:18",type:"API error",lvl:"Error",msg:"Fact-check service returned HTTP 429 (rate limit reached). 6 articles saved as Pending Verification."}
+  {t:"2026-10-08 10:00:41",type:"Execution",msg:"Hourly ingestion finished: 5 active feeds read, 23 new articles saved, 4 duplicate URLs skipped."},
+  {t:"2026-10-08 10:00:37",type:"API timeout",msg:"Fact-check API request timed out for article #104. Article saved as Pending Verification."},
+  {t:"2026-10-08 10:00:12",type:"RSS feed failed",msg:"Could not connect to Metro Pulse (https://metropulse.example/rss). Feed skipped."},
+  {t:"2026-10-08 09:00:39",type:"Execution",msg:"Hourly ingestion finished: 5 active feeds read, 18 new articles saved, 7 duplicate URLs skipped."},
+  {t:"2026-10-08 09:00:22",type:"API timeout",msg:"Fact-check API request timed out for article #109. Article saved as Pending Verification."},
+  {t:"2026-10-08 08:00:40",type:"Execution",msg:"Hourly ingestion finished: 5 active feeds read, 21 new articles saved, 3 duplicate URLs skipped."}
 ];
 const CATS = ["All","Politics","Business","Health","Technology","Sports","World"];
 const state = {cat:"All", q:"", articleId:101, confirmDel:null, confirmSrc:null};
@@ -192,12 +189,12 @@ const state = {cat:"All", q:"", articleId:101, confirmDel:null, confirmSrc:null}
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const req = t => `<span class="req">[${t}]</span>`;
+/* FR-2.2 label + percentage; NFR-3.2 green / red / yellow; Fig 3.2 >= 50% rule; NFR-2.1 Pending */
 function label(a){
   if (a.score === null) return `<span class="label label-warning">Pending Verification</span>`;
-  return a.score >= 50 ? `<span class="label label-success">Real &ndash; ${a.score}%</span>`
-                       : `<span class="label label-danger">Misinformation &ndash; ${a.score}%</span>`;
+  return a.score >= 50 ? `<span class="label label-success">Real &ndash; ${a.score}% Confidence</span>`
+                       : `<span class="label label-danger">Misinformation &ndash; ${a.score}% Confidence</span>`;
 }
-const imgBox = a => a.img===false ? "" : `<div class="img-ph" role="img" aria-label="Article image from ${a.src}"><div>Image from ${a.src}<small>850 &times; 350</small></div></div>`;
 function toast(msg){const t=$("#toast");t.innerHTML=`<div class="alert alert-success" style="margin:0">${esc(msg)}</div>`;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,2200)}
 
 /* ---------------- public pages ---------------- */
@@ -218,27 +215,27 @@ function sidebarWidgets(){
         <input class="form-control" id="q" type="search" placeholder="Search news..." value="${esc(state.q)}" aria-label="Search news">
         <button class="btn" type="submit">Go</button>
       </form>
-      <div class="small text-muted" style="margin-top:6px">${req("§2.2 search")}</div>
+      <div class="small text-muted" style="margin-top:6px">${req("§2.2 searching for a specific topic")}</div>
     </div>
     <div class="well">
       <h4 style="margin-top:0">Categories</h4>
       <ul class="list-unstyled cat-list">
         ${CATS.map(c=>`<li><a href="#feed" data-cat="${c}" class="${c===state.cat?"on":""}">${c}</a></li>`).join("")}
       </ul>
-      <div class="small text-muted" style="margin-top:6px">${req("FR-2.3 filtering categories")}</div>
+      <div class="small text-muted" style="margin-top:6px">${req("FR-2.3 filtering categories; §2.2 filtering by category")}</div>
     </div>
     <div class="well">
-      <h4 style="margin-top:0">What the labels mean</h4>
+      <h4 style="margin-top:0">Credibility labels</h4>
       <ul class="list-unstyled key">
-        <li><span class="label label-success">Real</span> Score of 50% or higher</li>
-        <li><span class="label label-danger">Misinformation</span> Score below 50%</li>
-        <li><span class="label label-warning">Pending Verification</span> Not checked yet</li>
+        <li><span class="label label-success">Real</span> Confidence score of 50% or higher</li>
+        <li><span class="label label-danger">Misinformation</span> Confidence score below 50%</li>
+        <li><span class="label label-warning">Pending Verification</span> Not yet verified</li>
       </ul>
-      <div class="small text-muted" style="margin-top:6px">${req("NFR-3.2 colours, Fig 3.2 50% rule")}</div>
+      <div class="small text-muted" style="margin-top:6px">${req("NFR-3.2 colour-coded indicators; Fig 3.2 50% rule")}</div>
     </div>`;
 }
 function siteFooter(){
-  return `<footer class="site"><div class="container">Copyright &copy; TrustFeed 2026. Scores come from an automated fact-checking service and can be wrong. Always read the original source.</div></footer>`;
+  return `<footer class="site"><div class="container">Copyright &copy; TrustFeed 2026</div></footer>`;
 }
 function viewFeed(){
   const q = state.q.toLowerCase();
@@ -248,18 +245,16 @@ function viewFeed(){
   <div class="container">
     <div class="row">
       <div>
-        <div class="page-header"><h1>${heading} <small class="text-muted" style="font-size:60%">checked every hour</small></h1></div>
-        <p class="small">${req("FR-2.1 public feed, no login")} ${req("FR-2.2 label on every article")} ${req("FR-2.3 loads with AJAX")} ${req("Images: proposed addition, not in the PDF")}</p>
+        <div class="page-header"><h1>${heading}</h1></div>
+        <p class="small">${req("FR-2.1 public feed, no login")} ${req("FR-2.2 credibility badge on every article")} ${req("FR-2.3 loaded with AJAX/Fetch")} ${req("NFR-3.1 responsive")}</p>
         ${list.length ? list.map(a=>`
           <div class="post">
-            ${a.img===false?"":`<a href="#article" data-open="${a.id}" style="display:block">${imgBox(a)}</a>`}
             <h2><a href="#article" data-open="${a.id}">${esc(a.title)}</a></h2>
-            <div class="meta">Posted on ${a.date} by <strong>${a.src}</strong> in <a href="#feed" data-cat="${a.cat}">${a.cat}</a> &nbsp;|&nbsp; ${a.views.toLocaleString()} views</div>
+            <div class="meta">Posted on ${a.date} by <strong>${a.src}</strong> in <a href="#feed" data-cat="${a.cat}">${a.cat}</a></div>
             <p>${label(a)}</p>
             <p>${esc(a.sum)}</p>
             <a class="btn btn-primary" href="#article" data-open="${a.id}">Read More &rarr;</a>
           </div>`).join("") : `<div class="alert alert-info">No articles found. Try a different search word or choose another category.</div>`}
-        <ul class="pager"><li><a href="#feed">&larr; Older</a></li><li><a href="#feed">Newer &rarr;</a></li></ul>
       </div>
       <aside style="padding-top:30px">${sidebarWidgets()}</aside>
     </div>
@@ -268,20 +263,20 @@ function viewFeed(){
 function viewArticle(){
   const a = ARTICLES.find(x=>x.id===state.articleId) || ARTICLES[0];
   const box = a.score===null
-    ? `<div class="alert alert-warning"><strong>Pending Verification.</strong> This article has not been checked yet. It will be checked again on the next hourly run.</div>`
+    ? `<div class="alert alert-warning"><strong>Pending Verification.</strong> This article has not been verified yet.</div>`
     : a.score>=50
-      ? `<div class="alert alert-success"><strong>Real &ndash; ${a.score}% confidence.</strong> The fact-checking service rated this article as credible.</div>`
-      : `<div class="alert alert-danger"><strong>Misinformation &ndash; ${a.score}% confidence.</strong> The fact-checking service rated this article as likely false or misleading.</div>`;
+      ? `<div class="alert alert-success"><strong>Real &ndash; ${a.score}% Confidence.</strong></div>`
+      : `<div class="alert alert-danger"><strong>Misinformation &ndash; ${a.score}% Confidence.</strong></div>`;
   return publicNav() + `
   <div class="container">
     <div class="row">
       <div>
         <h1 style="margin-top:30px">${esc(a.title)}</h1>
-        <p class="text-muted">by <strong>${a.src}</strong> &nbsp;|&nbsp; ${a.cat} &nbsp;|&nbsp; Posted on ${a.date} &nbsp;|&nbsp; ${(a.views+1).toLocaleString()} views ${req("FR-2.4 view counter")}</p>
+        <p class="text-muted">by <strong>${a.src}</strong> &nbsp;|&nbsp; ${a.cat} &nbsp;|&nbsp; Posted on ${a.date}</p>
+        <p class="small">${req("Use case: Read Article Summary")} ${req("FR-2.4 opening this card adds 1 to view_count (not shown to the public)")}</p>
         <hr>
-        ${imgBox(a)}
         ${box}
-        <p class="small">${req("FR-2.2 label + confidence %")} ${req("FR-1.4 verdict and score")} ${req("NFR-2.1 Pending status")}</p>
+        <p class="small">${req("Use case: View Credibility Score")} ${req("FR-2.2 label + confidence %")} ${req("NFR-2.1 Pending Verification")}</p>
         <p style="font-size:16px;line-height:1.6">${esc(a.sum)}</p>
         <p><a class="btn btn-primary" href="#article" onclick="return false">Read the full story on ${a.src}</a> ${req("Schema: original_link")}</p>
         <hr>
@@ -304,18 +299,16 @@ function viewLogin(){
           <div class="form-group"><label for="p">Password</label><input class="form-control" id="p" type="password" autocomplete="current-password" value="password"></div>
           <button class="btn btn-primary btn-block" type="submit">Login</button>
         </form>
-        <p class="small text-muted" style="margin:12px 0 0">You will be logged out after 30 minutes of inactivity.</p>
-        <p class="small" style="margin:6px 0 0">${req("FR-3.1 admin login")} ${req("NFR-1.2 bcrypt + session timeout")}</p>
+        <p class="small" style="margin:12px 0 0">${req("FR-3.1 secure password-protected portal")} ${req("NFR-1.2 bcrypt, secure session, automatic timeout")}</p>
       </div>
     </div>
-    <p class="small text-center"><a href="#feed">&larr; Back to the news site</a></p>
   </div>`;
 }
-function shell(active, title, crumb, inner){
+function shell(active, title, inner){
   const link=(s,l)=>`<a href="#${s}" class="${s===active?"on":""}">${l}</a>`;
   return `<nav class="navbar"><div class="container" style="max-width:none">
       <a class="brand" href="#dashboard">TrustFeed Admin</a>
-      <div class="navright"><a href="#feed">View site</a> | <span>Logged in as <strong style="color:#fff">habeeb</strong></span> | <a href="#login">Logout</a></div>
+      <div class="navright"><span>Logged in as <strong style="color:#fff">habeeb</strong></span> | <a href="#login">Logout</a></div>
     </div></nav>
     <div class="admin">
       <div class="sidebar">
@@ -323,61 +316,53 @@ function shell(active, title, crumb, inner){
       </div>
       <div class="content">
         <h1 class="page-header" style="margin-top:20px">${title}</h1>
-        <ol class="breadcrumb"><li>Admin / ${crumb}</li></ol>
         ${inner}
       </div>
     </div>`;
 }
-function healthLabel(s){
-  if (s.status==="Inactive") return `<span class="label label-default">Disabled</span>`;
-  return s.health==="Failed" ? `<span class="label label-danger">Failed</span>` : `<span class="label label-success">Working</span>`;
-}
+const statusLabel = s => s.status==="Active" ? `<span class="label label-success">Active</span>` : `<span class="label label-default">Inactive</span>`;
 function viewDashboard(){
   const real=842, fake=311, pend=131, total=real+fake+pend;
-  const pct=n=>(n/total*100).toFixed(1);
-  const top=[...ARTICLES].sort((a,b)=>b.views-a.views).slice(0,5);
-  const stat=(cls,n,l,link)=>`<div class="stat ${cls}"><div class="top"><div class="big">${n}</div><div>${l}</div></div><a class="foot" href="#${link}">View details &rarr;</a></div>`;
-  return shell("dashboard","Dashboard","Overview",`
-    <p class="small">${req("FR-3.4 analytics dashboard")}</p>
+  const rf=real+fake, pr=(real/rf*100).toFixed(1), pf=(fake/rf*100).toFixed(1);
+  const stat=(cls,n,l)=>`<div class="stat ${cls}"><div class="top"><div class="big">${n}</div><div>${l}</div></div></div>`;
+  return shell("dashboard","Dashboard",`
+    <p class="small">${req("FR-3.4 real-time system metrics")}</p>
     <div class="stat-row">
-      ${stat("stat-primary",total.toLocaleString(),"Total articles","articles")}
-      ${stat("stat-green",real,"Real","articles")}
-      ${stat("stat-red",fake,"Misinformation","articles")}
-      ${stat("stat-yellow",pend,"Pending","articles")}
+      ${stat("stat-primary",total.toLocaleString(),"Total Posts Ingested")}
+      ${stat("stat-green",real,"Real Articles")}
+      ${stat("stat-red",fake,"Fake Articles")}
     </div>
     <div class="panel">
-      <div class="panel-heading">Fake vs. Real Ratio ${req("FR-3.4")}</div>
+      <div class="panel-heading">Fake vs. Real Ratio ${req("FR-3.4 fake vs. real article ratios")}</div>
       <div class="panel-body">
-        <div class="progress" role="img" aria-label="Real ${pct(real)}%, Misinformation ${pct(fake)}%, Pending ${pct(pend)}%">
-          <div style="width:${pct(real)}%;background:var(--success)" title="Real: ${real}">Real ${pct(real)}%</div>
-          <div style="width:${pct(fake)}%;background:var(--danger)" title="Misinformation: ${fake}">Misinfo ${pct(fake)}%</div>
-          <div style="width:${pct(pend)}%;background:var(--warning)" title="Pending: ${pend}">${pct(pend)}%</div>
+        <div class="progress" role="img" aria-label="Real ${pr}%, Fake ${pf}%">
+          <div style="width:${pr}%;background:var(--success)">Real ${pr}%</div>
+          <div style="width:${pf}%;background:var(--danger)">Fake ${pf}%</div>
         </div>
-        <p style="margin:0">Real: <strong>${real}</strong> &nbsp; Misinformation: <strong>${fake}</strong> &nbsp; Pending: <strong>${pend}</strong> &nbsp; Ratio (fake : real) = <strong>1 : ${(real/fake).toFixed(1)}</strong></p>
+        <p style="margin:0">Real: <strong>${real}</strong> &nbsp; Fake: <strong>${fake}</strong> &nbsp; Ratio (fake : real) = <strong>1 : ${(real/fake).toFixed(1)}</strong></p>
       </div>
     </div>
     <div class="cols">
       <div class="panel">
-        <div class="panel-heading">Feed Status ${req("FR-3.4 active feed statuses")}</div>
+        <div class="panel-heading">Feed Statuses ${req("FR-3.4 active feed statuses")}</div>
         <div class="panel-body"><div class="table-responsive" style="margin:0"><table>
-          <thead><tr><th>Source</th><th>Status</th><th>Last run</th><th class="num">Articles</th></tr></thead>
-          <tbody>${SOURCES.map(s=>`<tr><td>${s.name}</td><td>${healthLabel(s)}</td><td>${s.last}</td><td class="num">${s.count}</td></tr>`).join("")}</tbody>
+          <thead><tr><th>Source</th><th>Status</th></tr></thead>
+          <tbody>${SOURCES.map(s=>`<tr><td>${s.name}</td><td>${statusLabel(s)}</td></tr>`).join("")}</tbody>
         </table></div></div>
       </div>
       <div class="panel">
-        <div class="panel-heading">Most Viewed Articles ${req("FR-3.4 views per article")}</div>
+        <div class="panel-heading">View Counts per Article ${req("FR-3.4 view counts per article")}</div>
         <div class="panel-body"><div class="table-responsive" style="margin:0"><table>
-          <thead><tr><th>Article</th><th>Result</th><th class="num">Views</th></tr></thead>
-          <tbody>${top.map(a=>`<tr><td>${esc(a.title)}</td><td>${label(a)}</td><td class="num">${a.views.toLocaleString()}</td></tr>`).join("")}</tbody>
+          <thead><tr><th>Article</th><th class="num">Views</th></tr></thead>
+          <tbody>${ARTICLES.map(a=>`<tr><td>${esc(a.title)}</td><td class="num">${a.views.toLocaleString()}</td></tr>`).join("")}</tbody>
         </table></div></div>
       </div>
-    </div>
-    <p class="text-muted small">Last ingestion run: 2026-10-08 10:00. Next run: 11:00.</p>`);
+    </div>`);
 }
 function viewSources(){
   const c = state.confirmSrc && SOURCES.find(s=>s.id===state.confirmSrc);
-  return shell("sources","RSS Sources","RSS Sources",`
-    <p class="small">${req("FR-3.2 add / edit / enable / disable / delete")} ${req("Schema: rss_sources")}</p>
+  return shell("sources","RSS Sources",`
+    <p class="small">${req("FR-3.2 add, edit, enable, disable or delete RSS feed source URLs")} ${req("Schema: rss_sources")}</p>
     <div class="panel">
       <div class="panel-heading">Add New Source</div>
       <div class="panel-body">
@@ -389,11 +374,11 @@ function viewSources(){
         </form>
       </div>
     </div>
-    ${c ? `<div class="alert alert-danger">Are you sure you want to delete <strong>${esc(c.name)}</strong>? Its articles will also be removed. &nbsp;<button class="btn btn-danger btn-sm" data-act="src-del-yes">Yes, delete</button> <button class="btn btn-sm" data-act="src-del-no">Cancel</button></div>` : ""}
+    ${c ? `<div class="alert alert-danger">Are you sure you want to delete <strong>${esc(c.name)}</strong>? &nbsp;<button class="btn btn-danger btn-sm" data-act="src-del-yes">Yes, delete</button> <button class="btn btn-sm" data-act="src-del-no">Cancel</button></div>` : ""}
     <div class="table-responsive"><table>
-      <thead><tr><th>ID</th><th>Website</th><th>RSS Feed URL</th><th>Status</th><th>Last Fetched</th><th class="num">Articles</th><th>Actions</th></tr></thead>
+      <thead><tr><th>ID</th><th>Website Name</th><th>RSS URL</th><th>Status</th><th>Actions</th></tr></thead>
       <tbody>${SOURCES.map(s=>`<tr>
-        <td>${s.id}</td><td>${s.name}</td><td>${s.url}</td><td>${healthLabel(s)}</td><td>${s.last}</td><td class="num">${s.count}</td>
+        <td>${s.id}</td><td>${s.name}</td><td>${s.url}</td><td>${statusLabel(s)}</td>
         <td style="white-space:nowrap">
           <button class="btn btn-xs" data-act="toast" data-msg="Edit form opens here">Edit</button>
           <button class="btn btn-xs" data-act="src-toggle" data-id="${s.id}">${s.status==="Active"?"Disable":"Enable"}</button>
@@ -402,41 +387,32 @@ function viewSources(){
     </table></div>`);
 }
 function viewArticles(){
-  return shell("articles","Articles","Articles",`
-    <p class="small">${req("FR-3.3 search / re-flag / delete")}</p>
+  return shell("articles","Articles",`
+    <p class="small">${req("FR-3.3 search, manually re-flag, or permanently delete ingested articles")}</p>
     <form class="toolbar" onsubmit="return false">
-      <input class="form-control grow" type="search" placeholder="Search by title or source..." aria-label="Search articles">
-      <select class="form-control" aria-label="Filter by result"><option>All results</option><option>Real</option><option>Misinformation</option><option>Pending Verification</option></select>
-      <select class="form-control" aria-label="Filter by source"><option>All sources</option>${SOURCES.map(s=>`<option>${s.name}</option>`).join("")}</select>
+      <input class="form-control grow" type="search" placeholder="Search articles..." aria-label="Search articles">
       <button class="btn">Search</button>
     </form>
-    ${state.confirmDel ? `<div class="alert alert-danger">Permanently delete article #${state.confirmDel}? This cannot be undone. &nbsp;<button class="btn btn-danger btn-sm" data-act="art-del-yes">Yes, delete</button> <button class="btn btn-sm" data-act="art-del-no">Cancel</button></div>` : ""}
+    ${state.confirmDel ? `<div class="alert alert-danger">Permanently delete article #${state.confirmDel}? &nbsp;<button class="btn btn-danger btn-sm" data-act="art-del-yes">Yes, delete</button> <button class="btn btn-sm" data-act="art-del-no">Cancel</button></div>` : ""}
     <div class="table-responsive"><table>
-      <thead><tr><th>ID</th><th>Title</th><th>Source</th><th>Published</th><th>Result</th><th class="num">Views</th><th>Change Label ${req("re-flag")}</th><th>Delete</th></tr></thead>
+      <thead><tr><th>ID</th><th>Title</th><th>Source</th><th>Publication Date</th><th>Verification Status</th><th class="num">Views</th><th>Re-flag</th><th>Delete</th></tr></thead>
       <tbody>${ARTICLES.map(a=>`<tr>
         <td>${a.id}</td><td>${esc(a.title)}</td><td>${a.src}</td><td style="white-space:nowrap">${a.date.split(" at ")[0]}</td><td>${label(a)}</td><td class="num">${a.views.toLocaleString()}</td>
-        <td><select class="form-control" style="height:28px;padding:2px 6px;min-width:150px" aria-label="Change label for article ${a.id}" data-act="reflag" data-id="${a.id}">
+        <td><select class="form-control" style="height:28px;padding:2px 6px;min-width:150px" aria-label="Re-flag article ${a.id}" data-act="reflag" data-id="${a.id}">
           ${["Real","Misinformation","Pending Verification"].map(o=>`<option ${o===a.status?"selected":""}>${o}</option>`).join("")}
         </select></td>
         <td><button class="btn btn-xs btn-danger" data-act="art-del" data-id="${a.id}">Delete</button></td>
       </tr>`).join("")}</tbody>
-    </table></div>
-    <ul class="pager"><li><a href="#articles">&larr; Previous</a></li><li><span class="text-muted">Page 1 of 143</span></li><li><a href="#articles">Next &rarr;</a></li></ul>`);
+    </table></div>`);
 }
 function viewLogs(){
-  const lc = l => l==="Error"?"label-danger":l==="Warning"?"label-warning":"label-info";
-  return shell("logs","System Logs","System Logs",`
-    <p class="small">${req("FR-3.5 system and error logging")}</p>
-    <form class="toolbar" onsubmit="return false">
-      <select class="form-control" aria-label="Filter by level"><option>All levels</option><option>Error</option><option>Warning</option><option>Info</option></select>
-      <select class="form-control" aria-label="Filter by type"><option>All types</option><option>Ingestion run</option><option>API timeout</option><option>API error</option><option>Feed failed</option><option>Admin login</option></select>
-      <button class="btn">Filter</button>
-    </form>
+  const lc = t => t==="RSS feed failed"?"label-danger":t==="API timeout"?"label-warning":"label-default";
+  return shell("logs","System Logs",`
+    <p class="small">${req("FR-3.5 operational execution logs, highlighting API timeout events and failed RSS feed connections")}</p>
     <div class="table-responsive"><table>
-      <thead><tr><th>Date / Time</th><th>Level</th><th>Type</th><th>Message</th></tr></thead>
-      <tbody>${LOGS.map(l=>`<tr><td style="white-space:nowrap">${l.t}</td><td><span class="label ${lc(l.lvl)}">${l.lvl}</span></td><td style="white-space:nowrap">${l.type}</td><td>${esc(l.msg)}</td></tr>`).join("")}</tbody>
-    </table></div>
-    <p class="small text-muted">Note: this page needs a logs table, which §3.6 does not include yet.</p>`);
+      <thead><tr><th>Date / Time</th><th>Event</th><th>Details</th></tr></thead>
+      <tbody>${LOGS.map(l=>`<tr><td style="white-space:nowrap">${l.t}</td><td><span class="label ${lc(l.type)}">${l.type}</span></td><td>${esc(l.msg)}</td></tr>`).join("")}</tbody>
+    </table></div>`);
 }
 
 /* ---------------- router and events ---------------- */
@@ -480,7 +456,7 @@ document.addEventListener("submit",e=>{
   if(e.target.id==="addSrc"){
     const n=$("#sName").value.trim(), u=$("#sUrl").value.trim();
     if(!n||!u){toast("Enter a website name and an RSS feed URL.");return}
-    SOURCES.push({id:SOURCES.length?Math.max(...SOURCES.map(s=>s.id))+1:1,name:n,url:u,status:$("#sStatus").value,last:"Not run yet",count:0,health:"OK"});
+    SOURCES.push({id:SOURCES.length?Math.max(...SOURCES.map(s=>s.id))+1:1,name:n,url:u,status:$("#sStatus").value});
     render(); toast(`${n} added.`);
   }
 });
