@@ -90,6 +90,14 @@ td.num,th.num{text-align:right}
 .post{padding-bottom:20px;border-bottom:1px solid #eee;margin-bottom:20px}
 .post h2{margin-top:10px;font-size:22px}
 .post h2 a{color:var(--text)} .post h2 a:hover{color:var(--primary)}
+.img-ph{display:flex;align-items:center;justify-content:center;background:#dee2e6;color:#6c757d;border-radius:4px;aspect-ratio:850/350;max-width:100%;font-size:15px;text-align:center;padding:10px;margin-bottom:12px}
+.img-ph small{display:block;font-size:12px}
+.pagination{display:flex;list-style:none;padding:0;margin:20px 0}
+.pagination a,.pagination span{display:block;padding:6px 12px;border:1px solid var(--border);margin-left:-1px;color:var(--primary);background:#fff}
+.pagination li:first-child a{border-radius:4px 0 0 4px;margin-left:0}
+.pagination li:last-child a{border-radius:0 4px 4px 0}
+.pagination .active span{background:var(--primary);border-color:var(--primary);color:#fff}
+.pagination .disabled span{color:var(--muted)}
 .post .meta{color:var(--muted);font-size:13px;margin-bottom:10px}
 .page-header{padding-bottom:9px;margin:30px 0 20px;border-bottom:1px solid #eee}
 .page-header h1{margin:0}
@@ -172,7 +180,7 @@ const ARTICLES = [
   {id:106,cat:"Sports",src:"Lagos Wire",title:"Super Eagles name 25-man squad for November qualifiers",sum:"The head coach recalled two defenders and handed a first call-up to a 19-year-old midfielder ahead of the two away fixtures.",date:"October 8, 2026 at 7:20 AM",score:93,status:"Real",views:2650},
   {id:107,cat:"Business",src:"Continental Times",title:"Fuel price to drop to ₦150 per litre from Monday, sources say",sum:"Unnamed sources claim a new pricing template will cut pump prices sharply next week. The regulator has not issued a statement.",date:"October 8, 2026 at 6:45 AM",score:31,status:"Misinformation",views:1540},
   {id:108,cat:"Health",src:"Abuja Observer",title:"Ministry launches nationwide measles vaccination drive for under-fives",sum:"The two-week campaign targets 21 million children and will run through primary health centres in all 36 states and the FCT.",date:"October 7, 2026 at 6:10 PM",score:84,status:"Real",views:615},
-  {id:109,cat:"Politics",src:"Global Desk",title:"Governor's aide responds to claims about state budget allocation",sum:"The aide said figures circulating online mix up the approved budget with a draft version from earlier in the year.",date:"October 7, 2026 at 5:02 PM",score:null,status:"Pending Verification",views:98}
+  {id:109,cat:"Politics",src:"Global Desk",title:"Governor's aide responds to claims about state budget allocation",sum:"The aide said figures circulating online mix up the approved budget with a draft version from earlier in the year.",date:"October 7, 2026 at 5:02 PM",score:null,status:"Pending Verification",views:98,img:false}
 ];
 /* FR-3.5: operational execution logs, highlighting API timeouts and failed RSS feed connections */
 const LOGS = [
@@ -195,6 +203,8 @@ function label(a){
   return a.score >= 50 ? `<span class="label label-success">Real &ndash; ${a.score}% Confidence</span>`
                        : `<span class="label label-danger">Misinformation &ndash; ${a.score}% Confidence</span>`;
 }
+const imgBox = a => a.img===false ? "" : `<div class="img-ph" role="img" aria-label="Article image from ${a.src}"><div>Image from ${a.src}<small>850 &times; 350</small></div></div>`;
+const pager = (hash,cur,total) => `<ul class="pagination" aria-label="Pages">${cur===1?'<li class="disabled"><span>&laquo; Newer</span></li>':`<li><a href="#${hash}">&laquo; Newer</a></li>`}${[1,2,3].map(n=>n===cur?`<li class="active"><span>${n}</span></li>`:`<li><a href="#${hash}">${n}</a></li>`).join("")}<li class="disabled"><span>&hellip;</span></li><li><a href="#${hash}">${total}</a></li><li><a href="#${hash}">Older &raquo;</a></li></ul>`;
 function toast(msg){const t=$("#toast");t.innerHTML=`<div class="alert alert-success" style="margin:0">${esc(msg)}</div>`;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,2200)}
 
 /* ---------------- public pages ---------------- */
@@ -246,15 +256,17 @@ function viewFeed(){
     <div class="row">
       <div>
         <div class="page-header"><h1>${heading}</h1></div>
-        <p class="small">${req("FR-2.1 public feed, no login")} ${req("FR-2.2 credibility badge on every article")} ${req("FR-2.3 loaded with AJAX/Fetch")} ${req("NFR-3.1 responsive")}</p>
+        <p class="small">${req("FR-2.1 public feed, no login")} ${req("FR-2.2 credibility badge on every article")} ${req("FR-2.3 loaded with AJAX/Fetch")} ${req("NFR-3.1 responsive")} ${req("Images and pagination: design additions, images need an image_url column")}</p>
         ${list.length ? list.map(a=>`
           <div class="post">
+            ${a.img===false?"":`<a href="#article" data-open="${a.id}" style="display:block">${imgBox(a)}</a>`}
             <h2><a href="#article" data-open="${a.id}">${esc(a.title)}</a></h2>
             <div class="meta">Posted on ${a.date} by <strong>${a.src}</strong> in <a href="#feed" data-cat="${a.cat}">${a.cat}</a></div>
             <p>${label(a)}</p>
             <p>${esc(a.sum)}</p>
             <a class="btn btn-primary" href="#article" data-open="${a.id}">Read More &rarr;</a>
           </div>`).join("") : `<div class="alert alert-info">No articles found. Try a different search word or choose another category.</div>`}
+        ${list.length ? pager("feed",1,24) : ""}
       </div>
       <aside style="padding-top:30px">${sidebarWidgets()}</aside>
     </div>
@@ -275,6 +287,7 @@ function viewArticle(){
         <p class="text-muted">by <strong>${a.src}</strong> &nbsp;|&nbsp; ${a.cat} &nbsp;|&nbsp; Posted on ${a.date}</p>
         <p class="small">${req("Use case: Read Article Summary")} ${req("FR-2.4 opening this card adds 1 to view_count (not shown to the public)")}</p>
         <hr>
+        ${imgBox(a)}
         ${box}
         <p class="small">${req("Use case: View Credibility Score")} ${req("FR-2.2 label + confidence %")} ${req("NFR-2.1 Pending Verification")}</p>
         <p style="font-size:16px;line-height:1.6">${esc(a.sum)}</p>
@@ -308,7 +321,7 @@ function shell(active, title, inner){
   const link=(s,l)=>`<a href="#${s}" class="${s===active?"on":""}">${l}</a>`;
   return `<nav class="navbar"><div class="container" style="max-width:none">
       <a class="brand" href="#dashboard">TrustFeed Admin</a>
-      <div class="navright"><span>Logged in as <strong style="color:#fff">habeeb</strong></span> | <a href="#login">Logout</a></div>
+      <div class="navright"><a href="#feed">View site</a> | <span>Logged in as <strong style="color:#fff">habeeb</strong></span> | <a href="#login">Logout</a></div>
     </div></nav>
     <div class="admin">
       <div class="sidebar">
@@ -403,7 +416,8 @@ function viewArticles(){
         </select></td>
         <td><button class="btn btn-xs btn-danger" data-act="art-del" data-id="${a.id}">Delete</button></td>
       </tr>`).join("")}</tbody>
-    </table></div>`);
+    </table></div>
+    ${pager("articles",1,143)}`);
 }
 function viewLogs(){
   const lc = t => t==="RSS feed failed"?"label-danger":t==="API timeout"?"label-warning":"label-default";
