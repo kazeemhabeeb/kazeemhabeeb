@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>News Feed - TrustFeed</title>
+        <link href="css/styles.css" rel="stylesheet" />
+        <link href="../proto.css" rel="stylesheet" />
+        
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">TrustFeed</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li><li class="nav-item"><a class="nav-link" href="index.html">Politics</a></li><li class="nav-item"><a class="nav-link" href="index.html">Business</a></li><li class="nav-item"><a class="nav-link" href="index.html">Health</a></li><li class="nav-item"><a class="nav-link" href="index.html">Technology</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page header with logo and tagline-->
+        <header class="py-5 bg-light border-bottom mb-4">
+            <div class="container">
+                <div class="text-center my-5">
+                    <h1 class="fw-bolder">TrustFeed</h1>
+                    <p class="lead mb-0">Aggregated news with AI credibility scores</p>
+                </div>
+            </div>
+        </header>
+        <!-- Page content-->
+        <div class="container">
+            <div class="row">
+                <!-- Blog entries-->
+                <div class="col-lg-8">
+                    <p class="small"><span class="req">[FR-2.1 public feed, no login]</span> <span class="req">[FR-2.2 credibility badge on every article]</span> <span class="req">[FR-2.3 loaded with AJAX/Fetch]</span> <span class="req">[NFR-3.1 responsive]</span> <span class="req">[Images and pagination: design additions; images need an image_url column]</span></p>
+                    <!-- Featured blog post-->
+                    <div class="card mb-4">
+                        <a href="article.html"><img class="card-img-top" src="assets/placeholder-850x350.svg" alt="Article image from Lagos Wire" width="850" /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">October 8, 2026 &middot; Lagos Wire &middot; Business</div>
+                            <h2 class="card-title"><a class="text-reset text-decoration-none" href="article.html">Central bank holds benchmark rate as inflation eases for third month</a></h2>
+                            <p class="mb-2"><span class="badge bg-success">Real &ndash; 88% Confidence</span></p>
+                            <p class="card-text">The monetary policy committee kept its key rate unchanged after its two-day meeting, citing slowing food prices and a steadier exchange rate. Analysts expect the next review in November to follow the same path if the trend holds.</p>
+                            <a class="btn btn-primary" href="article.html">Read more →</a>
+                        </div>
+                    </div>
+                    <!-- Nested row for non-featured blog posts-->
+                    <div class="row">
+                        <div class="col-lg-6">
+<div class="card mb-4">
+                        <a href="article.html"><img class="card-img-top" src="assets/placeholder-700x350.svg" alt="Article image from Metro Pulse" width="700" /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">October 8, 2026 &middot; Metro Pulse &middot; Health</div>
+                            <h2 class="card-title h4"><a class="text-reset text-decoration-none" href="article.html">Doctors HATE this one fruit that cures diabetes in 7 days!!!</a></h2>
+                            <p class="mb-2"><span class="badge bg-danger">Misinformation &ndash; 12% Confidence</span></p>
+                            <p class="card-text">A viral post claims that eating a single tropical fruit every morning reverses type 2 diabetes within a week, with no need for medication or diet changes.</p>
+                            <a class="btn btn-primary" href="article.html">Read more →</a>
+                        </div>
+                    </div>
+<div class="card mb-4">
+                        <a href="article.html"><img class="card-img-top" src="assets/placeholder-700x350.svg" alt="Article image from Global Desk" width="700" /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">October 8, 2026 &middot; Global Desk &middot; Technology</div>
+                            <h2 class="card-title h4"><a class="text-reset text-decoration-none" href="article.html">Phone maker to release foldable handset in West African markets</a></h2>
+                            <p class="mb-2"><span class="badge bg-warning text-dark">Pending Verification</span></p>
+                            <p class="card-text">The company confirmed the device will reach retail stores in Lagos, Accra and Abidjan before the end of the year, with local pricing to be announced at launch.</p>
+                            <a class="btn btn-primary" href="article.html">Read more →</a>
+                        </div>
+                    </div>
+<div class="card mb-4">
+                        <a href="article.html"><img class="card-img-top" src="assets/placeholder-700x350.svg" alt="Article image from Lagos Wire" width="700" /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">October 8, 2026 &middot; Lagos Wire &middot; Sports</div>
+                            <h2 class="card-title h4"><a class="text-reset text-decoration-none" href="article.html">Super Eagles name 25-man squad for November qualifiers</a></h2>
+                            <p class="mb-2"><span class="badge bg-success">Real &ndash; 93% Confidence</span></p>
+                            <p class="card-text">The head coach recalled two defenders and handed a first call-up to a 19-year-old midfielder ahead of the two away fixtures.</p>
+                            <a class="btn btn-primary" href="article.html">Read more →</a>
+                        </div>
+                    </div>
+<div class="card mb-4">
+                        <a href="article.html"><img class="card-img-top" src="assets/placeholder-700x350.svg" alt="Article image from Abuja Observer" width="700" /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">October 7, 2026 &middot; Abuja Observer &middot; Health</div>
+                            <h2 class="card-title h4"><a class="text-reset text-decoration-none" href="article.html">Ministry launches nationwide measles vaccination drive for under-fives</a></h2>
+                            <p class="mb-2"><span class="badge bg-success">Real &ndash; 84% Confidence</span></p>
+                            <p class="card-text">The two-week campaign targets 21 million children and will run through primary health centres in all 36 states and the FCT.</p>
+                            <a class="btn btn-primary" href="article.html">Read more →</a>
+                        </div>
+                    </div>
+                        </div>
+                        <div class="col-lg-6">
+<div class="card mb-4">
+                        <a href="article.html"><img class="card-img-top" src="assets/placeholder-700x350.svg" alt="Article image from Abuja Observer" width="700" /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">October 8, 2026 &middot; Abuja Observer &middot; Politics</div>
+                            <h2 class="card-title h4"><a class="text-reset text-decoration-none" href="article.html">Senate passes amended electoral bill after second reading</a></h2>
+                            <p class="mb-2"><span class="badge bg-success">Real &ndash; 81% Confidence</span></p>
+                            <p class="card-text">Lawmakers voted to pass the amended bill, which introduces electronic transmission of results from polling units. The bill now goes to the House for concurrence.</p>
+                            <a class="btn btn-primary" href="article.html">Read more →</a>
+                        </div>
+                    </div>
+<div class="card mb-4">
+                        <a href="article.html"><img class="card-img-top" src="assets/placeholder-700x350.svg" alt="Article image from Continental Times" width="700" /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">October 8, 2026 &middot; Continental Times &middot; World</div>
+                            <h2 class="card-title h4"><a class="text-reset text-decoration-none" href="article.html">Leaked memo proves the moon landing footage was filmed in a studio</a></h2>
+                            <p class="mb-2"><span class="badge bg-danger">Misinformation &ndash; 6% Confidence</span></p>
+                            <p class="card-text">An anonymous account shared images of what it says is an internal memo. No source or date is given for the document.</p>
+                            <a class="btn btn-primary" href="article.html">Read more →</a>
+                        </div>
+                    </div>
+<div class="card mb-4">
+                        <a href="article.html"><img class="card-img-top" src="assets/placeholder-700x350.svg" alt="Article image from Continental Times" width="700" /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">October 8, 2026 &middot; Continental Times &middot; Business</div>
+                            <h2 class="card-title h4"><a class="text-reset text-decoration-none" href="article.html">Fuel price to drop to ₦150 per litre from Monday, sources say</a></h2>
+                            <p class="mb-2"><span class="badge bg-danger">Misinformation &ndash; 31% Confidence</span></p>
+                            <p class="card-text">Unnamed sources claim a new pricing template will cut pump prices sharply next week. The regulator has not issued a statement.</p>
+                            <a class="btn btn-primary" href="article.html">Read more →</a>
+                        </div>
+                    </div>
+<div class="card mb-4">
+                        
+                        <div class="card-body">
+                            <div class="small text-muted">October 7, 2026 &middot; Global Desk &middot; Politics</div>
+                            <h2 class="card-title h4"><a class="text-reset text-decoration-none" href="article.html">Governor&#x27;s aide responds to claims about state budget allocation</a></h2>
+                            <p class="mb-2"><span class="badge bg-warning text-dark">Pending Verification</span></p>
+                            <p class="card-text">The aide said figures circulating online mix up the approved budget with a draft version from earlier in the year.</p>
+                            <a class="btn btn-primary" href="article.html">Read more →</a>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                    <!-- Pagination-->
+                    <nav aria-label="Pagination">
+                        <hr class="my-0" />
+                        <ul class="pagination justify-content-center my-4">
+                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
+                            <li class="page-item active" aria-current="page"><a class="page-link" href="index.html">1</a></li>
+                            <li class="page-item"><a class="page-link" href="index.html">2</a></li>
+                            <li class="page-item"><a class="page-link" href="index.html">3</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="index.html">15</a></li>
+                            <li class="page-item"><a class="page-link" href="index.html">Older</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <!-- Search widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Search</div>
+                        <div class="card-body">
+                            <form class="input-group" action="index.html">
+                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                                <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
+                            </form>
+                            <div class="small mt-2"><span class="req">[§2.2 searching for a specific topic]</span></div>
+                        </div>
+                    </div>
+                    <!-- Categories widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Categories</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6"><ul class="list-unstyled mb-0"><li><a href="index.html">All</a></li><li><a href="index.html">Politics</a></li><li><a href="index.html">Business</a></li></ul></div>
+                                <div class="col-sm-6"><ul class="list-unstyled mb-0"><li><a href="index.html">Health</a></li><li><a href="index.html">Technology</a></li><li><a href="index.html">Sports</a></li><li><a href="index.html">World</a></li></ul></div>
+                            </div>
+                            <div class="small mt-2"><span class="req">[FR-2.3 filtering categories]</span></div>
+                        </div>
+                    </div>
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Credibility Labels</div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><span class="badge bg-success">Real</span> Confidence score of 50% or higher</li>
+                                <li class="mb-2"><span class="badge bg-danger">Misinformation</span> Confidence score below 50%</li>
+                                <li><span class="badge bg-warning text-dark">Pending Verification</span> Not yet verified</li>
+                            </ul>
+                            <div class="small mt-2"><span class="req">[NFR-3.2 colour-coded indicators; Fig 3.2 50% rule]</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; TrustFeed 2026</p></div>
+        </footer>
+        <div class="proto-bar" role="navigation" aria-label="Prototype screens">
+            <strong>Prototype</strong> <span class="grp">Public:</span> <a href="../public/index.html" class="on">News feed</a> <a href="../public/article.html">Article details</a> <span class="grp">Admin:</span> <a href="../admin/login.html">Login</a> <a href="../admin/dashboard.html">Dashboard</a> <a href="../admin/sources.html">RSS sources</a> <a href="../admin/articles.html">Articles</a> <a href="../admin/logs.html">System logs</a>
+            <label for="reqToggle"><input type="checkbox" id="reqToggle" checked /> Show proposal references</label>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <script src="../proto.js"></script>
+    </body>
+</html>

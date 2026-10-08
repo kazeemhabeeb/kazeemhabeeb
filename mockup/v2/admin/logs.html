@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>System Logs - TrustFeed</title>
+        <link href="css/styles.css" rel="stylesheet" />
+        <link href="../proto.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="dashboard.html">TrustFeed Admin</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!" aria-label="Toggle sidebar"><i class="fas fa-bars"></i></button>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto me-3 me-lg-4">
+                <li class="nav-item"><a class="nav-link" href="../public/index.html"><i class="fas fa-external-link-alt fa-fw"></i> View site</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i> habeeb</a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="dashboard.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Management</div>
+                            <a class="nav-link" href="sources.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-rss"></i></div>
+                                RSS Sources
+                            </a>
+                            <a class="nav-link" href="articles.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-newspaper"></i></div>
+                                Articles
+                            </a>
+                            <a class="nav-link active" href="logs.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                                System Logs
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        habeeb
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">System Logs</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">System Logs</li>
+                        </ol>
+                        <p class="small"><span class="req">[FR-3.5 operational execution logs, highlighting API timeout events and failed RSS feed connections]</span></p>
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-list me-1"></i> System Logs</div>
+                            <div class="card-body table-responsive">
+                                <table class="table table-bordered table-striped mb-0">
+                                    <thead><tr><th>Date / Time</th><th>Event</th><th>Details</th></tr></thead>
+                                    <tbody><tr><td class="text-nowrap">2026-10-08 10:00:41</td><td><span class="badge bg-secondary">Execution</span></td><td>Hourly ingestion finished: 5 active feeds read, 23 new articles saved, 4 duplicate URLs skipped.</td></tr><tr><td class="text-nowrap">2026-10-08 10:00:37</td><td><span class="badge bg-warning text-dark">API timeout</span></td><td>Fact-check API request timed out for article #104. Article saved as Pending Verification.</td></tr><tr><td class="text-nowrap">2026-10-08 10:00:12</td><td><span class="badge bg-danger">RSS feed failed</span></td><td>Could not connect to Metro Pulse (https://metropulse.example/rss). Feed skipped.</td></tr><tr><td class="text-nowrap">2026-10-08 09:00:39</td><td><span class="badge bg-secondary">Execution</span></td><td>Hourly ingestion finished: 5 active feeds read, 18 new articles saved, 7 duplicate URLs skipped.</td></tr><tr><td class="text-nowrap">2026-10-08 09:00:22</td><td><span class="badge bg-warning text-dark">API timeout</span></td><td>Fact-check API request timed out for article #109. Article saved as Pending Verification.</td></tr><tr><td class="text-nowrap">2026-10-08 08:00:40</td><td><span class="badge bg-secondary">Execution</span></td><td>Hourly ingestion finished: 5 active feeds read, 21 new articles saved, 3 duplicate URLs skipped.</td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; TrustFeed 2026</div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <div class="proto-bar" role="navigation" aria-label="Prototype screens">
+            <strong>Prototype</strong> <span class="grp">Public:</span> <a href="../public/index.html">News feed</a> <a href="../public/article.html">Article details</a> <span class="grp">Admin:</span> <a href="../admin/login.html">Login</a> <a href="../admin/dashboard.html">Dashboard</a> <a href="../admin/sources.html">RSS sources</a> <a href="../admin/articles.html">Articles</a> <a href="../admin/logs.html" class="on">System logs</a>
+            <label for="reqToggle"><input type="checkbox" id="reqToggle" checked /> Show proposal references</label>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="../proto.js"></script>
+    </body>
+</html>
