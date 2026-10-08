@@ -1,0 +1,534 @@
+<title>TrustFeed Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<style>
+/* Layout: a prototype bar on top that switches between screens; the public site is a
+   newsroom-style card grid, the admin panel is a sidebar + content layout. */
+:root{
+  --bg:#f4f6f9; --surface:#ffffff; --surface-2:#f9fafc; --ink:#152030; --ink-2:#465365; --muted:#768397;
+  --line:#dde2ea; --accent:#1d4b9e; --accent-ink:#ffffff; --accent-soft:#e7eefa;
+  --good:#1b7444; --good-bg:#e2f3e9; --good-fill:#2e9a5e;
+  --bad:#b42318; --bad-bg:#fde8e5; --bad-fill:#d4402f;
+  --warn:#7d5300; --warn-bg:#fdf2d3; --warn-fill:#e3a90c;
+  --note:#6b3fa0; --note-bg:#f1e9fb;
+  --proto:#101826; --proto-ink:#e6ebf2; --proto-muted:#9aa6b8;
+  --f-display:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --r:8px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e131a; --surface:#161d27; --surface-2:#1b2330; --ink:#e6ebf2; --ink-2:#b2bccb; --muted:#8693a6;
+  --line:#2a3443; --accent:#86a9ee; --accent-ink:#0e131a; --accent-soft:#1c2a44;
+  --good:#5fcb92; --good-bg:#11301f; --good-fill:#3fae72;
+  --bad:#f2847a; --bad-bg:#3b1714; --bad-fill:#e05a4a;
+  --warn:#f1c453; --warn-bg:#382c0b; --warn-fill:#d9a520;
+  --note:#c7a6f0; --note-bg:#2a1d3d;
+  --proto:#070b11; --proto-ink:#e6ebf2; --proto-muted:#8b97a9;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0e131a; --surface:#161d27; --surface-2:#1b2330; --ink:#e6ebf2; --ink-2:#b2bccb; --muted:#8693a6;
+  --line:#2a3443; --accent:#86a9ee; --accent-ink:#0e131a; --accent-soft:#1c2a44;
+  --good:#5fcb92; --good-bg:#11301f; --good-fill:#3fae72;
+  --bad:#f2847a; --bad-bg:#3b1714; --bad-fill:#e05a4a;
+  --warn:#f1c453; --warn-bg:#382c0b; --warn-fill:#d9a520;
+  --note:#c7a6f0; --note-bg:#2a1d3d;
+  --proto:#070b11; --proto-ink:#e6ebf2; --proto-muted:#8b97a9;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--f-body);margin:0}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.2}
+a{color:var(--accent)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px}
+
+/* ---------- prototype bar ---------- */
+.proto{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--proto);color:var(--proto-ink)}
+.proto .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding-block:10px}
+.proto b{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--proto-muted);font-weight:600}
+.proto nav{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.proto nav span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--proto-muted);margin-inline:4px 2px}
+.proto nav a{color:var(--proto-ink);text-decoration:none;font-size:13px;padding:4px 10px;border-radius:999px;border:1px solid transparent}
+.proto nav a:hover{border-color:var(--proto-muted)}
+.proto nav a.on{background:var(--proto-ink);color:var(--proto)}
+.proto label{margin-left:auto;font-size:13px;display:flex;gap:6px;align-items:center;color:var(--proto-muted)}
+.sample{background:var(--warn-bg);color:var(--warn);font-size:13px;text-align:center;padding:6px 16px}
+
+/* requirement labels */
+.req{display:inline-block;font:500 11px/1 var(--f-mono);color:var(--note);background:var(--note-bg);padding:3px 6px;border-radius:4px;vertical-align:middle;white-space:nowrap}
+body.no-req .req{display:none}
+
+/* ---------- badges ---------- */
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.badge i{width:8px;height:8px;border-radius:50%;flex:none}
+.b-real{background:var(--good-bg);color:var(--good)} .b-real i{background:var(--good-fill)}
+.b-fake{background:var(--bad-bg);color:var(--bad)} .b-fake i{background:var(--bad-fill)}
+.b-pend{background:var(--warn-bg);color:var(--warn)} .b-pend i{background:var(--warn-fill)}
+
+/* ---------- public site ---------- */
+.site-head{background:var(--surface);border-bottom:1px solid var(--line)}
+.site-head .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding-block:16px}
+.logo{font-family:var(--f-display);font-size:24px;font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink)}
+.logo svg{flex:none}
+.tag{color:var(--muted);font-size:13px}
+.search{margin-left:auto;flex:1 1 260px;max-width:360px;display:flex}
+.search input{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface-2)}
+.cats{display:flex;gap:8px;overflow-x:auto;padding-block:14px 4px}
+.cats button{border:1px solid var(--line);background:var(--surface);padding:6px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;font-size:14px}
+.cats button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:13px;color:var(--ink-2);padding-block:10px 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;padding-bottom:40px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:10px;cursor:pointer;text-align:left;min-width:0}
+.card:hover{border-color:var(--accent)}
+.card h3{font-size:19px}
+.card p{margin:0;color:var(--ink-2);font-size:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--muted)}
+.card .top{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.cat{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.empty{padding:40px;text-align:center;color:var(--muted);grid-column:1/-1}
+.foot{border-top:1px solid var(--line);padding-block:18px;font-size:13px;color:var(--muted)}
+
+/* article detail */
+.detail{max-width:760px;margin:0 auto;padding:28px 16px 48px;display:flex;flex-direction:column;gap:18px}
+.back{font-size:14px;text-decoration:none}
+.detail h1{font-size:clamp(26px,4vw,36px)}
+.verdict{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:12px}
+.verdict .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.score{font:600 32px/1 var(--f-mono)}
+.meter{position:relative;height:10px;border-radius:5px;background:var(--line);overflow:visible}
+.meter span{position:absolute;inset:0 auto 0 0;border-radius:5px}
+.meter em{position:absolute;left:50%;top:-4px;bottom:-4px;width:2px;background:var(--ink-2)}
+.scale{display:flex;justify-content:space-between;font:12px var(--f-mono);color:var(--muted)}
+.detail .body{font-size:17px;line-height:1.7;color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);cursor:pointer;text-decoration:none;color:var(--ink);font-size:14px;font-weight:500}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.danger{color:var(--bad);border-color:var(--bad)}
+.btn.sm{padding:5px 10px;font-size:13px}
+.how{font-size:14px;color:var(--ink-2);background:var(--surface-2);border:1px dashed var(--line);border-radius:var(--r);padding:14px 16px}
+.how ul{margin:6px 0 0;padding-left:18px}
+
+/* ---------- admin ---------- */
+.login{min-height:70vh;display:grid;place-items:center;padding:32px 16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px;width:100%;max-width:380px;display:grid;gap:14px}
+.field{display:grid;gap:6px;font-size:14px;font-weight:500}
+.field input,.field select{padding:9px 12px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface-2);font-weight:400;width:100%}
+.hint{font-size:12.5px;color:var(--muted);font-weight:400}
+.err{font-size:13px;color:var(--bad);background:var(--bad-bg);padding:8px 10px;border-radius:6px}
+
+.admin{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:calc(100vh - 90px)}
+.side{background:var(--surface);border-right:1px solid var(--line);padding:18px 12px;display:flex;flex-direction:column;gap:4px}
+.side .logo{font-size:19px;padding:0 8px 14px}
+.side a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:6px;text-decoration:none;color:var(--ink-2);font-size:14px}
+.side a.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.side a:hover{color:var(--ink)}
+.side .who{margin-top:auto;font-size:13px;color:var(--muted);padding:10px;border-top:1px solid var(--line)}
+.main{padding:24px clamp(16px,3vw,32px) 48px;display:flex;flex-direction:column;gap:20px;min-width:0}
+.main-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px}
+.main-head h1{font-size:26px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:4px}
+.tile .k{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.tile .v{font:600 28px/1.1 var(--f-mono)}
+.tile .s{font-size:12.5px;color:var(--ink-2)}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:14px;min-width:0}
+.box h2{font-size:18px}
+.box-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:20px}
+.stack{display:flex;height:22px;gap:2px;border-radius:4px;overflow:hidden}
+.stack div{height:100%;cursor:default}
+.stack-legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13px;color:var(--ink-2)}
+.stack-legend span{display:inline-flex;gap:6px;align-items:center}
+.stack-legend i{width:10px;height:10px;border-radius:2px}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12.5px;padding:6px 9px;border-radius:6px;z-index:50}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--surface-2);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+td .t{font-weight:500;max-width:380px}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:3px 9px;border-radius:999px}
+.p-on{background:var(--good-bg);color:var(--good)} .p-off{background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
+.p-err{background:var(--bad-bg);color:var(--bad)} .p-warn{background:var(--warn-bg);color:var(--warn)} .p-info{background:var(--accent-soft);color:var(--accent)}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.toolbar input,.toolbar select{padding:8px 12px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.toolbar input{flex:1 1 220px}
+.form-row{display:grid;grid-template-columns:1fr 2fr 140px auto;gap:12px;align-items:end}
+.confirm{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--bad-bg);color:var(--bad);padding:10px 12px;border-radius:var(--r);font-size:14px}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;font-size:14px;z-index:60}
+
+@media (max-width:820px){
+  .admin{grid-template-columns:1fr}
+  .side{flex-direction:row;flex-wrap:wrap;border-right:0;border-bottom:1px solid var(--line);padding:10px 12px}
+  .side .logo{width:100%;padding:0 4px 6px}
+  .side .who{display:none}
+  .form-row{grid-template-columns:1fr}
+  .search{max-width:none;margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="proto">
+  <div class="wrap">
+    <b>Prototype</b>
+    <nav aria-label="Screens">
+      <span>Public</span>
+      <a href="#feed" data-s="feed">News feed</a>
+      <a href="#article" data-s="article">Article details</a>
+      <span>Admin</span>
+      <a href="#login" data-s="login">Login</a>
+      <a href="#dashboard" data-s="dashboard">Dashboard</a>
+      <a href="#sources" data-s="sources">RSS sources</a>
+      <a href="#articles" data-s="articles">Articles</a>
+      <a href="#logs" data-s="logs">System logs</a>
+    </nav>
+    <label for="reqToggle"><input type="checkbox" id="reqToggle" checked> Show proposal references</label>
+  </div>
+</div>
+<div class="sample">Mockup with sample data. Outlet names, headlines and numbers are placeholders, not real articles.</div>
+
+<main id="app"></main>
+<div class="tip" id="tip" hidden></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const SOURCES = [
+  {id:1,name:"Lagos Wire",url:"https://lagoswire.example/feed",status:"Active",last:"10:00",count:412,health:"OK"},
+  {id:2,name:"Continental Times",url:"https://continentaltimes.example/rss.xml",status:"Active",last:"10:00",count:356,health:"OK"},
+  {id:3,name:"Abuja Observer",url:"https://abujaobserver.example/feed",status:"Active",last:"10:00",count:241,health:"OK"},
+  {id:4,name:"Metro Pulse",url:"https://metropulse.example/rss",status:"Active",last:"09:00",count:158,health:"Failed"},
+  {id:5,name:"Global Desk",url:"https://globaldesk.example/world/rss",status:"Active",last:"10:00",count:117,health:"OK"},
+  {id:6,name:"Daily Ledger",url:"https://dailyledger.example/feed",status:"Inactive",last:"Oct 2, 14:00",count:0,health:"—"}
+];
+const ARTICLES = [
+  {id:101,cat:"Business",src:"Lagos Wire",title:"Central bank holds benchmark rate as inflation eases for third month",sum:"The monetary policy committee kept its key rate unchanged after its two-day meeting, citing slowing food prices and a steadier exchange rate. Analysts expect the next review in November to follow the same path if the trend holds.",date:"Oct 8, 2026 · 09:42",score:88,status:"Real",views:1204},
+  {id:102,cat:"Health",src:"Metro Pulse",title:"Doctors HATE this one fruit that cures diabetes in 7 days!!!",sum:"A viral post claims that eating a single tropical fruit every morning reverses type 2 diabetes within a week, with no need for medication or diet changes.",date:"Oct 8, 2026 · 09:15",score:12,status:"Misinformation",views:3311},
+  {id:103,cat:"Politics",src:"Abuja Observer",title:"Senate passes amended electoral bill after second reading",sum:"Lawmakers voted to pass the amended bill, which introduces electronic transmission of results from polling units. The bill now goes to the House for concurrence.",date:"Oct 8, 2026 · 08:58",score:81,status:"Real",views:876},
+  {id:104,cat:"Technology",src:"Global Desk",title:"Phone maker to release foldable handset in West African markets",sum:"The company confirmed the device will reach retail stores in Lagos, Accra and Abidjan before the end of the year, with local pricing to be announced at launch.",date:"Oct 8, 2026 · 08:30",score:null,status:"Pending Verification",views:142},
+  {id:105,cat:"World",src:"Continental Times",title:"Leaked memo proves the moon landing footage was filmed in a studio",sum:"An anonymous account shared images of what it says is an internal memo. No source or date is given for the document.",date:"Oct 8, 2026 · 07:51",score:6,status:"Misinformation",views:2087},
+  {id:106,cat:"Sports",src:"Lagos Wire",title:"Super Eagles name 25-man squad for November qualifiers",sum:"The head coach recalled two defenders and handed a first call-up to a 19-year-old midfielder ahead of the two away fixtures.",date:"Oct 8, 2026 · 07:20",score:93,status:"Real",views:2650},
+  {id:107,cat:"Business",src:"Continental Times",title:"Fuel price to drop to ₦150 per litre from Monday, sources say",sum:"Unnamed sources claim a new pricing template will cut pump prices sharply next week. The regulator has not issued a statement.",date:"Oct 8, 2026 · 06:45",score:31,status:"Misinformation",views:1540},
+  {id:108,cat:"Health",src:"Abuja Observer",title:"Ministry launches nationwide measles vaccination drive for under-fives",sum:"The two-week campaign targets 21 million children and will run through primary health centres in all 36 states and the FCT.",date:"Oct 7, 2026 · 18:10",score:84,status:"Real",views:615},
+  {id:109,cat:"Politics",src:"Global Desk",title:"Governor's aide responds to claims about state budget allocation",sum:"The aide said figures circulating online mix up the approved budget with a draft version from earlier in the year.",date:"Oct 7, 2026 · 17:02",score:null,status:"Pending Verification",views:98}
+];
+const LOGS = [
+  {t:"Oct 8, 10:00:41",type:"Ingestion run",lvl:"Info",msg:"Hourly run finished: 5 feeds read, 23 new articles, 4 duplicates skipped."},
+  {t:"Oct 8, 10:00:37",type:"API timeout",lvl:"Warning",msg:"Fact-check request timed out after 15 s for article #104. Saved as Pending Verification."},
+  {t:"Oct 8, 10:00:12",type:"Feed failed",lvl:"Error",msg:"Metro Pulse (https://metropulse.example/rss) returned HTTP 503. Feed skipped this run."},
+  {t:"Oct 8, 09:00:39",type:"Ingestion run",lvl:"Info",msg:"Hourly run finished: 6 feeds read, 18 new articles, 7 duplicates skipped."},
+  {t:"Oct 8, 09:00:22",type:"API timeout",lvl:"Warning",msg:"Fact-check request timed out after 15 s for article #109. Saved as Pending Verification."},
+  {t:"Oct 8, 08:00:40",type:"Ingestion run",lvl:"Info",msg:"Hourly run finished: 6 feeds read, 21 new articles, 3 duplicates skipped."},
+  {t:"Oct 8, 07:14:05",type:"Admin login",lvl:"Info",msg:"Admin \"habeeb\" signed in from 102.89.xx.xx."},
+  {t:"Oct 7, 23:00:18",type:"API error",lvl:"Error",msg:"Fact-check service returned HTTP 429 (rate limit reached). 6 articles saved as Pending Verification."}
+];
+const CATS = ["All","Politics","Business","Health","Technology","Sports","World"];
+const state = {cat:"All", q:"", articleId:101, confirmDel:null, confirmSrc:null};
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const req = t => `<span class="req">${t}</span>`;
+function badge(a){
+  if (a.score === null) return `<span class="badge b-pend"><i></i>Pending Verification</span>`;
+  return a.score >= 50
+    ? `<span class="badge b-real"><i></i>Real · ${a.score}%</span>`
+    : `<span class="badge b-fake"><i></i>Misinformation · ${a.score}%</span>`;
+}
+function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,2200)}
+const LOGO = `<svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="1" width="24" height="24" rx="6" fill="var(--accent)"/><path d="M7 13.5l4 4 8-9" stroke="var(--accent-ink)" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+/* ---------------- public: feed ---------------- */
+function viewFeed(){
+  const q = state.q.toLowerCase();
+  const list = ARTICLES.filter(a => (state.cat==="All"||a.cat===state.cat) && (!q || (a.title+" "+a.sum).toLowerCase().includes(q)));
+  return `
+  <header class="site-head"><div class="wrap">
+    <a class="logo" href="#feed">${LOGO}TrustFeed</a>
+    <span class="tag">News from trusted feeds, checked for misinformation every hour</span>
+    <div class="search"><input id="q" type="search" placeholder="Search news by topic…" value="${esc(state.q)}" aria-label="Search news"></div>
+  </div></header>
+  <div class="wrap">
+    <div class="cats" role="tablist" aria-label="Categories">
+      ${CATS.map(c=>`<button class="${c===state.cat?"on":""}" data-cat="${c}">${c}</button>`).join("")}
+      ${req("FR-2.3 filter · §2.2 search")}
+    </div>
+    <div class="legend">
+      <span>What the badges mean:</span>
+      <span class="badge b-real"><i></i>Real: score 50% or higher</span>
+      <span class="badge b-fake"><i></i>Misinformation: below 50%</span>
+      <span class="badge b-pend"><i></i>Pending: not checked yet</span>
+      ${req("NFR-3.2 colours · Fig 3.2 ≥ 50% rule")}
+    </div>
+    <div class="grid" id="grid">
+      ${list.length ? list.map(a=>`
+        <button class="card" data-open="${a.id}">
+          <div class="top"><span class="cat">${a.cat}</span>${badge(a)}</div>
+          <h3>${esc(a.title)}</h3>
+          <p>${esc(a.sum)}</p>
+          <div class="meta"><span>${a.src}</span><span>${a.date}</span><span class="mono">${a.views.toLocaleString()} views</span></div>
+        </button>`).join("") : `<div class="empty">No articles match “${esc(state.q)}” in ${state.cat}. Try another word or pick All.</div>`}
+    </div>
+    <p>${req("FR-2.1 public feed, no login")} ${req("FR-2.2 credibility badge on every card")} ${req("NFR-3.1 responsive")}</p>
+  </div>
+  <footer class="foot"><div class="wrap">Scores come from an automated fact-checking service and can be wrong. Always read the original source.</div></footer>`;
+}
+
+/* ---------------- public: article ---------------- */
+function viewArticle(){
+  const a = ARTICLES.find(x=>x.id===state.articleId) || ARTICLES[0];
+  const fill = a.score===null ? "" : `<span style="width:${a.score}%;background:${a.score>=50?"var(--good-fill)":"var(--bad-fill)"}"></span>`;
+  const verdictText = a.score===null
+    ? "This article has not been checked yet. The fact-checking service did not respond in time, so it will be checked again on the next hourly run."
+    : a.score>=50 ? "The fact-checking service rated this article as credible." : "The fact-checking service rated this article as likely misinformation.";
+  return `
+  <header class="site-head"><div class="wrap">
+    <a class="logo" href="#feed">${LOGO}TrustFeed</a>
+  </div></header>
+  <article class="detail">
+    <a class="back" href="#feed">← Back to news feed</a>
+    <div class="meta"><span class="cat">${a.cat}</span><span>${a.src}</span><span>${a.date}</span><span class="mono">${(a.views+1).toLocaleString()} views</span> ${req("FR-2.4 view counter")}</div>
+    <h1>${esc(a.title)}</h1>
+    <section class="verdict" aria-label="Credibility result">
+      <div class="row"><div>${badge(a)}</div><div class="score">${a.score===null?"—":a.score+"%"}</div></div>
+      <div class="meter" aria-hidden="true">${fill}<em title="50% threshold"></em></div>
+      <div class="scale"><span>0%</span><span>50% threshold</span><span>100%</span></div>
+      <div>${verdictText}</div>
+      <div>${req("FR-2.2 label + confidence %")} ${req("FR-1.4 verdict & score")} ${req("NFR-2.1 Pending status")}</div>
+    </section>
+    <div class="body">${esc(a.sum)}</div>
+    <div><a class="btn primary" href="#article" onclick="return false">Read the full story on ${a.src} ↗</a> ${req("Schema: original_link")}</div>
+    <div class="how"><strong>How this score was decided</strong>
+      <ul>
+        <li>Fetched from ${a.src}'s RSS feed and cleaned of HTML and scripts.</li>
+        <li>Sent to the fact-checking service, which returned a confidence score.</li>
+        <li>Scores of 50% or higher are marked Real. Lower scores are marked Misinformation.</li>
+      </ul>
+    </div>
+    <p class="muted" style="margin:0">Other articles: ${ARTICLES.filter(x=>x.id!==a.id).slice(0,3).map(x=>`<a href="#article" data-open="${x.id}">${esc(x.title.slice(0,48))}…</a>`).join(" · ")}</p>
+  </article>`;
+}
+
+/* ---------------- admin: login ---------------- */
+function viewLogin(){
+  return `
+  <div class="login">
+    <form class="panel" id="loginForm" novalidate>
+      <a class="logo" href="#feed">${LOGO}TrustFeed</a>
+      <h1 style="font-size:22px">Admin sign in</h1>
+      <label class="field" for="u">Username<input id="u" autocomplete="username" value="habeeb"></label>
+      <label class="field" for="p">Password<input id="p" type="password" autocomplete="current-password" value="••••••••"></label>
+      <div class="err" id="loginErr" hidden>Wrong username or password. Check both and try again.</div>
+      <button class="btn primary" type="submit" style="justify-content:center">Sign in</button>
+      <span class="hint">Sessions end after 30 minutes of inactivity.</span>
+      <div>${req("FR-3.1 admin login")} ${req("NFR-1.2 bcrypt + session timeout")}</div>
+    </form>
+  </div>`;
+}
+
+/* ---------------- admin shell ---------------- */
+const ICONS = {
+  dashboard:'<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>',
+  sources:'<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 3a11 11 0 0 1 11 11M2 8a6 6 0 0 1 6 6"/><circle cx="3" cy="13" r="1.3" fill="currentColor" stroke="none"/></svg>',
+  articles:'<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 6h6M5 9h6M5 12h3"/></svg>',
+  logs:'<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 4h10M3 8h10M3 12h6"/></svg>',
+  out:'<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 3H3v10h3M10 5l3 3-3 3M13 8H6"/></svg>'
+};
+function shell(active, inner){
+  const link=(s,label)=>`<a href="#${s}" class="${s===active?"on":""}">${ICONS[s]}${label}</a>`;
+  return `<div class="admin">
+    <aside class="side">
+      <a class="logo" href="#feed">${LOGO}TrustFeed</a>
+      ${link("dashboard","Dashboard")}${link("sources","RSS sources")}${link("articles","Articles")}${link("logs","System logs")}
+      <a href="#login">${ICONS.out}Log out</a>
+      <div class="who">Signed in as <strong>habeeb</strong><br>Last run: today 10:00</div>
+    </aside>
+    <section class="main">${inner}</section>
+  </div>`;
+}
+
+/* ---------------- admin: dashboard ---------------- */
+function viewDashboard(){
+  const real=842, fake=311, pend=131, total=real+fake+pend;
+  const pct=n=>Math.round(n/total*1000)/10;
+  const seg=(n,c,l)=>`<div style="width:${n/total*100}%;background:${c}" data-tip="${l}: ${n.toLocaleString()} (${pct(n)}%)"></div>`;
+  const top=[...ARTICLES].sort((a,b)=>b.views-a.views).slice(0,5);
+  return shell("dashboard",`
+    <div class="main-head"><div><h1>Dashboard</h1><div class="muted">Figures update after each hourly run. ${req("FR-3.4 analytics")}</div></div>
+      <span class="pill p-info">Next run in 37 min</span></div>
+    <div class="tiles">
+      <div class="tile"><span class="k">Articles ingested</span><span class="v">${total.toLocaleString()}</span><span class="s">+23 in the last run</span></div>
+      <div class="tile"><span class="k">Real</span><span class="v">${real}</span><span class="s"><span class="badge b-real"><i></i>${pct(real)}%</span></span></div>
+      <div class="tile"><span class="k">Misinformation</span><span class="v">${fake}</span><span class="s"><span class="badge b-fake"><i></i>${pct(fake)}%</span></span></div>
+      <div class="tile"><span class="k">Pending</span><span class="v">${pend}</span><span class="s"><span class="badge b-pend"><i></i>${pct(pend)}%</span></span></div>
+      <div class="tile"><span class="k">Active feeds</span><span class="v">5 / 6</span><span class="s">1 failed last run</span></div>
+    </div>
+    <div class="box">
+      <div class="box-head"><h2>Real vs misinformation</h2>${req("FR-3.4 fake vs real ratio")}</div>
+      <div class="stack" role="img" aria-label="Real ${real}, Misinformation ${fake}, Pending ${pend}">
+        ${seg(real,"var(--good-fill)","Real")}${seg(fake,"var(--bad-fill)","Misinformation")}${seg(pend,"var(--warn-fill)","Pending")}
+      </div>
+      <div class="stack-legend">
+        <span><i style="background:var(--good-fill)"></i>Real ${real} (${pct(real)}%)</span>
+        <span><i style="background:var(--bad-fill)"></i>Misinformation ${fake} (${pct(fake)}%)</span>
+        <span><i style="background:var(--warn-fill)"></i>Pending ${pend} (${pct(pend)}%)</span>
+        <span class="mono">Ratio fake : real = 1 : ${(real/fake).toFixed(1)}</span>
+      </div>
+    </div>
+    <div class="two">
+      <div class="box">
+        <div class="box-head"><h2>Feed status</h2>${req("FR-3.4 active feed statuses")}</div>
+        <div class="tablewrap"><table>
+          <thead><tr><th>Source</th><th>Status</th><th>Last run</th><th class="num">Articles</th></tr></thead>
+          <tbody>${SOURCES.map(s=>`<tr><td>${s.name}</td><td>${healthPill(s)}</td><td class="mono">${s.last}</td><td class="num">${s.count}</td></tr>`).join("")}</tbody>
+        </table></div>
+      </div>
+      <div class="box">
+        <div class="box-head"><h2>Most viewed articles</h2>${req("FR-3.4 views per article")}</div>
+        <div class="tablewrap"><table>
+          <thead><tr><th>Article</th><th>Result</th><th class="num">Views</th></tr></thead>
+          <tbody>${top.map(a=>`<tr><td><div class="t">${esc(a.title)}</div></td><td>${badge(a)}</td><td class="num">${a.views.toLocaleString()}</td></tr>`).join("")}</tbody>
+        </table></div>
+      </div>
+    </div>`);
+}
+function healthPill(s){
+  if (s.status==="Inactive") return `<span class="pill p-off">Disabled</span>`;
+  return s.health==="Failed" ? `<span class="pill p-err">● Failed</span>` : `<span class="pill p-on">● Working</span>`;
+}
+
+/* ---------------- admin: sources ---------------- */
+function viewSources(){
+  return shell("sources",`
+    <div class="main-head"><div><h1>RSS sources</h1><div class="muted">Feeds the hourly job reads. ${req("FR-3.2 add / edit / enable / disable / delete")}</div></div></div>
+    <form class="box" id="addSrc">
+      <h2>Add a source</h2>
+      <div class="form-row">
+        <label class="field" for="sName">Website name<input id="sName" placeholder="e.g. Lagos Wire"></label>
+        <label class="field" for="sUrl">RSS feed URL<input id="sUrl" placeholder="https://example.com/feed"></label>
+        <label class="field" for="sStatus">Status<select id="sStatus"><option>Active</option><option>Inactive</option></select></label>
+        <button class="btn primary" type="submit">Add source</button>
+      </div>
+      <span class="hint">The URL must be unique. ${req("Schema: rss_sources")}</span>
+    </form>
+    ${state.confirmSrc ? `<div class="confirm">Delete “${esc(SOURCES.find(s=>s.id===state.confirmSrc).name)}”? Its articles will also be removed. <button class="btn sm danger" data-act="src-del-yes">Delete source</button><button class="btn sm" data-act="src-del-no">Keep it</button></div>` : ""}
+    <div class="tablewrap"><table>
+      <thead><tr><th>Website</th><th>RSS feed URL</th><th>Status</th><th>Last fetched</th><th class="num">Articles</th><th>Actions</th></tr></thead>
+      <tbody>${SOURCES.map(s=>`<tr>
+        <td><strong>${s.name}</strong></td>
+        <td class="mono" style="font-size:13px">${s.url}</td>
+        <td>${healthPill(s)}</td>
+        <td class="mono">${s.last}</td>
+        <td class="num">${s.count}</td>
+        <td><div class="acts">
+          <button class="btn sm" data-act="toast" data-msg="Edit form opens here">Edit</button>
+          <button class="btn sm" data-act="src-toggle" data-id="${s.id}">${s.status==="Active"?"Disable":"Enable"}</button>
+          <button class="btn sm danger" data-act="src-del" data-id="${s.id}">Delete</button>
+        </div></td></tr>`).join("")}</tbody>
+    </table></div>`);
+}
+
+/* ---------------- admin: articles ---------------- */
+function viewArticles(){
+  return shell("articles",`
+    <div class="main-head"><div><h1>Articles</h1><div class="muted">${ARTICLES.length} sample articles. ${req("FR-3.3 search / re-flag / delete")}</div></div></div>
+    <div class="toolbar">
+      <input id="aq" type="search" placeholder="Search by title or source…" aria-label="Search articles">
+      <select id="af" aria-label="Filter by result"><option>All results</option><option>Real</option><option>Misinformation</option><option>Pending Verification</option></select>
+      <select aria-label="Filter by source"><option>All sources</option>${SOURCES.map(s=>`<option>${s.name}</option>`).join("")}</select>
+    </div>
+    ${state.confirmDel ? `<div class="confirm">Permanently delete article #${state.confirmDel}? This cannot be undone. <button class="btn sm danger" data-act="art-del-yes">Delete article</button><button class="btn sm" data-act="art-del-no">Cancel</button></div>` : ""}
+    <div class="tablewrap"><table>
+      <thead><tr><th>#</th><th>Title</th><th>Source</th><th>Published</th><th>Result</th><th class="num">Views</th><th>Change label ${req("re-flag")}</th><th></th></tr></thead>
+      <tbody>${ARTICLES.map(a=>`<tr>
+        <td class="mono">${a.id}</td>
+        <td><div class="t">${esc(a.title)}</div></td>
+        <td>${a.src}</td>
+        <td class="mono" style="font-size:13px;white-space:nowrap">${a.date.split(" · ")[0]}</td>
+        <td>${badge(a)}</td>
+        <td class="num">${a.views.toLocaleString()}</td>
+        <td><select aria-label="Change label for article ${a.id}" data-act="reflag" data-id="${a.id}">
+          ${["Real","Misinformation","Pending Verification"].map(o=>`<option ${o===a.status?"selected":""}>${o}</option>`).join("")}
+        </select></td>
+        <td><button class="btn sm danger" data-act="art-del" data-id="${a.id}">Delete</button></td>
+      </tr>`).join("")}</tbody>
+    </table></div>`);
+}
+
+/* ---------------- admin: logs ---------------- */
+function viewLogs(){
+  const lp = l => l==="Error"?"p-err":l==="Warning"?"p-warn":"p-info";
+  return shell("logs",`
+    <div class="main-head"><div><h1>System logs</h1><div class="muted">API timeouts, failed feeds and each hourly run. ${req("FR-3.5 logging")}</div></div></div>
+    <div class="toolbar">
+      <select aria-label="Filter by level"><option>All levels</option><option>Error</option><option>Warning</option><option>Info</option></select>
+      <select aria-label="Filter by type"><option>All types</option><option>Ingestion run</option><option>API timeout</option><option>API error</option><option>Feed failed</option><option>Admin login</option></select>
+    </div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Time</th><th>Level</th><th>Type</th><th>Message</th></tr></thead>
+      <tbody>${LOGS.map(l=>`<tr><td class="mono" style="white-space:nowrap;font-size:13px">${l.t}</td><td><span class="pill ${lp(l.lvl)}">${l.lvl}</span></td><td style="white-space:nowrap">${l.type}</td><td>${esc(l.msg)}</td></tr>`).join("")}</tbody>
+    </table></div>
+    <p class="hint">Needs a logs table, which §3.6 does not include yet.</p>`);
+}
+
+/* ---------------- router ---------------- */
+const VIEWS = {feed:viewFeed,article:viewArticle,login:viewLogin,dashboard:viewDashboard,sources:viewSources,articles:viewArticles,logs:viewLogs};
+function current(){const h=location.hash.slice(1);return VIEWS[h]?h:"feed"}
+function render(){
+  const s=current();
+  $("#app").innerHTML = VIEWS[s]();
+  document.querySelectorAll(".proto nav a").forEach(a=>a.classList.toggle("on",a.dataset.s===s));
+}
+window.addEventListener("hashchange",()=>{state.confirmDel=null;state.confirmSrc=null;render();window.scrollTo(0,0)});
+
+document.addEventListener("click",e=>{
+  const open=e.target.closest("[data-open]");
+  if(open){e.preventDefault();state.articleId=+open.dataset.open; if(location.hash==="#article") render(); else location.hash="article"; window.scrollTo(0,0); return}
+  const cat=e.target.closest("[data-cat]");
+  if(cat){state.cat=cat.dataset.cat;render();return}
+  const b=e.target.closest("[data-act]"); if(!b||b.tagName==="SELECT") return;
+  const id=+b.dataset.id, act=b.dataset.act;
+  if(act==="toast") toast(b.dataset.msg);
+  if(act==="src-toggle"){const s=SOURCES.find(x=>x.id===id);s.status=s.status==="Active"?"Inactive":"Active";render();toast(`${s.name} ${s.status==="Active"?"enabled":"disabled"}`)}
+  if(act==="src-del"){state.confirmSrc=id;render()}
+  if(act==="src-del-no"){state.confirmSrc=null;render()}
+  if(act==="src-del-yes"){const i=SOURCES.findIndex(x=>x.id===state.confirmSrc);const n=SOURCES[i].name;SOURCES.splice(i,1);state.confirmSrc=null;render();toast(`${n} deleted`)}
+  if(act==="art-del"){state.confirmDel=id;render()}
+  if(act==="art-del-no"){state.confirmDel=null;render()}
+  if(act==="art-del-yes"){const i=ARTICLES.findIndex(x=>x.id===state.confirmDel);ARTICLES.splice(i,1);toast(`Article #${state.confirmDel} deleted`);state.confirmDel=null;render()}
+});
+document.addEventListener("change",e=>{
+  if(e.target.id==="reqToggle") document.body.classList.toggle("no-req",!e.target.checked);
+  if(e.target.dataset.act==="reflag"){
+    const a=ARTICLES.find(x=>x.id===+e.target.dataset.id), v=e.target.value;
+    a.status=v; a.score = v==="Pending Verification"?null : v==="Real"?Math.max(a.score??50,50):Math.min(a.score??49,49);
+    render(); toast(`Article #${a.id} marked ${v}`);
+  }
+});
+document.addEventListener("input",e=>{
+  if(e.target.id==="q"){state.q=e.target.value;const pos=e.target.selectionStart;render();const q=$("#q");q.focus();q.setSelectionRange(pos,pos)}
+});
+document.addEventListener("submit",e=>{
+  e.preventDefault();
+  if(e.target.id==="loginForm"){location.hash="dashboard"}
+  if(e.target.id==="addSrc"){
+    const n=$("#sName").value.trim(), u=$("#sUrl").value.trim();
+    if(!n||!u){toast("Enter a website name and an RSS feed URL");return}
+    SOURCES.push({id:Date.now(),name:n,url:u,status:$("#sStatus").value,last:"Not run yet",count:0,health:"OK"});
+    render(); toast(`${n} added`);
+  }
+});
+/* hover tooltip on the stacked bar */
+document.addEventListener("pointermove",e=>{
+  const t=$("#tip"), seg=e.target.closest("[data-tip]");
+  if(!seg){t.hidden=true;return}
+  t.textContent=seg.dataset.tip; t.hidden=false;
+  t.style.left=Math.min(e.clientX+12, innerWidth-t.offsetWidth-8)+"px"; t.style.top=(e.clientY+14)+"px";
+});
+render();
+</script>
