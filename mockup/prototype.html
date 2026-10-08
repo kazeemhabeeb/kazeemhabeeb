@@ -90,6 +90,8 @@ td.num,th.num{text-align:right}
 .post{padding-bottom:20px;border-bottom:1px solid #eee;margin-bottom:20px}
 .post h2{margin-top:10px;font-size:22px}
 .post h2 a{color:var(--text)} .post h2 a:hover{color:var(--primary)}
+.img-ph{display:flex;align-items:center;justify-content:center;background:#dee2e6;color:#6c757d;border-radius:4px;aspect-ratio:850/350;max-width:100%;font-size:15px;text-align:center;padding:10px;margin-bottom:12px}
+.img-ph small{display:block;font-size:12px}
 .post .meta{color:var(--muted);font-size:13px;margin-bottom:10px}
 .page-header{padding-bottom:9px;margin:30px 0 20px;border-bottom:1px solid #eee}
 .page-header h1{margin:0}
@@ -172,7 +174,7 @@ const ARTICLES = [
   {id:106,cat:"Sports",src:"Lagos Wire",title:"Super Eagles name 25-man squad for November qualifiers",sum:"The head coach recalled two defenders and handed a first call-up to a 19-year-old midfielder ahead of the two away fixtures.",date:"October 8, 2026 at 7:20 AM",score:93,status:"Real",views:2650},
   {id:107,cat:"Business",src:"Continental Times",title:"Fuel price to drop to ₦150 per litre from Monday, sources say",sum:"Unnamed sources claim a new pricing template will cut pump prices sharply next week. The regulator has not issued a statement.",date:"October 8, 2026 at 6:45 AM",score:31,status:"Misinformation",views:1540},
   {id:108,cat:"Health",src:"Abuja Observer",title:"Ministry launches nationwide measles vaccination drive for under-fives",sum:"The two-week campaign targets 21 million children and will run through primary health centres in all 36 states and the FCT.",date:"October 7, 2026 at 6:10 PM",score:84,status:"Real",views:615},
-  {id:109,cat:"Politics",src:"Global Desk",title:"Governor's aide responds to claims about state budget allocation",sum:"The aide said figures circulating online mix up the approved budget with a draft version from earlier in the year.",date:"October 7, 2026 at 5:02 PM",score:null,status:"Pending Verification",views:98}
+  {id:109,cat:"Politics",src:"Global Desk",title:"Governor's aide responds to claims about state budget allocation",sum:"The aide said figures circulating online mix up the approved budget with a draft version from earlier in the year.",date:"October 7, 2026 at 5:02 PM",score:null,status:"Pending Verification",views:98,img:false}
 ];
 const LOGS = [
   {t:"2026-10-08 10:00:41",type:"Ingestion run",lvl:"Info",msg:"Hourly run finished: 5 feeds read, 23 new articles, 4 duplicates skipped."},
@@ -195,6 +197,7 @@ function label(a){
   return a.score >= 50 ? `<span class="label label-success">Real &ndash; ${a.score}%</span>`
                        : `<span class="label label-danger">Misinformation &ndash; ${a.score}%</span>`;
 }
+const imgBox = a => a.img===false ? "" : `<div class="img-ph" role="img" aria-label="Article image from ${a.src}"><div>Image from ${a.src}<small>850 &times; 350</small></div></div>`;
 function toast(msg){const t=$("#toast");t.innerHTML=`<div class="alert alert-success" style="margin:0">${esc(msg)}</div>`;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,2200)}
 
 /* ---------------- public pages ---------------- */
@@ -246,9 +249,10 @@ function viewFeed(){
     <div class="row">
       <div>
         <div class="page-header"><h1>${heading} <small class="text-muted" style="font-size:60%">checked every hour</small></h1></div>
-        <p class="small">${req("FR-2.1 public feed, no login")} ${req("FR-2.2 label on every article")} ${req("FR-2.3 loads with AJAX")}</p>
+        <p class="small">${req("FR-2.1 public feed, no login")} ${req("FR-2.2 label on every article")} ${req("FR-2.3 loads with AJAX")} ${req("Images: proposed addition, not in the PDF")}</p>
         ${list.length ? list.map(a=>`
           <div class="post">
+            ${a.img===false?"":`<a href="#article" data-open="${a.id}" style="display:block">${imgBox(a)}</a>`}
             <h2><a href="#article" data-open="${a.id}">${esc(a.title)}</a></h2>
             <div class="meta">Posted on ${a.date} by <strong>${a.src}</strong> in <a href="#feed" data-cat="${a.cat}">${a.cat}</a> &nbsp;|&nbsp; ${a.views.toLocaleString()} views</div>
             <p>${label(a)}</p>
@@ -275,6 +279,7 @@ function viewArticle(){
         <h1 style="margin-top:30px">${esc(a.title)}</h1>
         <p class="text-muted">by <strong>${a.src}</strong> &nbsp;|&nbsp; ${a.cat} &nbsp;|&nbsp; Posted on ${a.date} &nbsp;|&nbsp; ${(a.views+1).toLocaleString()} views ${req("FR-2.4 view counter")}</p>
         <hr>
+        ${imgBox(a)}
         ${box}
         <p class="small">${req("FR-2.2 label + confidence %")} ${req("FR-1.4 verdict and score")} ${req("NFR-2.1 Pending status")}</p>
         <p style="font-size:16px;line-height:1.6">${esc(a.sum)}</p>
