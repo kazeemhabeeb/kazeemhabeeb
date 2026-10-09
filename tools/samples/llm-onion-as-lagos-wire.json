@@ -1,0 +1,7 @@
+{
+  "result": "{\"credibility_score\":15,\"clickbait\":true,\"emotional_manipulation\":false,\"bias\":\"low\",\"reason\":\"The humorous, implausible headline appears satirical, and no article text or evidence is provided.\"}",
+  "think": "",
+  "max_token": 4098,
+  "status": true,
+  "server_code": "u_g"
+}
