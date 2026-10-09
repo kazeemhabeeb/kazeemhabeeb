@@ -1,0 +1,7 @@
+{
+  "result": "{\"credibility_score\":5,\"clickbait\":true,\"emotional_manipulation\":false,\"bias\":\"low\",\"reason\":\"The Onion is a satire publication, and the headline presents a humorous fictional announcement as news.\"}",
+  "think": "",
+  "max_token": 4098,
+  "status": true,
+  "server_code": "u_g"
+}
