@@ -3,11 +3,13 @@
  * Check which PR Labs "ChatGPT 4" endpoints can really search the web.
  *
  * Usage:
- *   RAPIDAPI_KEY=xxxx php tools/test_web_access.php
+ *   php tools/test_web_access.php                       (key added by a network secret)
+ *   RAPIDAPI_KEY=xxxx php tools/test_web_access.php     (key from an environment variable)
  *
  * Each endpoint gets the same question, which can only be answered with a live
  * web search. Every request costs 15 credits (4 endpoints = 60 credits).
- * The key is read from the RAPIDAPI_KEY environment variable, never from this file.
+ * The key comes from a network secret (X-RapidAPI-Key header) or the RAPIDAPI_KEY
+ * environment variable, never from this file.
  */
 
 // Confirm this against the X-RapidAPI-Host value in the listing's Code snippet tab.
@@ -17,11 +19,9 @@ $endpoints = array('/gpt4', '/gpt4o', '/gpt5', '/conversationgpt4-2');
 $question = 'Search the web now. Give the exact headline and full URL of one news article '
           . 'published in the last 2 days on punchng.com. Reply with only the headline and the URL.';
 
+// With a Claude Code network secret the X-RapidAPI-Key header is added on the way out,
+// so the key may be absent here; locally, set RAPIDAPI_KEY instead.
 $key = getenv('RAPIDAPI_KEY');
-if ($key === false || $key === '') {
-    fwrite(STDERR, "Set the RAPIDAPI_KEY environment variable first.\n");
-    exit(1);
-}
 
 $body = json_encode(array(
     'messages'   => array(array('role' => 'user', 'content' => $question)),
@@ -34,11 +34,11 @@ foreach ($endpoints as $path) {
     curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        'Content-Type: application/json',
-        'X-RapidAPI-Key: ' . $key,
-        'X-RapidAPI-Host: ' . $host,
-    ));
+    $headers = array('Content-Type: application/json', 'X-RapidAPI-Host: ' . $host);
+    if ($key !== false && $key !== '') {
+        $headers[] = 'X-RapidAPI-Key: ' . $key;
+    }
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
     $start = microtime(true);
     $response = curl_exec($ch);
