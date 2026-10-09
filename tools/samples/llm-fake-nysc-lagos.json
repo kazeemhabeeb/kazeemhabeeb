@@ -1,0 +1,7 @@
+{
+  "result": "{\"credibility_score\":72,\"clickbait\":false,\"emotional_manipulation\":false,\"bias\":\"low\",\"reason\":\"The report is plainly worded and attributes the extraordinary but plausible claim to the state police, though it provides no further verification.\"}",
+  "think": "",
+  "max_token": 4098,
+  "status": true,
+  "server_code": "u_g"
+}
