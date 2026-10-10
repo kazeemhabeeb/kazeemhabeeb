@@ -1,0 +1,7 @@
+{
+  "result": "{\"credibility_score\":5,\"clickbait\":true,\"emotional_manipulation\":true,\"bias\":\"high\",\"reason\":\"The article makes sweeping, unsupported accusations and uses inflammatory language to provoke anger rather than provide verifiable reporting.\"}",
+  "think": "",
+  "max_token": 4096,
+  "status": true,
+  "server_code": "u_g"
+}
