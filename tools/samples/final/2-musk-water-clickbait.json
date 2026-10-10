@@ -1,0 +1,7 @@
+{
+  "result": "{\"credibility_score\":5,\"clickbait\":true,\"emotional_manipulation\":true,\"bias\":\"high\",\"reason\":\"The sensational, unsupported prediction and “share before it is deleted” wording are strong signs of clickbait rather than credible reporting.\"}",
+  "think": "",
+  "max_token": 4096,
+  "status": true,
+  "server_code": "u_g"
+}
