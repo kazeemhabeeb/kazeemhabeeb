@@ -1,0 +1,7 @@
+{
+  "result": "{\"credibility_score\":82,\"clickbait\":false,\"emotional_manipulation\":false,\"bias\":\"none\",\"reason\":\"Premium Times is a credible outlet, and the claim is plausible and neutrally worded, though the article gives little context to verify the timing.\"}",
+  "think": "",
+  "max_token": 4096,
+  "status": true,
+  "server_code": "u_g"
+}
