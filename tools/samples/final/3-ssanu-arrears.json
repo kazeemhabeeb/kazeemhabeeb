@@ -1,0 +1,7 @@
+{
+  "result": "{\"credibility_score\":80,\"clickbait\":false,\"emotional_manipulation\":false,\"bias\":\"none\",\"reason\":\"The claim is plausible and neutrally worded, though the brief report provides no date or supporting details.\"}",
+  "think": "",
+  "max_token": 4096,
+  "status": true,
+  "server_code": "u_g"
+}
