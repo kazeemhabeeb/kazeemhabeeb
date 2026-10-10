@@ -33,6 +33,18 @@ saved in `tools/samples/`, and `php tools/score_llm.php <file>` reproduces each 
 
 Result: 5 out of 5 correct.
 
+## Live RSS test (real feed item, built by the ingestion code)
+
+The item was copied from the P.M. News RSS feed (`tools/samples/rss/pmnews-item.xml`), read with
+SimpleXML, cleaned, and turned into the request body by the same functions the system uses.
+
+| Article (source) | Score | Clickbait | Manipulation | Bias | Verdict | Expected |
+|---|---|---|---|---|---|---|
+| Stock Market ends seven-day losing streak, adds ₦209bn (P.M. News, 9 Oct 2026) | 86 | no | no | none | Real | Real ✅ |
+
+Model's reason: "The reported gain is consistent with the stated market values, though the seven-day
+losing streak is not substantiated in the text." The model checked the figures (₦161.260tn − ₦161.051tn = ₦209bn).
+
 ## Earlier tests (same service, earlier prompt wording)
 
 | Article (source) | Score | Verdict | Expected | Note |
