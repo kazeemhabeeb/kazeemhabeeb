@@ -8,73 +8,43 @@
         <link href="../proto.css" rel="stylesheet" />
         
     </head>
-    <body>
+    <body data-page="article">
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="index.html">TrustFeed</a>
+                <a class="navbar-brand" href="index.html" data-cat="">TrustFeed</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li><li class="nav-item"><a class="nav-link" href="index.html">Politics</a></li><li class="nav-item"><a class="nav-link" href="index.html">Business</a></li><li class="nav-item"><a class="nav-link" href="index.html">Health</a></li><li class="nav-item"><a class="nav-link" href="index.html">Technology</a></li>
-                    </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0" id="navCategories"></ul>
                 </div>
             </div>
         </nav>
-        <!-- Page content-->
         <div class="container mt-5">
             <div class="row">
                 <div class="col-lg-8">
-                    <!-- Post content-->
-                    <article>
-                        <!-- Post header-->
-                        <header class="mb-4">
-                            <h1 class="fw-bolder mb-1">Central bank holds benchmark rate as inflation eases for third month</h1>
-                            <div class="text-muted fst-italic mb-2">Posted on October 8, 2026 by Lagos Wire</div>
-                            <a class="badge bg-secondary text-decoration-none link-light" href="index.html">Business</a>
-                            <div class="small mt-2"><span class="req">[Use case: Read Article Summary]</span> <span class="req">[FR-2.4 opening this page adds 1 to view_count]</span></div>
-                        </header>
-                        <!-- Preview image figure-->
-                        <figure class="mb-4"><img class="img-fluid rounded" src="assets/placeholder-850x350.svg" alt="Article image from Lagos Wire" width="850" /></figure>
-                        <!-- Credibility result-->
-                        <div class="alert alert-success" role="status"><strong>Real &ndash; 88% Confidence</strong></div>
-                        <div class="small mb-3"><span class="req">[Use case: View Credibility Score]</span> <span class="req">[FR-2.2 label + confidence %]</span> <span class="req">[NFR-3.2 green / red / yellow]</span></div>
-                        <p class="small text-muted mb-1">Other states, shown for review:</p>
-                        <div class="alert alert-danger py-2" role="status"><strong>Misinformation &ndash; 12% Confidence</strong></div>
-                        <div class="alert alert-warning py-2" role="status"><strong>Pending Verification.</strong> This article has not been verified yet. <span class="req">[NFR-2.1]</span></div>
-                        <!-- Post content-->
-                        <section class="mb-5">
-                            <p class="fs-5 mb-4">The monetary policy committee kept its key rate unchanged after its two-day meeting, citing slowing food prices and a steadier exchange rate. Analysts expect the next review in November to follow the same path if the trend holds.</p>
-                            <a class="btn btn-primary" href="#">Read the full story on Lagos Wire</a> <span class="req">[Schema: original_link]</span>
-                        </section>
-                    </article>
+                    <article id="articleBody"></article>
+                    <p class="small"><span class="req">[Use case: Read Article Summary / View Credibility Score]</span> <span class="req">[FR-2.4 opening this page adds 1 to view_count]</span> <span class="req">[Schema: original_link]</span></p>
                     <p><a href="index.html">&larr; Back to all news</a></p>
                 </div>
                 <!-- Side widgets-->
                 <div class="col-lg-4">
-                    <!-- Search widget-->
                     <div class="card mb-4">
                         <div class="card-header">Search</div>
                         <div class="card-body">
-                            <form class="input-group" action="index.html">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                            <form class="input-group" id="searchForm" action="index.html">
+                                <input class="form-control" id="searchInput" type="text" placeholder="Enter search term..." aria-label="Enter search term..." />
                                 <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
                             </form>
                             <div class="small mt-2"><span class="req">[§2.2 searching for a specific topic]</span></div>
                         </div>
                     </div>
-                    <!-- Categories widget-->
                     <div class="card mb-4">
                         <div class="card-header">Categories</div>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6"><ul class="list-unstyled mb-0"><li><a href="index.html">All</a></li><li><a href="index.html">Politics</a></li><li><a href="index.html">Business</a></li></ul></div>
-                                <div class="col-sm-6"><ul class="list-unstyled mb-0"><li><a href="index.html">Health</a></li><li><a href="index.html">Technology</a></li><li><a href="index.html">Sports</a></li><li><a href="index.html">World</a></li></ul></div>
-                            </div>
+                            <div class="row" id="categoryWidget"></div>
                             <div class="small mt-2"><span class="req">[FR-2.3 filtering categories]</span></div>
                         </div>
                     </div>
-                    <!-- Side widget-->
                     <div class="card mb-4">
                         <div class="card-header">Credibility Labels</div>
                         <div class="card-body">
@@ -83,22 +53,23 @@
                                 <li class="mb-2"><span class="badge bg-danger">Misinformation</span> Confidence score below 50%</li>
                                 <li><span class="badge bg-warning text-dark">Pending Verification</span> Not yet verified</li>
                             </ul>
-                            <div class="small mt-2"><span class="req">[NFR-3.2 colour-coded indicators; Fig 3.2 50% rule]</span></div>
+                            <div class="small mt-2"><span class="req">[NFR-3.2 colour-coded indicators; Fig 3.2 ≥ 50% rule]</span></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; TrustFeed 2026</p></div>
         </footer>
         <div class="proto-bar" role="navigation" aria-label="Prototype screens">
-            <strong>Prototype</strong> <span class="grp">Public:</span> <a href="../public/index.html">News feed</a> <a href="../public/article.html" class="on">Article details</a> <span class="grp">Admin:</span> <a href="../admin/login.html">Login</a> <a href="../admin/dashboard.html">Dashboard</a> <a href="../admin/sources.html">RSS sources</a> <a href="../admin/articles.html">Articles</a> <a href="../admin/logs.html">System logs</a>
+            <strong>Mockup</strong> <span class="grp">Public:</span> <a href="../public/index.html">News feed</a> <a href="../public/article.html" class="on">Article details</a> <span class="grp">Admin:</span> <a href="../admin/login.html">Login</a> <a href="../admin/dashboard.html">Dashboard</a> <a href="../admin/sources.html">RSS sources</a> <a href="../admin/articles.html">Articles</a> <a href="../admin/logs.html">System logs</a>
+            <a href="#" id="resetData" title="Restore the original sample data">Reset sample data</a>
             <label for="reqToggle"><input type="checkbox" id="reqToggle" checked /> Show proposal references</label>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         
+        <script src="../app.js"></script>
         <script src="../proto.js"></script>
     </body>
 </html>

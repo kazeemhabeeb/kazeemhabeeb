@@ -25,7 +25,7 @@ li code{font:12px Consolas,Menlo,monospace;color:var(--note)}
 
 <header><div class="wrap">
   <h1>TrustFeed mockup</h1>
-  <p>Built on Start Bootstrap “Blog Home” (public site) and “SB Admin” (admin panel). Sample data only.</p>
+  <p>Built on Start Bootstrap “Blog Home” (public site) and “SB Admin” (admin panel). Everything is clickable; sample articles and scores come from the real RapidAPI tests.</p>
 </div></header>
 
 <main class="wrap">
@@ -33,20 +33,20 @@ li code{font:12px Consolas,Menlo,monospace;color:var(--note)}
     <section>
       <h2>Public site <small>Blog Home template</small></h2>
       <ul>
-        <li><a href="public/index.html">News feed</a><span>Featured article, article cards with credibility badges, search, categories, pagination.</span><code>FR-2.1, FR-2.2, FR-2.3, NFR-3.2</code></li>
-        <li><a href="public/article.html">Article details</a><span>Summary, credibility result box, link to the original story.</span><code>FR-2.2, FR-2.4, NFR-2.1</code></li>
+        <li><a href="public/index.html">News feed</a><span>Featured article, cards with credibility badges, working search, category filter and pagination.</span><code>FR-2.1, FR-2.2, FR-2.3, NFR-3.2</code></li>
+        <li><a href="public/article.html">Article details</a><span>Summary, credibility result box, link to the original story; each visit adds a view.</span><code>FR-2.2, FR-2.4, NFR-2.1</code></li>
       </ul>
     </section>
     <section>
       <h2>Admin panel <small>SB Admin template</small></h2>
       <ul>
-        <li><a href="admin/login.html">Login</a><span>Username and password.</span><code>FR-3.1, NFR-1.2</code></li>
-        <li><a href="admin/dashboard.html">Dashboard</a><span>Total posts, real and fake counts, ratio bar, feed statuses, views per article.</span><code>FR-3.4</code></li>
-        <li><a href="admin/sources.html">RSS sources</a><span>Add, edit, enable or disable, delete.</span><code>FR-3.2</code></li>
-        <li><a href="admin/articles.html">Articles</a><span>Search, re-flag, delete, pagination.</span><code>FR-3.3</code></li>
+        <li><a href="admin/login.html">Login</a><span>Sign in with <strong>admin</strong> / <strong>admin123</strong>. Admin pages send you here if you are not signed in.</span><code>FR-3.1, NFR-1.2</code></li>
+        <li><a href="admin/dashboard.html">Dashboard</a><span>Totals, real vs fake ratio, feed statuses and views, all calculated from the data.</span><code>FR-3.4</code></li>
+        <li><a href="admin/sources.html">RSS sources</a><span>Add (with validation), edit, enable or disable, delete with its articles.</span><code>FR-3.2</code></li>
+        <li><a href="admin/articles.html">Articles</a><span>Live search, re-flag, delete, pagination. Changes show on the public site.</span><code>FR-3.3</code></li>
         <li><a href="admin/logs.html">System logs</a><span>Execution runs, API timeouts, failed feeds.</span><code>FR-3.5</code></li>
       </ul>
     </section>
   </div>
-  <p class="note">Every page has a yellow bar at the bottom for jumping between screens and for hiding the purple proposal references. Outlet names, headlines and numbers are placeholders, not real articles.</p>
+  <p class="note">Every page has a yellow bar at the bottom for jumping between screens, hiding the purple proposal references and resetting the sample data. Changes you make are kept in this browser only. Viral Today, Naija Truth Daily, Lagos Wire and Metro Pulse are invented test sources; feed URLs for real outlets still need checking.</p>
 </main>
