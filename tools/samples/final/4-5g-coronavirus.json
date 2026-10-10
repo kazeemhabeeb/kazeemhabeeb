@@ -1,0 +1,7 @@
+{
+  "result": "{\"credibility_score\":4,\"clickbait\":true,\"emotional_manipulation\":true,\"bias\":\"high\",\"reason\":\"The sensational headline promotes a baseless claim: 5G radio waves cannot spread coronavirus.\"}",
+  "think": "",
+  "max_token": 4096,
+  "status": true,
+  "server_code": "u_g"
+}
