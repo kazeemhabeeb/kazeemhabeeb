@@ -37,7 +37,7 @@ requirement · **Added** = needed for an agreed feature the schema does not cove
 | verification_status | VARCHAR(50) | Default 'Pending Verification' | PDF |
 | view_count | INT | Default 0 | PDF |
 | category | VARCHAR(100) | | Added: category filtering (FR-2.3, §2.2) |
-| image_url | VARCHAR(500) | NULL allowed | Added: agreed image placeholders |
+| image_url | VARCHAR(500) | NULL allowed | Added: design choice for a more readable feed (Usability, NFR-3.x). Taken from the feed's `<media:content>`, `<enclosure>` or first `<img>`; only http/https URLs are stored and they are escaped on output, which addresses the image-tag XSS risk in §1.2 (NFR-1.1, §3.8). NULL when the feed has no image |
 | verification_reason | TEXT | NULL allowed | Added: the AI's one-sentence reason, shown as "Why this score" on the article page (§3.1.1 explainable verification flags, §3.1.2 AI explainability metrics) |
 
 ## logs (FR-3.5, §1.5)
