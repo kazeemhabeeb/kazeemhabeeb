@@ -1,0 +1,140 @@
+<title>TrustFeed Updated ERD</title>
+<style>
+/* Layout: the proposal's Figure 3.3 redrawn box-for-box, with new and changed columns marked, then a reference table. */
+:root{
+  --bg:#ffffff; --fg:#1d2329; --muted:#5d6670; --line:#1d2329; --soft:#e4e7eb;
+  --new:#d9f2df; --new-ink:#1e6b34; --new-line:#3d9a57;
+  --chg:#fdf0cf; --chg-ink:#7a5600; --chg-line:#d6a21e;
+  --mono:"Courier Prime","Courier New",Courier,monospace;
+  --sans:"Source Sans 3",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#15191d; --fg:#e7eaee; --muted:#a3acb6; --line:#c9d0d7; --soft:#2b3238;
+  --new:#173a22; --new-ink:#8fdba5; --new-line:#4fb46e;
+  --chg:#3a2f12; --chg-ink:#f0cc74; --chg-line:#c9a03a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#15191d; --fg:#e7eaee; --muted:#a3acb6; --line:#c9d0d7; --soft:#2b3238;
+  --new:#173a22; --new-ink:#8fdba5; --new-line:#4fb46e;
+  --chg:#3a2f12; --chg-ink:#f0cc74; --chg-line:#c9a03a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 var(--sans);margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:24px 48px;display:grid;gap:28px}
+h1{font-size:24px;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:4px 0 0;max-width:70ch}
+.legend{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:14px;align-items:center}
+.sw{display:inline-block;width:16px;height:16px;border:1px solid;vertical-align:-3px;margin-right:6px}
+.sw.new{background:var(--new);border-color:var(--new-line)} .sw.chg{background:var(--chg);border-color:var(--chg-line)} .sw.pdf{background:var(--bg);border-color:var(--line)}
+.diagram{overflow-x:auto}
+.erd{display:grid;grid-template-columns:repeat(2,minmax(220px,1fr)) 64px minmax(260px,1.2fr);gap:28px 32px;align-items:start;min-width:0}
+.erd .gap{grid-column:2/3}
+.entity{border:1.5px solid var(--line);background:var(--bg);font-family:var(--mono);font-size:14.5px;min-width:0}
+.entity h2{font:700 15px var(--mono);text-align:center;margin:0;padding:10px;border-bottom:1.5px solid var(--line)}
+.entity.is-new{border-color:var(--new-line)} .entity.is-new h2{background:var(--new);color:var(--new-ink);border-color:var(--new-line)}
+.row{display:grid;grid-template-columns:46px 1fr;border-bottom:1px solid var(--soft)}
+.row:last-child{border-bottom:0}
+.key{border-right:1.5px solid var(--line);padding:8px 6px;text-align:center;font-weight:700}
+.col{padding:8px 10px;display:flex;justify-content:space-between;gap:8px;align-items:center;min-width:0}
+.pk .col{text-decoration:underline;font-weight:700}
+.row.pk{border-bottom:1.5px solid var(--line)}
+.row.new{background:var(--new)} .row.new .col{color:var(--new-ink)}
+.row.chg{background:var(--chg)} .row.chg .col{color:var(--chg-ink)}
+.tag{font:600 11px var(--sans);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.link{grid-column:3/4;align-self:start;margin-top:52px;margin-inline:-32px;position:relative;height:24px}
+.link svg{display:block;width:100%;height:24px}
+.link svg line{stroke:var(--line);stroke-width:2}
+.link span{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font:700 13px var(--mono);white-space:nowrap}
+.pos-admins{grid-column:1/2;grid-row:1} .pos-sources{grid-column:2/3;grid-row:1} .pos-articles{grid-column:4/5;grid-row:1/3} .pos-logs{grid-column:1/2;grid-row:2}
+.caption{font-size:13px;color:var(--muted);margin:0}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--soft);vertical-align:top}
+th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+td code{font-family:var(--mono);font-size:13.5px}
+.tablewrap{overflow-x:auto}
+h3{font-size:17px;margin:0 0 8px}
+@media (max-width:820px){
+  .erd{grid-template-columns:1fr;gap:20px}
+  .pos-admins,.pos-sources,.pos-articles,.pos-logs{grid-column:1;grid-row:auto}
+  .link{grid-column:1;margin:0;height:auto;text-align:center}
+  .link svg{display:none}
+  .link span{position:static;transform:none}
+  .pos-sources{order:1} .link{order:2} .pos-articles{order:3} .pos-admins{order:4} .pos-logs{order:5}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+
+<div class="wrap">
+  <header>
+    <h1>Updated Entity-Relationship Diagram</h1>
+    <p class="lede">Figure 3.3 from the proposal (§3.6, p. 38) redrawn with the changes we agreed. Everything in plain boxes is exactly as in the PDF.</p>
+  </header>
+
+  <div class="legend" aria-label="Legend">
+    <span><span class="sw pdf"></span>As in the PDF</span>
+    <span><span class="sw new"></span>New (not in §3.6)</span>
+    <span><span class="sw chg"></span>In the PDF, type or rule adjusted</span>
+  </div>
+
+  <div class="diagram">
+    <div class="erd">
+      <section class="entity pos-admins" aria-label="admins table">
+        <h2>admins</h2>
+        <div class="row pk"><div class="key">PK</div><div class="col">admin_id</div></div>
+        <div class="row"><div class="key"></div><div class="col">username</div></div>
+        <div class="row"><div class="key"></div><div class="col">password_hash</div></div>
+      </section>
+
+      <section class="entity pos-sources" aria-label="rss_sources table">
+        <h2>rss_sources</h2>
+        <div class="row pk"><div class="key">PK</div><div class="col">source_id</div></div>
+        <div class="row"><div class="key"></div><div class="col">website_name</div></div>
+        <div class="row chg"><div class="key"></div><div class="col">rss_url <span class="tag">changed</span></div></div>
+        <div class="row"><div class="key"></div><div class="col">status</div></div>
+      </section>
+
+      <div class="link" aria-label="one source to many articles"><span>1 : N</span><svg viewBox="0 0 128 24" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="12" x2="128" y2="12"/><line x1="114" y1="12" x2="128" y2="2"/><line x1="114" y1="12" x2="128" y2="22"/></svg></div>
+
+      <section class="entity pos-articles" aria-label="articles table">
+        <h2>articles</h2>
+        <div class="row pk"><div class="key">PK</div><div class="col">article_id</div></div>
+        <div class="row"><div class="key">FK</div><div class="col">source_id</div></div>
+        <div class="row"><div class="key"></div><div class="col">title</div></div>
+        <div class="row"><div class="key"></div><div class="col">content_summary</div></div>
+        <div class="row chg"><div class="key"></div><div class="col">original_link <span class="tag">changed</span></div></div>
+        <div class="row"><div class="key"></div><div class="col">publication_date</div></div>
+        <div class="row chg"><div class="key"></div><div class="col">confidence_score <span class="tag">changed</span></div></div>
+        <div class="row"><div class="key"></div><div class="col">verification_status</div></div>
+        <div class="row"><div class="key"></div><div class="col">view_count</div></div>
+        <div class="row new"><div class="key"></div><div class="col">category <span class="tag">new</span></div></div>
+        <div class="row new"><div class="key"></div><div class="col">image_url <span class="tag">new</span></div></div>
+        <div class="row new"><div class="key"></div><div class="col">verification_reason <span class="tag">new</span></div></div>
+      </section>
+
+      <section class="entity is-new pos-logs" aria-label="logs table, new">
+        <h2>logs &nbsp;<span class="tag">new table</span></h2>
+        <div class="row pk new"><div class="key">PK</div><div class="col">log_id</div></div>
+        <div class="row new"><div class="key"></div><div class="col">log_type</div></div>
+        <div class="row new"><div class="key"></div><div class="col">message</div></div>
+        <div class="row new"><div class="key"></div><div class="col">created_at</div></div>
+      </section>
+    </div>
+  </div>
+  <p class="caption">The relationship is unchanged: one RSS source has many articles. Deleting a source now also deletes its articles (ON DELETE CASCADE). <code>admins</code> and <code>logs</code> stand alone.</p>
+
+  <section>
+    <h3>What changed and where the PDF calls for it</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Column</th><th>Change</th><th>Why</th><th>PDF reference</th></tr></thead>
+        <tbody>
+          <tr><td><code>articles.category</code></td><td>New</td><td>Filter the feed by category</td><td>FR-2.3 (p. 31) "filtering categories"; §2.2 (p. 9) "filtering the feed by category"</td></tr>
+          <tr><td><code>articles.verification_reason</code></td><td>New</td><td>The AI's reason, shown as "Why this score"</td><td>§3.1.1 (p. 29) "explainable verification flags … persists the data into the primary database"; §3.1.2 (p. 30) "AI explainability metrics"</td></tr>
+          <tr><td><code>articles.image_url</code></td><td>New</td><td>Article image in the Blog Home layout; only http/https URLs, escaped on output</td><td>Not required by the PDF (design choice). Relates to the image-tag XSS risk in §1.2 (p. 3)</td></tr>
+          <tr><td><code>logs</code> (4 columns)</td><td>New table</td><td>Store run summaries, API timeouts and failed feeds</td><td>FR-3.5 (p. 31) "record and display operational execution logs"; §1.5 (p. 4) "the general system logs"</td></tr>
+          <tr><td><code>rss_sources.rss_url</code></td><td>TEXT → VARCHAR(500)</td><td>MySQL cannot put a UNIQUE index on TEXT</td><td>§3.6.2 (p. 39) requires it to be unique</td></tr>
+          <tr><td><code>articles.original_link</code></td><td>TEXT → VARCHAR(500)</td><td>Same reason; used to skip duplicates</td><td>§3.6.2 (p. 39) unique; NFR-2.2 (p. 31); Fig 3.2 (p. 36)</td></tr>
+          <tr><td><code>articles.confidence_score</code></td><td>NULL allowed</td><td>NULL means not verified yet (Pending)</td><td>NFR-2.1 (p. 31) "Pending Verification"</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
