@@ -38,6 +38,7 @@ requirement · **Added** = needed for an agreed feature the schema does not cove
 | view_count | INT | Default 0 | PDF |
 | category | VARCHAR(100) | | Added: category filtering (FR-2.3, §2.2) |
 | image_url | VARCHAR(500) | NULL allowed | Added: agreed image placeholders |
+| verification_reason | TEXT | NULL allowed | Added: the AI's one-sentence reason, shown as "Why this score" on the article page (§3.1.1 explainable verification flags, §3.1.2 AI explainability metrics) |
 
 ## logs (FR-3.5, §1.5)
 
@@ -49,6 +50,10 @@ requirement · **Added** = needed for an agreed feature the schema does not cove
 | created_at | DATETIME | Default current time | Added |
 
 ## Decisions
+
+- **Manual re-flag (FR-3.3) clears the AI result.** When the admin changes the label, `confidence_score`
+  and `verification_reason` are set to NULL, so the badge shows the label without a percentage and the
+  article page says "This label was set by an administrator." No extra column is needed.
 
 - **Deleting a source deletes its articles** (`ON DELETE CASCADE`). The admin's delete
   confirmation warns: "This will also delete its articles." §3.6 does not specify this.

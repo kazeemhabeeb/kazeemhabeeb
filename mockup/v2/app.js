@@ -7,7 +7,7 @@
 (function () {
   'use strict';
 
-  var STORE_KEY = 'trustfeed-mock-v1';
+  var STORE_KEY = 'trustfeed-mock-v2';
   var SESSION_KEY = 'trustfeed-admin';
   var DEMO_USER = 'admin';
   var DEMO_PASS = 'admin123';
@@ -26,43 +26,43 @@
       { id: 10, name: 'Punch', url: 'https://punchng.com/feed/', status: 'Inactive' }
     ],
     articles: [
-      { id: 101, source_id: 1, category: 'Business', date: '2026-10-09T22:59', score: 86, status: 'Real', views: 1204, image: true,
+      { id: 101, reason: "The reported gain is consistent with the stated market values, though the seven-day losing streak is not substantiated in the text.", source_id: 1, category: 'Business', date: '2026-10-09T22:59', score: 86, status: 'Real', views: 1204, image: true,
         title: 'Stock Market ends seven-day losing streak, adds ₦209bn',
         summary: 'The market capitalisation rose by 0.13 per cent to ₦161.260 trillion from ₦161.051 trillion recorded in the previous session, representing a gain of ₦209 billion.',
         link: 'https://pmnewsnigeria.com/2026/10/09/stock-market-ends-seven-day-losing-streak-adds-%e2%82%a6209bn/' },
-      { id: 102, source_id: 2, category: 'Politics', date: '2026-10-08T15:20', score: 82, status: 'Real', views: 876, image: true,
+      { id: 102, reason: "Premium Times is a credible outlet, and the claim is plausible and neutrally worded, though the article gives little context to verify the timing.", source_id: 2, category: 'Politics', date: '2026-10-08T15:20', score: 82, status: 'Real', views: 876, image: true,
         title: 'Macron to make state visit to Nigeria before end of October',
         summary: 'French President Emmanuel Macron will make a state visit to Nigeria before the end of October, officials said, as both countries seek closer trade and security cooperation.',
         link: 'https://www.premiumtimesng.com/' },
-      { id: 103, source_id: 3, category: 'Education', date: '2026-10-08T12:05', score: 80, status: 'Real', views: 615, image: true,
+      { id: 103, reason: "The claim is plausible and neutrally worded, though the brief report provides no date or supporting details.", source_id: 3, category: 'Education', date: '2026-10-08T12:05', score: 80, status: 'Real', views: 615, image: true,
         title: "FG pays eight months' SSANU salary arrears, strike averted",
         summary: 'The Federal Government has paid eight months of salary arrears owed to members of the Senior Staff Association of Nigerian Universities, and the union has called off its planned strike.',
         link: 'https://www.channelstv.com/' },
-      { id: 104, source_id: 4, category: 'Business', date: '2026-10-08T09:40', score: 78, status: 'Real', views: 2650, image: true,
+      { id: 104, reason: "The claim is plausible and comes from a reputable business outlet, though the brief text gives no date, figures, or supporting context.", source_id: 4, category: 'Business', date: '2026-10-08T09:40', score: 78, status: 'Real', views: 2650, image: true,
         title: 'Naira reaches two-year high after rate cut',
         summary: "The naira strengthened against the dollar to its highest level in two years, shaking off fears that followed the central bank's recent interest rate cut.",
         link: 'https://businessday.ng/' },
-      { id: 105, source_id: 6, category: 'World', date: '2026-10-08T08:10', score: 5, status: 'Misinformation', views: 3311, image: true,
+      { id: 105, reason: "The sensational, unsupported prediction and “share before it is deleted” wording are strong signs of clickbait rather than credible reporting.", source_id: 6, category: 'World', date: '2026-10-08T08:10', score: 5, status: 'Misinformation', views: 3311, image: true,
         title: 'SHOCKING: Elon Musk warns over a billion people will DIE by 2030 from water shortages!!!',
         summary: 'In a video now spreading across social media, Elon Musk says more than a billion people will die of thirst by 2030 and urges viewers to share the message before it is deleted.',
         link: 'https://viraltoday.example/musk-water' },
-      { id: 110, source_id: 1, category: 'News', date: '2026-10-07T18:30', score: null, status: 'Pending Verification', views: 98, image: false,
+      { id: 110, reason: null, source_id: 1, category: 'News', date: '2026-10-07T18:30', score: null, status: 'Pending Verification', views: 98, image: false,
         title: 'Abducted 20 NYSC Corps members, one other regain freedom in Imo',
         summary: 'Twenty prospective corps members and one other person abducted on the Owerri-Onitsha road in Imo State have regained their freedom after a joint operation by the police, DSS and military.',
         link: 'https://pmnewsnigeria.com/2026/10/07/abducted-20-nysc-corps-members-one-other-regain-freedom-in-imo/' },
-      { id: 107, source_id: 8, category: 'Politics', date: '2026-10-07T17:45', score: 5, status: 'Misinformation', views: 1540, image: true,
+      { id: 107, reason: "The article makes sweeping, unsupported accusations and uses inflammatory language to provoke anger rather than provide verifiable reporting.", source_id: 8, category: 'Politics', date: '2026-10-07T17:45', score: 5, status: 'Misinformation', views: 1540, image: true,
         title: 'This wicked government wants every Nigerian to starve. Wake up before it is too late!',
         summary: 'Only a fool would still believe anything this heartless government says. They are deliberately destroying the economy so ordinary Nigerians will suffer, and anyone who supports them is an enemy of the people.',
         link: 'https://lagoswire.example/wicked-government' },
-      { id: 108, source_id: 5, category: 'Local', date: '2026-10-07T16:00', score: 5, status: 'Misinformation', views: 980, image: true,
+      { id: 108, reason: "The Onion is a satire publication, and the headline presents a humorous fictional announcement as news.", source_id: 5, category: 'Local', date: '2026-10-07T16:00', score: 5, status: 'Misinformation', views: 980, image: true,
         title: 'Starbucks Announces New Teen-Free Hours For Nervous Adults Who Just Want To Redeem Birthday Reward',
         summary: '',
         link: 'https://theonion.com/' },
-      { id: 106, source_id: 7, category: 'Health', date: '2026-10-07T13:30', score: 4, status: 'Misinformation', views: 2087, image: true,
+      { id: 106, reason: "The sensational headline promotes a baseless claim: 5G radio waves cannot spread coronavirus.", source_id: 7, category: 'Health', date: '2026-10-07T13:30', score: 4, status: 'Misinformation', views: 2087, image: true,
         title: '5G masts are spreading coronavirus, scientists finally admit',
         summary: 'Scientists have finally confirmed that radiation from 5G masts weakens the immune system and spreads the coronavirus, a report shared widely on WhatsApp claims.',
         link: 'https://naijatruthdaily.example/5g-coronavirus' },
-      { id: 109, source_id: 9, category: 'Health', date: '2026-10-07T11:15', score: 2, status: 'Misinformation', views: 1720, image: true,
+      { id: 109, reason: "The sensational headline promotes an implausible diabetes cure and urges stopping medication without evidence.", source_id: 9, category: 'Health', date: '2026-10-07T11:15', score: 2, status: 'Misinformation', views: 1720, image: true,
         title: 'Doctors HATE this one fruit that cures diabetes in 7 days!!!',
         summary: 'A viral post claims that eating a single tropical fruit every morning reverses type 2 diabetes within a week, with no need for medication or diet changes.',
         link: 'https://metropulse.example/fruit-diabetes' }
@@ -297,6 +297,16 @@
     renderFeed();
   }
 
+  // "Why this score": the reason returned by the AI (§3.1.1 explainable verification flags, §3.1.2)
+  function whyBox(a) {
+    if (a.status === 'Pending Verification') return '';
+    var body = a.reason
+      ? '<p class="mb-2">' + esc(a.reason) + '</p><div class="small text-muted">Explanation written by the AI verification service. It can be wrong.</div>'
+      : '<p class="mb-0">This label was set by an administrator.</p>';
+    return '<div class="card mb-4"><div class="card-header">Why this score</div><div class="card-body">' + body +
+      '<div class="small mt-2"><span class="req">[§3.1.1 explainable verification flags; §3.1.2 AI explainability metrics; needs a verification_reason column]</span></div></div></div>';
+  }
+
   function initArticlePage() {
     initPublicWidgets(function () {});
     renderNavCategories();
@@ -322,7 +332,7 @@
         '<a class="badge bg-secondary text-decoration-none link-light" href="index.html" data-cat="' + esc(a.category) + '">' + esc(a.category) + '</a>' +
         '</header>' +
         (a.image ? '<figure class="mb-4"><img class="img-fluid rounded" src="assets/placeholder-850x350.svg" alt="Image from ' + esc(sourceName(a.source_id)) + '" /></figure>' : '') +
-        alertBox +
+        alertBox + whyBox(a) +
         '<section class="mb-5">' +
         '<p class="fs-5 mb-4">' + (a.summary ? esc(a.summary) : '<span class="text-muted">No summary was provided in the feed.</span>') + '</p>' +
         '<a class="btn btn-primary" href="' + esc(a.link) + '" target="_blank" rel="noopener">Read the full story on ' + esc(sourceName(a.source_id)) + '</a>' +
@@ -501,6 +511,8 @@
       if (!sel) return;
       var a = findArticle(+sel.getAttribute('data-reflag'));
       a.status = sel.value;
+      a.score = null;   // the AI's score and reason no longer apply once the admin sets the label
+      a.reason = null;
       save(); renderAdminArticles();
       toast('Article #' + a.id + ' re-flagged as ' + a.status + '.');
     });
