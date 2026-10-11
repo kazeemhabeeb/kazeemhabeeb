@@ -303,7 +303,7 @@
     var body = a.reason
       ? '<p class="mb-2">' + esc(a.reason) + '</p><div class="small text-muted">Explanation written by the AI verification service. It can be wrong.</div>'
       : '<p class="mb-0">This label was set by an administrator.</p>';
-    return '<div class="card mb-4"><div class="card-header">Why this score</div><div class="card-body">' + body +
+    return '<div class="card mb-4"><div class="card-header fw-bold">Why this score</div><div class="card-body">' + body +
       '<div class="small mt-2"><span class="req">[§3.1.1 explainable verification flags; §3.1.2 AI explainability metrics; needs a verification_reason column]</span></div></div></div>';
   }
 
