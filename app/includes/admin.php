@@ -4,6 +4,23 @@
  * Icons: Font Awesome Free 6.3.0, served from admin/vendor/fontawesome.
  */
 
+// A one-time message shown after a form is saved (the page then redirects, so a refresh
+// cannot submit the form twice).
+function set_flash($type, $message)
+{
+    $_SESSION['flash'] = ['type' => $type, 'message' => $message];
+}
+
+function show_flash()
+{
+    if (empty($_SESSION['flash'])) {
+        return '';
+    }
+    $flash = $_SESSION['flash'];
+    unset($_SESSION['flash']);
+    return '<div class="alert alert-' . e($flash['type']) . '" role="alert">' . e($flash['message']) . '</div>';
+}
+
 function admin_header($title, $active)
 {
     $links = [
