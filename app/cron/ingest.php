@@ -7,8 +7,10 @@
  *   2. Extraction   read every Active source (RSS feed or news API)
  *   3. Validation   skip articles whose link is already saved (NFR-2.2)
  *   4. Sanitization clean every field (sanitize.php), then tier 1 (tier1.php, §2.5.1)
- *   5-6. AI dispatch and classification: added in Sprint 2
- *   7. Persistence  save new articles as Pending Verification, then log the run (FR-3.5)
+ *   7. Persistence  save new articles as Pending Verification
+ *   5-6. AI dispatch and classification (ai.php): up to 9 Pending articles, flagged first,
+ *        score >= 50 Real, below Misinformation; failures stay Pending (NFR-2.1)
+ *   Finally the run is logged (FR-3.5)
  */
 
 // §3.8: this script may only be started by cron or from the command line, never from a browser.
@@ -21,6 +23,7 @@ require __DIR__ . '/../includes/bootstrap.php';
 require __DIR__ . '/../includes/feed.php';
 require __DIR__ . '/../includes/sanitize.php';
 require __DIR__ . '/../includes/tier1.php';
+require __DIR__ . '/../includes/ai.php';
 
 // Stop two runs overlapping if one ever takes longer than an hour.
 $lock = fopen(sys_get_temp_dir() . '/trustfeed-ingest.lock', 'c');
@@ -133,7 +136,8 @@ while ($source = mysqli_fetch_assoc($sources)) {
     }
 }
 
-// Steps 5-6 (AI dispatch and classification) are added here in Sprint 2.
+// Steps 5-6: AI dispatch and classification (Sprint 2).
+$ai = verify_pending($db);
 
 $summary = sprintf(
     'Hourly run finished in %.1f s: %d active sources read (%d failed), %d new article(s) saved (%d flagged as clickbait by tier 1), %d duplicate link(s) skipped, %d spam filtered.',
@@ -144,5 +148,7 @@ if ($slowest['name'] !== '') {
     $summary .= sprintf(' Slowest source: %s, %.3f s to process and save (+%.2f s download).',
                         $slowest['name'], $slowest['process'], $slowest['download']);
 }
+$summary .= sprintf(' AI verification: %d sent (limit %d), %d verified, %d failed; %d article(s) still Pending Verification.',
+                    $ai['sent'], AI_MAX_CALLS_PER_RUN, $ai['verified'], $ai['failed'], $ai['pending']);
 write_log($db, 'Execution', $summary);
 echo $summary, "\n";

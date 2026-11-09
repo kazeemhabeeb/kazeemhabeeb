@@ -30,7 +30,8 @@ define('RAPIDAPI_URL', 'https://chatgpt-42.p.rapidapi.com/gpt4');
 define('VERDICT_THRESHOLD', 50);      // score >= 50 is Real, below is Misinformation (p. 36, p. 41)
 define('AI_MAX_CALLS_PER_RUN', 9);    // Pro plan budget: 9 per hourly run (decision 14, §1.6)
 define('AI_CALL_DELAY_SECONDS', 1);   // Pro plan allows 1 request per second
-define('AI_TIMEOUT_SECONDS', 30);     // give up on a slow AI reply; article stays Pending (NFR-2.1)
+define('AI_TIMEOUT_SECONDS', 60);     // give up on a slow AI reply; article stays Pending (NFR-2.1).
+                                      // Live replies took ~18 s; 30 s timed out 2 of 9 (9 Nov 2026 test).
 define('FEED_TIMEOUT_SECONDS', 15);   // give up on a slow feed; logged as RSS feed failed (FR-3.5)
 
 // ---------------------------------------------------------------------------
