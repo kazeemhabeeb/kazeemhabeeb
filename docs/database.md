@@ -43,7 +43,8 @@ requirement · **Added** = needed for an agreed feature the schema does not cove
 | emotional_manipulation | TINYINT(1) | NULL allowed | Added: the AI's emotional manipulation flag (§3.1.1, §1.5) |
 | bias_level | ENUM('none','low','high') | NULL allowed | Added: the AI's bias flag (§3.1.1, §1.5) |
 
-The three flag columns are NULL until the AI has verified the article.
+The flag columns are NULL until the AI has verified the article, except `is_clickbait`, which tier 1 sets to 1
+when a headline matches a clickbait rule; those articles go to the AI first (§2.5.1). The SQL is in `app/database/schema.sql`.
 
 ## logs (FR-3.5, §1.5)
 
