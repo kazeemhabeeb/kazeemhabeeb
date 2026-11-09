@@ -52,8 +52,10 @@ function admin_header($title, $active)
         <meta name="robots" content="noindex" />
         <meta name="csrf-token" content="{$csrf}" />
         <title>{$title} - {$site} Admin</title>
+        <link rel="icon" href="data:," />
         <link href="css/styles.css" rel="stylesheet" />
         <link href="vendor/fontawesome/css/all.min.css" rel="stylesheet" />
+        <link href="css/trustfeed.css" rel="stylesheet" />
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">

@@ -48,6 +48,7 @@ $notice = isset($_GET['expired']) ? 'You were logged out after ' . SESSION_TIMEO
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="robots" content="noindex" />
         <title>Login - <?= e(SITE_NAME) ?> Admin</title>
+        <link rel="icon" href="data:," />
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body class="bg-primary">

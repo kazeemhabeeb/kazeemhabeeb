@@ -69,3 +69,18 @@ Browser test: `app/tests/test_articles_browser.py` (9 November 2026, 153 article
 | 9 | Delete request without the CSRF token | Refused, HTTP 403; nothing deleted |
 | 10 | Page 2 | Loads without reloading the page |
 | 11 | Search after 31 idle minutes | Sent to the login page with "You were logged out…" |
+
+## Dashboard (FR-3.4)
+
+Page: `app/public_html/admin/dashboard.php`. Every figure is counted from the database when the page opens
+(`dashboard.png`, 9 November 2026; view counts in the test database were filled with sample numbers).
+
+| FR-3.4 asks for | Shown as | Checked against the database |
+|---|---|---|
+| Total posts ingested | "152 Total Posts Ingested" card, plus Real 5, Fake 1, Pending 146 | ✓ same counts as `GROUP BY verification_status` |
+| Fake vs. real article ratio | Bar: Real 83.3% / Fake 16.7% of verified articles; "Ratio (fake : real) = 1 : 5.0" | ✓ 5 ÷ 6 = 83.3% |
+| Active feed statuses | Table: Active/Inactive, **Last run OK/Failed**, articles collected, newest article | ✓ The Guardian Nigeria shows **Failed** (HTTP 403 in the last run's log); The Babylon Bee shows Inactive |
+| View counts per article | The 10 most-read articles with their verdicts; every article's views are on the Articles page | ✓ sorted by `view_count` |
+
+The "Last Hourly Run" box repeats the latest Execution log (FR-3.5), so the admin sees at a glance whether the
+hourly script is running. All pages were then reloaded in the browser with no console errors.

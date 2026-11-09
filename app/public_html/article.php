@@ -49,6 +49,7 @@ $source = $article ? $article['website_name'] : '';
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title><?= $article ? e($article['title']) : 'Article not found' ?> - <?= e(SITE_NAME) ?></title>
+        <link rel="icon" href="data:," />
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
