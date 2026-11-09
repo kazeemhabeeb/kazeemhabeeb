@@ -1,0 +1,7 @@
+{
+  "result": "{\"credibility_score\":20,\"clickbait\":false,\"emotional_manipulation\":false,\"bias\":\"low\",\"reason\":\"The claim is serious but I could not verify it through independent reputable reporting; the brief text provides no date or corroborating details.\",\"sources\":[]}",
+  "think": "",
+  "max_token": 1024,
+  "status": true,
+  "server_code": "u_g"
+}

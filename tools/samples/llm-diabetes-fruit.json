@@ -1,0 +1,7 @@
+{
+  "result": "{\"credibility_score\":2,\"clickbait\":true,\"emotional_manipulation\":true,\"bias\":\"high\",\"reason\":\"The sensational headline promotes an implausible diabetes cure and urges stopping medication without evidence.\"}",
+  "think": "",
+  "max_token": 4098,
+  "status": true,
+  "server_code": "u_g"
+}

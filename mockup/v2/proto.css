@@ -1,0 +1,13 @@
+/* Prototype-only helpers: the screen switcher bar and proposal reference tags. Not part of the real site. */
+body { padding-bottom: 48px; }
+.proto-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 2000; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px;
+  padding: 6px 12px calc(6px + env(safe-area-inset-bottom, 0px)); background: #ffffe0; border-top: 1px solid #e6db55; font: 13px/1.4 Helvetica, Arial, sans-serif; color: #555; }
+.proto-bar a { color: #0d6efd; text-decoration: none; padding: 1px 3px; }
+.proto-bar a:hover { text-decoration: underline; }
+.proto-bar a.on { color: #000; font-weight: bold; text-decoration: underline; }
+.proto-bar .grp { color: #777; margin-left: 6px; }
+.proto-bar label { margin-left: auto; display: flex; gap: 5px; align-items: center; }
+.req { font: 11px Consolas, Menlo, monospace; color: #8e44ad; white-space: normal; }
+body.no-req .req { display: none; }
+/* keep SB Admin's fixed sidebar footer above the prototype bar */
+.sb-nav-fixed #layoutSidenav #layoutSidenav_nav { height: calc(100vh - 38px); }

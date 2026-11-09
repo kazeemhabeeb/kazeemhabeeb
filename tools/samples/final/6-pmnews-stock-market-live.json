@@ -1,0 +1,7 @@
+{
+  "result": "{\"credibility_score\":86,\"clickbait\":false,\"emotional_manipulation\":false,\"bias\":\"none\",\"reason\":\"The reported gain is consistent with the stated market values, though the seven-day losing streak is not substantiated in the text.\"}",
+  "think": "",
+  "max_token": 4096,
+  "status": true,
+  "server_code": "u_g"
+}

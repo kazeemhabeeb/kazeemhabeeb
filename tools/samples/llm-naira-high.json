@@ -1,0 +1,7 @@
+{
+  "result": "{\"credibility_score\":78,\"clickbait\":false,\"emotional_manipulation\":false,\"bias\":\"low\",\"reason\":\"The claim is plausible and comes from a reputable business outlet, though the brief text gives no date, figures, or supporting context.\"}",
+  "think": "",
+  "max_token": 4098,
+  "status": true,
+  "server_code": "u_g"
+}

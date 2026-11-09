@@ -1,0 +1,7 @@
+{
+  "result": "{\"credibility_score\":68,\"clickbait\":false,\"emotional_manipulation\":false,\"bias\":\"low\",\"reason\":\"The claim is plausible and neutrally worded, but I could not verify it through independent reputable news coverage.\",\"sources\":[]}",
+  "think": "",
+  "max_token": 1024,
+  "status": true,
+  "server_code": "u_g"
+}

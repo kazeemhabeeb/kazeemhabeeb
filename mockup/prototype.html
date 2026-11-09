@@ -1,0 +1,478 @@
+<title>TrustFeed Prototype</title>
+<style>
+/* Classic look modelled on the default Bootstrap 3 era: Helvetica/Arial, flat panels,
+   4px corners, a dark navbar, a two-column blog layout for the public site and a
+   sidebar admin layout. Single light theme on purpose. */
+:root{
+  color-scheme:light;
+  --text:#333333; --muted:#777777; --border:#dddddd; --bg:#ffffff; --well:#f5f5f5;
+  --nav:#222222; --nav-text:#9d9d9d; --nav-active:#ffffff; --nav-border:#080808;
+  --primary:#337ab7; --primary-dark:#286090;
+  --success:#5cb85c; --success-text:#3c763d; --success-bg:#dff0d8; --success-border:#d6e9c6;
+  --danger:#d9534f;  --danger-text:#a94442;  --danger-bg:#f2dede;  --danger-border:#ebccd1;
+  --warning:#f0ad4e; --warning-text:#8a6d3b; --warning-bg:#fcf8e3; --warning-border:#faebcc;
+  --info:#5bc0de;    --info-text:#31708f;    --info-bg:#d9edf7;    --info-border:#bce8f1;
+  --note:#8e44ad;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.42857 "Helvetica Neue",Helvetica,Arial,sans-serif}
+a{color:var(--primary);text-decoration:none} a:hover{text-decoration:underline}
+h1,h2,h3,h4{font-weight:500;line-height:1.1;margin:20px 0 10px}
+h1{font-size:30px} h2{font-size:24px} h3{font-size:20px} h4{font-size:16px}
+p{margin:0 0 10px}
+hr{border:0;border-top:1px solid #eee;margin:20px 0}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid #66afe9;outline-offset:1px}
+.container{max-width:1170px;margin:0 auto;padding-inline:15px}
+.text-muted{color:var(--muted)} .small{font-size:12px} .text-center{text-align:center}
+
+/* prototype switcher (not part of the design) */
+.proto{background:#ffffe0;border-bottom:1px solid #e6db55;font-size:13px}
+.proto .container{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;padding-block:6px}
+.proto strong{color:#666}
+.proto a{padding:2px 4px} .proto a.on{font-weight:bold;color:#000;text-decoration:underline}
+.proto label{margin-left:auto;display:flex;gap:5px;align-items:center;color:#666}
+.req{font-size:11px;color:var(--note);font-family:Consolas,Menlo,monospace;white-space:nowrap}
+body.no-req .req{display:none}
+
+/* navbar */
+.navbar{background:var(--nav);border-bottom:1px solid var(--nav-border)}
+.navbar .container{display:flex;flex-wrap:wrap;align-items:center;min-height:50px;gap:0 10px}
+.brand{color:var(--nav-active);font-size:18px;padding:15px 15px 15px 0}
+.brand:hover{text-decoration:none;color:#fff}
+.navlinks{display:flex;flex-wrap:wrap}
+.navlinks a{color:var(--nav-text);padding:15px 12px;display:block}
+.navlinks a:hover,.navlinks a.on{color:var(--nav-active);text-decoration:none}
+.navlinks a.on{background:#080808}
+.navright{margin-left:auto;display:flex;align-items:center;gap:12px;color:var(--nav-text)}
+.navright a{color:var(--nav-text)} .navright a:hover{color:#fff}
+
+/* labels (Bootstrap 3 style) */
+.label{display:inline-block;padding:.25em .6em .3em;font-size:75%;font-weight:bold;line-height:1;color:#fff;border-radius:.25em;white-space:nowrap;vertical-align:baseline}
+.label-success{background:var(--success)} .label-danger{background:var(--danger)}
+.label-warning{background:var(--warning)} .label-default{background:#777} .label-info{background:var(--info)} .label-primary{background:var(--primary)}
+
+/* buttons, forms */
+.btn{display:inline-block;padding:6px 12px;font-size:14px;line-height:1.42857;border:1px solid transparent;border-radius:4px;cursor:pointer;background:#fff;border-color:#ccc;color:#333;white-space:nowrap}
+.btn:hover{background:#e6e6e6;text-decoration:none}
+.btn-primary{background:var(--primary);border-color:#2e6da4;color:#fff} .btn-primary:hover{background:var(--primary-dark)}
+.btn-danger{background:var(--danger);border-color:#d43f3a;color:#fff} .btn-danger:hover{background:#c9302c}
+.btn-xs{padding:1px 5px;font-size:12px;border-radius:3px}
+.btn-sm{padding:5px 10px;font-size:12px;border-radius:3px}
+.btn-block{display:block;width:100%}
+.form-group{margin-bottom:15px}
+.form-group label{display:block;font-weight:bold;margin-bottom:5px}
+.form-control{display:block;width:100%;height:34px;padding:6px 12px;border:1px solid #ccc;border-radius:4px;background:#fff;box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}
+.input-group{display:flex} .input-group .form-control{border-radius:4px 0 0 4px} .input-group .btn{border-radius:0 4px 4px 0;margin-left:-1px}
+
+/* alerts, panels, wells */
+.alert{padding:15px;border:1px solid transparent;border-radius:4px;margin-bottom:20px}
+.alert-success{background:var(--success-bg);border-color:var(--success-border);color:var(--success-text)}
+.alert-danger{background:var(--danger-bg);border-color:var(--danger-border);color:var(--danger-text)}
+.alert-warning{background:var(--warning-bg);border-color:var(--warning-border);color:var(--warning-text)}
+.alert-info{background:var(--info-bg);border-color:var(--info-border);color:var(--info-text)}
+.panel{border:1px solid var(--border);border-radius:4px;margin-bottom:20px;background:#fff;box-shadow:0 1px 1px rgba(0,0,0,.05)}
+.panel-heading{padding:10px 15px;background:var(--well);border-bottom:1px solid var(--border);border-radius:3px 3px 0 0;font-weight:bold}
+.panel-body{padding:15px}
+.panel-footer{padding:10px 15px;background:var(--well);border-top:1px solid var(--border);font-size:13px}
+.well{background:var(--well);border:1px solid #e3e3e3;border-radius:4px;padding:19px;margin-bottom:20px}
+
+/* tables */
+.table-responsive{overflow-x:auto;margin-bottom:20px}
+table{border-collapse:collapse;width:100%;background:#fff}
+th,td{padding:8px;border:1px solid var(--border);text-align:left;vertical-align:top}
+th{background:#f9f9f9;font-weight:bold;white-space:nowrap}
+tbody tr:nth-child(odd) td{background:#f9f9f9}
+td.num,th.num{text-align:right}
+
+/* ---------- public layout ---------- */
+.row{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:30px;padding-block:10px 30px}
+.post{padding-bottom:20px;border-bottom:1px solid #eee;margin-bottom:20px}
+.post h2{margin-top:10px;font-size:22px}
+.post h2 a{color:var(--text)} .post h2 a:hover{color:var(--primary)}
+.img-ph{display:flex;align-items:center;justify-content:center;background:#dee2e6;color:#6c757d;border-radius:4px;aspect-ratio:850/350;max-width:100%;font-size:15px;text-align:center;padding:10px;margin-bottom:12px}
+.img-ph small{display:block;font-size:12px}
+.pagination{display:flex;list-style:none;padding:0;margin:20px 0}
+.pagination a,.pagination span{display:block;padding:6px 12px;border:1px solid var(--border);margin-left:-1px;color:var(--primary);background:#fff}
+.pagination li:first-child a{border-radius:4px 0 0 4px;margin-left:0}
+.pagination li:last-child a{border-radius:0 4px 4px 0}
+.pagination .active span{background:var(--primary);border-color:var(--primary);color:#fff}
+.pagination .disabled span{color:var(--muted)}
+.post .meta{color:var(--muted);font-size:13px;margin-bottom:10px}
+.page-header{padding-bottom:9px;margin:30px 0 20px;border-bottom:1px solid #eee}
+.page-header h1{margin:0}
+.pager{display:flex;justify-content:space-between;list-style:none;padding:0;margin:20px 0}
+.pager a{display:inline-block;padding:5px 14px;border:1px solid var(--border);border-radius:15px;background:#fff}
+.list-unstyled{list-style:none;padding:0;margin:0}
+.cat-list{columns:2} .cat-list li{padding:2px 0}
+.cat-list a.on{font-weight:bold;color:var(--text)}
+.key li{padding:4px 0}
+footer.site{background:var(--well);border-top:1px solid #e7e7e7;padding:20px 0;color:var(--muted);font-size:13px}
+
+/* ---------- admin layout ---------- */
+.admin{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:calc(100vh - 82px)}
+.sidebar{background:#f8f8f8;border-right:1px solid #e7e7e7}
+.sidebar a{display:block;padding:10px 15px;border-bottom:1px solid #e7e7e7;color:#555}
+.sidebar a.on{background:#eee;color:#000;font-weight:bold}
+.sidebar a:hover{background:#eee;text-decoration:none}
+.content{padding:0 25px 30px;min-width:0}
+.breadcrumb{background:var(--well);padding:8px 15px;border-radius:4px;list-style:none;margin:0 0 20px;color:var(--muted)}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:20px}
+.stat{border-radius:4px;border:1px solid}
+.stat .top{display:flex;justify-content:space-between;align-items:center;padding:15px;color:#fff}
+.stat .big{font-size:36px;line-height:1}
+.stat .top div:last-child{text-align:right}
+.stat .foot{display:block;padding:10px 15px;background:var(--well);border-top:1px solid var(--border);font-size:13px}
+.stat-primary{border-color:var(--primary)} .stat-primary .top{background:var(--primary)} .stat-primary .foot{color:var(--primary)}
+.stat-green{border-color:var(--success)} .stat-green .top{background:var(--success)} .stat-green .foot{color:var(--success-text)}
+.stat-red{border-color:var(--danger)} .stat-red .top{background:var(--danger)} .stat-red .foot{color:var(--danger-text)}
+.stat-yellow{border-color:var(--warning)} .stat-yellow .top{background:var(--warning)} .stat-yellow .foot{color:var(--warning-text)}
+.progress{display:flex;height:22px;background:var(--well);border-radius:4px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.1);margin-bottom:10px}
+.progress div{color:#fff;font-size:12px;line-height:22px;text-align:center;white-space:nowrap;overflow:hidden}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:15px}
+.toolbar .form-control{width:auto;flex:0 1 220px}
+.toolbar .grow{flex:1 1 240px}
+.form-inline{display:grid;grid-template-columns:1fr 2fr 130px auto;gap:10px;align-items:end}
+.form-inline .form-group{margin:0}
+
+.login-wrap{max-width:360px;margin:60px auto;padding-inline:15px}
+.toast{position:fixed;top:60px;right:15px;z-index:60;max-width:300px}
+
+@media (max-width:767px){
+  .row{grid-template-columns:1fr}
+  .admin{grid-template-columns:1fr}
+  .sidebar{display:flex;flex-wrap:wrap;border-right:0;border-bottom:1px solid #e7e7e7}
+  .sidebar a{border-bottom:0}
+  .content{padding-inline:15px}
+  .form-inline{grid-template-columns:1fr}
+  .navright{margin-left:0;padding-bottom:10px}
+}
+</style>
+
+<div class="proto">
+  <div class="container">
+    <strong>Prototype screens:</strong>
+    <span>Public:</span><a href="#feed" data-s="feed">News feed</a><a href="#article" data-s="article">Article details</a>
+    <span>Admin:</span><a href="#login" data-s="login">Login</a><a href="#dashboard" data-s="dashboard">Dashboard</a><a href="#sources" data-s="sources">RSS sources</a><a href="#articles" data-s="articles">Articles</a><a href="#logs" data-s="logs">System logs</a>
+    <label for="reqToggle"><input type="checkbox" id="reqToggle" checked> Show proposal references</label>
+  </div>
+</div>
+
+<div id="app"></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const SOURCES = [
+  {id:1,name:"Lagos Wire",url:"https://lagoswire.example/feed",status:"Active"},
+  {id:2,name:"Continental Times",url:"https://continentaltimes.example/rss.xml",status:"Active"},
+  {id:3,name:"Abuja Observer",url:"https://abujaobserver.example/feed",status:"Active"},
+  {id:4,name:"Metro Pulse",url:"https://metropulse.example/rss",status:"Active"},
+  {id:5,name:"Global Desk",url:"https://globaldesk.example/world/rss",status:"Active"},
+  {id:6,name:"Daily Ledger",url:"https://dailyledger.example/feed",status:"Inactive"}
+];
+const ARTICLES = [
+  {id:101,cat:"Business",src:"Lagos Wire",title:"Central bank holds benchmark rate as inflation eases for third month",sum:"The monetary policy committee kept its key rate unchanged after its two-day meeting, citing slowing food prices and a steadier exchange rate. Analysts expect the next review in November to follow the same path if the trend holds.",date:"October 8, 2026 at 9:42 AM",score:88,status:"Real",views:1204},
+  {id:102,cat:"Health",src:"Metro Pulse",title:"Doctors HATE this one fruit that cures diabetes in 7 days!!!",sum:"A viral post claims that eating a single tropical fruit every morning reverses type 2 diabetes within a week, with no need for medication or diet changes.",date:"October 8, 2026 at 9:15 AM",score:12,status:"Misinformation",views:3311},
+  {id:103,cat:"Politics",src:"Abuja Observer",title:"Senate passes amended electoral bill after second reading",sum:"Lawmakers voted to pass the amended bill, which introduces electronic transmission of results from polling units. The bill now goes to the House for concurrence.",date:"October 8, 2026 at 8:58 AM",score:81,status:"Real",views:876},
+  {id:104,cat:"Technology",src:"Global Desk",title:"Phone maker to release foldable handset in West African markets",sum:"The company confirmed the device will reach retail stores in Lagos, Accra and Abidjan before the end of the year, with local pricing to be announced at launch.",date:"October 8, 2026 at 8:30 AM",score:null,status:"Pending Verification",views:142},
+  {id:105,cat:"World",src:"Continental Times",title:"Leaked memo proves the moon landing footage was filmed in a studio",sum:"An anonymous account shared images of what it says is an internal memo. No source or date is given for the document.",date:"October 8, 2026 at 7:51 AM",score:6,status:"Misinformation",views:2087},
+  {id:106,cat:"Sports",src:"Lagos Wire",title:"Super Eagles name 25-man squad for November qualifiers",sum:"The head coach recalled two defenders and handed a first call-up to a 19-year-old midfielder ahead of the two away fixtures.",date:"October 8, 2026 at 7:20 AM",score:93,status:"Real",views:2650},
+  {id:107,cat:"Business",src:"Continental Times",title:"Fuel price to drop to ₦150 per litre from Monday, sources say",sum:"Unnamed sources claim a new pricing template will cut pump prices sharply next week. The regulator has not issued a statement.",date:"October 8, 2026 at 6:45 AM",score:31,status:"Misinformation",views:1540},
+  {id:108,cat:"Health",src:"Abuja Observer",title:"Ministry launches nationwide measles vaccination drive for under-fives",sum:"The two-week campaign targets 21 million children and will run through primary health centres in all 36 states and the FCT.",date:"October 7, 2026 at 6:10 PM",score:84,status:"Real",views:615},
+  {id:109,cat:"Politics",src:"Global Desk",title:"Governor's aide responds to claims about state budget allocation",sum:"The aide said figures circulating online mix up the approved budget with a draft version from earlier in the year.",date:"October 7, 2026 at 5:02 PM",score:null,status:"Pending Verification",views:98,img:false}
+];
+/* FR-3.5: operational execution logs, highlighting API timeouts and failed RSS feed connections */
+const LOGS = [
+  {t:"2026-10-08 10:00:41",type:"Execution",msg:"Hourly ingestion finished: 5 active feeds read, 23 new articles saved, 4 duplicate URLs skipped."},
+  {t:"2026-10-08 10:00:37",type:"API timeout",msg:"Fact-check API request timed out for article #104. Article saved as Pending Verification."},
+  {t:"2026-10-08 10:00:12",type:"RSS feed failed",msg:"Could not connect to Metro Pulse (https://metropulse.example/rss). Feed skipped."},
+  {t:"2026-10-08 09:00:39",type:"Execution",msg:"Hourly ingestion finished: 5 active feeds read, 18 new articles saved, 7 duplicate URLs skipped."},
+  {t:"2026-10-08 09:00:22",type:"API timeout",msg:"Fact-check API request timed out for article #109. Article saved as Pending Verification."},
+  {t:"2026-10-08 08:00:40",type:"Execution",msg:"Hourly ingestion finished: 5 active feeds read, 21 new articles saved, 3 duplicate URLs skipped."}
+];
+const CATS = ["All","Politics","Business","Health","Technology","Sports","World"];
+const state = {cat:"All", q:"", articleId:101, confirmDel:null, confirmSrc:null};
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const req = t => `<span class="req">[${t}]</span>`;
+/* FR-2.2 label + percentage; NFR-3.2 green / red / yellow; Fig 3.2 >= 50% rule; NFR-2.1 Pending */
+function label(a){
+  if (a.score === null) return `<span class="label label-warning">Pending Verification</span>`;
+  return a.score >= 50 ? `<span class="label label-success">Real &ndash; ${a.score}% Confidence</span>`
+                       : `<span class="label label-danger">Misinformation &ndash; ${a.score}% Confidence</span>`;
+}
+const imgBox = a => a.img===false ? "" : `<div class="img-ph" role="img" aria-label="Article image from ${a.src}"><div>Image from ${a.src}<small>850 &times; 350</small></div></div>`;
+const pager = (hash,cur,total) => `<ul class="pagination" aria-label="Pages">${cur===1?'<li class="disabled"><span>&laquo; Newer</span></li>':`<li><a href="#${hash}">&laquo; Newer</a></li>`}${[1,2,3].map(n=>n===cur?`<li class="active"><span>${n}</span></li>`:`<li><a href="#${hash}">${n}</a></li>`).join("")}<li class="disabled"><span>&hellip;</span></li><li><a href="#${hash}">${total}</a></li><li><a href="#${hash}">Older &raquo;</a></li></ul>`;
+function toast(msg){const t=$("#toast");t.innerHTML=`<div class="alert alert-success" style="margin:0">${esc(msg)}</div>`;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,2200)}
+
+/* ---------------- public pages ---------------- */
+function publicNav(){
+  return `<nav class="navbar"><div class="container">
+    <a class="brand" href="#feed">TrustFeed</a>
+    <div class="navlinks">
+      <a href="#feed" data-cat="All" class="${state.cat==="All"?"on":""}">Home</a>
+      ${CATS.slice(1,5).map(c=>`<a href="#feed" data-cat="${c}" class="${state.cat===c?"on":""}">${c}</a>`).join("")}
+    </div>
+  </div></nav>`;
+}
+function sidebarWidgets(){
+  return `
+    <div class="well">
+      <h4 style="margin-top:0">Search</h4>
+      <form id="searchForm" class="input-group">
+        <input class="form-control" id="q" type="search" placeholder="Search news..." value="${esc(state.q)}" aria-label="Search news">
+        <button class="btn" type="submit">Go</button>
+      </form>
+      <div class="small text-muted" style="margin-top:6px">${req("§2.2 searching for a specific topic")}</div>
+    </div>
+    <div class="well">
+      <h4 style="margin-top:0">Categories</h4>
+      <ul class="list-unstyled cat-list">
+        ${CATS.map(c=>`<li><a href="#feed" data-cat="${c}" class="${c===state.cat?"on":""}">${c}</a></li>`).join("")}
+      </ul>
+      <div class="small text-muted" style="margin-top:6px">${req("FR-2.3 filtering categories; §2.2 filtering by category")}</div>
+    </div>
+    <div class="well">
+      <h4 style="margin-top:0">Credibility labels</h4>
+      <ul class="list-unstyled key">
+        <li><span class="label label-success">Real</span> Confidence score of 50% or higher</li>
+        <li><span class="label label-danger">Misinformation</span> Confidence score below 50%</li>
+        <li><span class="label label-warning">Pending Verification</span> Not yet verified</li>
+      </ul>
+      <div class="small text-muted" style="margin-top:6px">${req("NFR-3.2 colour-coded indicators; Fig 3.2 50% rule")}</div>
+    </div>`;
+}
+function siteFooter(){
+  return `<footer class="site"><div class="container">Copyright &copy; TrustFeed 2026</div></footer>`;
+}
+function viewFeed(){
+  const q = state.q.toLowerCase();
+  const list = ARTICLES.filter(a => (state.cat==="All"||a.cat===state.cat) && (!q || (a.title+" "+a.sum).toLowerCase().includes(q)));
+  const heading = state.q ? `Search results for "${esc(state.q)}"` : state.cat==="All" ? "Latest News" : state.cat;
+  return publicNav() + `
+  <div class="container">
+    <div class="row">
+      <div>
+        <div class="page-header"><h1>${heading}</h1></div>
+        <p class="small">${req("FR-2.1 public feed, no login")} ${req("FR-2.2 credibility badge on every article")} ${req("FR-2.3 loaded with AJAX/Fetch")} ${req("NFR-3.1 responsive")} ${req("Images and pagination: design additions, images need an image_url column")}</p>
+        ${list.length ? list.map(a=>`
+          <div class="post">
+            ${a.img===false?"":`<a href="#article" data-open="${a.id}" style="display:block">${imgBox(a)}</a>`}
+            <h2><a href="#article" data-open="${a.id}">${esc(a.title)}</a></h2>
+            <div class="meta">Posted on ${a.date} by <strong>${a.src}</strong> in <a href="#feed" data-cat="${a.cat}">${a.cat}</a></div>
+            <p>${label(a)}</p>
+            <p>${esc(a.sum)}</p>
+            <a class="btn btn-primary" href="#article" data-open="${a.id}">Read More &rarr;</a>
+          </div>`).join("") : `<div class="alert alert-info">No articles found. Try a different search word or choose another category.</div>`}
+        ${list.length ? pager("feed",1,24) : ""}
+      </div>
+      <aside style="padding-top:30px">${sidebarWidgets()}</aside>
+    </div>
+  </div>` + siteFooter();
+}
+function viewArticle(){
+  const a = ARTICLES.find(x=>x.id===state.articleId) || ARTICLES[0];
+  const box = a.score===null
+    ? `<div class="alert alert-warning"><strong>Pending Verification.</strong> This article has not been verified yet.</div>`
+    : a.score>=50
+      ? `<div class="alert alert-success"><strong>Real &ndash; ${a.score}% Confidence.</strong></div>`
+      : `<div class="alert alert-danger"><strong>Misinformation &ndash; ${a.score}% Confidence.</strong></div>`;
+  return publicNav() + `
+  <div class="container">
+    <div class="row">
+      <div>
+        <h1 style="margin-top:30px">${esc(a.title)}</h1>
+        <p class="text-muted">by <strong>${a.src}</strong> &nbsp;|&nbsp; ${a.cat} &nbsp;|&nbsp; Posted on ${a.date}</p>
+        <p class="small">${req("Use case: Read Article Summary")} ${req("FR-2.4 opening this card adds 1 to view_count (not shown to the public)")}</p>
+        <hr>
+        ${imgBox(a)}
+        ${box}
+        <p class="small">${req("Use case: View Credibility Score")} ${req("FR-2.2 label + confidence %")} ${req("NFR-2.1 Pending Verification")}</p>
+        <p style="font-size:16px;line-height:1.6">${esc(a.sum)}</p>
+        <p><a class="btn btn-primary" href="#article" onclick="return false">Read the full story on ${a.src}</a> ${req("Schema: original_link")}</p>
+        <hr>
+        <a href="#feed">&larr; Back to all news</a>
+      </div>
+      <aside style="padding-top:30px">${sidebarWidgets()}</aside>
+    </div>
+  </div>` + siteFooter();
+}
+
+/* ---------------- admin pages ---------------- */
+function viewLogin(){
+  return `
+  <div class="login-wrap">
+    <div class="panel">
+      <div class="panel-heading">TrustFeed Admin &ndash; Please Sign In</div>
+      <div class="panel-body">
+        <form id="loginForm" novalidate>
+          <div class="form-group"><label for="u">Username</label><input class="form-control" id="u" autocomplete="username" value="habeeb"></div>
+          <div class="form-group"><label for="p">Password</label><input class="form-control" id="p" type="password" autocomplete="current-password" value="password"></div>
+          <button class="btn btn-primary btn-block" type="submit">Login</button>
+        </form>
+        <p class="small" style="margin:12px 0 0">${req("FR-3.1 secure password-protected portal")} ${req("NFR-1.2 bcrypt, secure session, automatic timeout")}</p>
+      </div>
+    </div>
+  </div>`;
+}
+function shell(active, title, inner){
+  const link=(s,l)=>`<a href="#${s}" class="${s===active?"on":""}">${l}</a>`;
+  return `<nav class="navbar"><div class="container" style="max-width:none">
+      <a class="brand" href="#dashboard">TrustFeed Admin</a>
+      <div class="navright"><a href="#feed">View site</a> | <span>Logged in as <strong style="color:#fff">habeeb</strong></span> | <a href="#login">Logout</a></div>
+    </div></nav>
+    <div class="admin">
+      <div class="sidebar">
+        ${link("dashboard","Dashboard")}${link("sources","RSS Sources")}${link("articles","Articles")}${link("logs","System Logs")}
+      </div>
+      <div class="content">
+        <h1 class="page-header" style="margin-top:20px">${title}</h1>
+        ${inner}
+      </div>
+    </div>`;
+}
+const statusLabel = s => s.status==="Active" ? `<span class="label label-success">Active</span>` : `<span class="label label-default">Inactive</span>`;
+function viewDashboard(){
+  const real=842, fake=311, pend=131, total=real+fake+pend;
+  const rf=real+fake, pr=(real/rf*100).toFixed(1), pf=(fake/rf*100).toFixed(1);
+  const stat=(cls,n,l)=>`<div class="stat ${cls}"><div class="top"><div class="big">${n}</div><div>${l}</div></div></div>`;
+  return shell("dashboard","Dashboard",`
+    <p class="small">${req("FR-3.4 real-time system metrics")}</p>
+    <div class="stat-row">
+      ${stat("stat-primary",total.toLocaleString(),"Total Posts Ingested")}
+      ${stat("stat-green",real,"Real Articles")}
+      ${stat("stat-red",fake,"Fake Articles")}
+    </div>
+    <div class="panel">
+      <div class="panel-heading">Fake vs. Real Ratio ${req("FR-3.4 fake vs. real article ratios")}</div>
+      <div class="panel-body">
+        <div class="progress" role="img" aria-label="Real ${pr}%, Fake ${pf}%">
+          <div style="width:${pr}%;background:var(--success)">Real ${pr}%</div>
+          <div style="width:${pf}%;background:var(--danger)">Fake ${pf}%</div>
+        </div>
+        <p style="margin:0">Real: <strong>${real}</strong> &nbsp; Fake: <strong>${fake}</strong> &nbsp; Ratio (fake : real) = <strong>1 : ${(real/fake).toFixed(1)}</strong></p>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="panel">
+        <div class="panel-heading">Feed Statuses ${req("FR-3.4 active feed statuses")}</div>
+        <div class="panel-body"><div class="table-responsive" style="margin:0"><table>
+          <thead><tr><th>Source</th><th>Status</th></tr></thead>
+          <tbody>${SOURCES.map(s=>`<tr><td>${s.name}</td><td>${statusLabel(s)}</td></tr>`).join("")}</tbody>
+        </table></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-heading">View Counts per Article ${req("FR-3.4 view counts per article")}</div>
+        <div class="panel-body"><div class="table-responsive" style="margin:0"><table>
+          <thead><tr><th>Article</th><th class="num">Views</th></tr></thead>
+          <tbody>${ARTICLES.map(a=>`<tr><td>${esc(a.title)}</td><td class="num">${a.views.toLocaleString()}</td></tr>`).join("")}</tbody>
+        </table></div></div>
+      </div>
+    </div>`);
+}
+function viewSources(){
+  const c = state.confirmSrc && SOURCES.find(s=>s.id===state.confirmSrc);
+  return shell("sources","RSS Sources",`
+    <p class="small">${req("FR-3.2 add, edit, enable, disable or delete RSS feed source URLs")} ${req("Schema: rss_sources")}</p>
+    <div class="panel">
+      <div class="panel-heading">Add New Source</div>
+      <div class="panel-body">
+        <form id="addSrc" class="form-inline">
+          <div class="form-group"><label for="sName">Website name</label><input class="form-control" id="sName" placeholder="e.g. Lagos Wire"></div>
+          <div class="form-group"><label for="sUrl">RSS feed URL</label><input class="form-control" id="sUrl" placeholder="https://example.com/feed"></div>
+          <div class="form-group"><label for="sStatus">Status</label><select class="form-control" id="sStatus"><option>Active</option><option>Inactive</option></select></div>
+          <button class="btn btn-primary" type="submit">Add Source</button>
+        </form>
+      </div>
+    </div>
+    ${c ? `<div class="alert alert-danger">Are you sure you want to delete <strong>${esc(c.name)}</strong>? &nbsp;<button class="btn btn-danger btn-sm" data-act="src-del-yes">Yes, delete</button> <button class="btn btn-sm" data-act="src-del-no">Cancel</button></div>` : ""}
+    <div class="table-responsive"><table>
+      <thead><tr><th>ID</th><th>Website Name</th><th>RSS URL</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody>${SOURCES.map(s=>`<tr>
+        <td>${s.id}</td><td>${s.name}</td><td>${s.url}</td><td>${statusLabel(s)}</td>
+        <td style="white-space:nowrap">
+          <button class="btn btn-xs" data-act="toast" data-msg="Edit form opens here">Edit</button>
+          <button class="btn btn-xs" data-act="src-toggle" data-id="${s.id}">${s.status==="Active"?"Disable":"Enable"}</button>
+          <button class="btn btn-xs btn-danger" data-act="src-del" data-id="${s.id}">Delete</button>
+        </td></tr>`).join("")}</tbody>
+    </table></div>`);
+}
+function viewArticles(){
+  return shell("articles","Articles",`
+    <p class="small">${req("FR-3.3 search, manually re-flag, or permanently delete ingested articles")}</p>
+    <form class="toolbar" onsubmit="return false">
+      <input class="form-control grow" type="search" placeholder="Search articles..." aria-label="Search articles">
+      <button class="btn">Search</button>
+    </form>
+    ${state.confirmDel ? `<div class="alert alert-danger">Permanently delete article #${state.confirmDel}? &nbsp;<button class="btn btn-danger btn-sm" data-act="art-del-yes">Yes, delete</button> <button class="btn btn-sm" data-act="art-del-no">Cancel</button></div>` : ""}
+    <div class="table-responsive"><table>
+      <thead><tr><th>ID</th><th>Title</th><th>Source</th><th>Publication Date</th><th>Verification Status</th><th class="num">Views</th><th>Re-flag</th><th>Delete</th></tr></thead>
+      <tbody>${ARTICLES.map(a=>`<tr>
+        <td>${a.id}</td><td>${esc(a.title)}</td><td>${a.src}</td><td style="white-space:nowrap">${a.date.split(" at ")[0]}</td><td>${label(a)}</td><td class="num">${a.views.toLocaleString()}</td>
+        <td><select class="form-control" style="height:28px;padding:2px 6px;min-width:150px" aria-label="Re-flag article ${a.id}" data-act="reflag" data-id="${a.id}">
+          ${["Real","Misinformation","Pending Verification"].map(o=>`<option ${o===a.status?"selected":""}>${o}</option>`).join("")}
+        </select></td>
+        <td><button class="btn btn-xs btn-danger" data-act="art-del" data-id="${a.id}">Delete</button></td>
+      </tr>`).join("")}</tbody>
+    </table></div>
+    ${pager("articles",1,143)}`);
+}
+function viewLogs(){
+  const lc = t => t==="RSS feed failed"?"label-danger":t==="API timeout"?"label-warning":"label-default";
+  return shell("logs","System Logs",`
+    <p class="small">${req("FR-3.5 operational execution logs, highlighting API timeout events and failed RSS feed connections")}</p>
+    <div class="table-responsive"><table>
+      <thead><tr><th>Date / Time</th><th>Event</th><th>Details</th></tr></thead>
+      <tbody>${LOGS.map(l=>`<tr><td style="white-space:nowrap">${l.t}</td><td><span class="label ${lc(l.type)}">${l.type}</span></td><td>${esc(l.msg)}</td></tr>`).join("")}</tbody>
+    </table></div>`);
+}
+
+/* ---------------- router and events ---------------- */
+const VIEWS = {feed:viewFeed,article:viewArticle,login:viewLogin,dashboard:viewDashboard,sources:viewSources,articles:viewArticles,logs:viewLogs};
+function current(){const h=location.hash.slice(1);return VIEWS[h]?h:"feed"}
+function render(){
+  const s=current();
+  $("#app").innerHTML = VIEWS[s]();
+  document.querySelectorAll(".proto a[data-s]").forEach(a=>a.classList.toggle("on",a.dataset.s===s));
+}
+window.addEventListener("hashchange",()=>{state.confirmDel=null;state.confirmSrc=null;render();window.scrollTo(0,0)});
+
+document.addEventListener("click",e=>{
+  const open=e.target.closest("[data-open]");
+  if(open){e.preventDefault();state.articleId=+open.dataset.open;if(location.hash==="#article")render();else location.hash="article";window.scrollTo(0,0);return}
+  const cat=e.target.closest("[data-cat]");
+  if(cat){e.preventDefault();state.cat=cat.dataset.cat;state.q="";if(location.hash==="#feed"||location.hash==="")render();else location.hash="feed";return}
+  const b=e.target.closest("[data-act]"); if(!b||b.tagName==="SELECT") return;
+  const id=+b.dataset.id, act=b.dataset.act;
+  if(act==="toast") toast(b.dataset.msg);
+  if(act==="src-toggle"){const s=SOURCES.find(x=>x.id===id);s.status=s.status==="Active"?"Inactive":"Active";render();toast(`${s.name} ${s.status==="Active"?"enabled":"disabled"}.`)}
+  if(act==="src-del"){state.confirmSrc=id;render()}
+  if(act==="src-del-no"){state.confirmSrc=null;render()}
+  if(act==="src-del-yes"){const i=SOURCES.findIndex(x=>x.id===state.confirmSrc);const n=SOURCES[i].name;SOURCES.splice(i,1);state.confirmSrc=null;render();toast(`${n} deleted.`)}
+  if(act==="art-del"){state.confirmDel=id;render()}
+  if(act==="art-del-no"){state.confirmDel=null;render()}
+  if(act==="art-del-yes"){const i=ARTICLES.findIndex(x=>x.id===state.confirmDel);ARTICLES.splice(i,1);toast(`Article #${state.confirmDel} deleted.`);state.confirmDel=null;render()}
+});
+document.addEventListener("change",e=>{
+  if(e.target.id==="reqToggle") document.body.classList.toggle("no-req",!e.target.checked);
+  if(e.target.dataset.act==="reflag"){
+    const a=ARTICLES.find(x=>x.id===+e.target.dataset.id), v=e.target.value;
+    a.status=v; a.score = v==="Pending Verification"?null : v==="Real"?Math.max(a.score??50,50):Math.min(a.score??49,49);
+    render(); toast(`Article #${a.id} marked ${v}.`);
+  }
+});
+document.addEventListener("submit",e=>{
+  e.preventDefault();
+  if(e.target.id==="searchForm"){state.q=$("#q").value.trim();state.cat="All";if(location.hash==="#feed"||location.hash==="")render();else location.hash="feed"}
+  if(e.target.id==="loginForm"){location.hash="dashboard"}
+  if(e.target.id==="addSrc"){
+    const n=$("#sName").value.trim(), u=$("#sUrl").value.trim();
+    if(!n||!u){toast("Enter a website name and an RSS feed URL.");return}
+    SOURCES.push({id:SOURCES.length?Math.max(...SOURCES.map(s=>s.id))+1:1,name:n,url:u,status:$("#sStatus").value});
+    render(); toast(`${n} added.`);
+  }
+});
+render();
+</script>

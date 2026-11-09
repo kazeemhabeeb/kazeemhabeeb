@@ -1,0 +1,20 @@
+[
+  {
+    "date": "2026-10-08T09:40:00",
+    "date_gmt": "2026-10-08T08:40:00",
+    "link": "https://businessday.ng/markets/naira-two-year-high/",
+    "title": { "rendered": "Naira reaches two-year high after rate cut" },
+    "excerpt": { "rendered": "<p>The naira strengthened against the dollar to its highest level in two years, shaking off fears that followed the central bank&#8217;s recent interest rate cut. [&hellip;]</p>\n" },
+    "_embedded": {
+      "wp:featuredmedia": [ { "source_url": "https://businessday.ng/wp-content/uploads/naira.jpg" } ],
+      "wp:term": [ [ { "name": "Markets" } ], [ { "name": "naira" } ] ]
+    }
+  },
+  {
+    "date": "2026-10-08T15:20:00",
+    "date_gmt": "2026-10-08T14:20:00",
+    "link": "https://businessday.ng/news/macron-state-visit/",
+    "title": { "rendered": "Macron to make state visit to Nigeria before end of October" },
+    "excerpt": { "rendered": "<p>French President Emmanuel Macron will make a state visit to Nigeria before the end of October, officials said.</p>\n" }
+  }
+]
