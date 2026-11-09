@@ -62,13 +62,13 @@ function detect_format($body)
 function parse_source($body)
 {
     $format = detect_format($body);
+    $items = null;
     if ($format === 'xml') {
-        return parse_rss($body);
+        $items = parse_rss($body);
+    } elseif ($format === 'json') {
+        $items = parse_wordpress_json($body);
     }
-    if ($format === 'json') {
-        return parse_wordpress_json($body);
-    }
-    return null;
+    return $items === null ? null : drop_repeated_images($items);
 }
 
 // RSS 2.0 (§3.5 "XML parsing" with SimpleXML).
@@ -140,6 +140,21 @@ function parse_wordpress_json($json)
             'category' => isset($embedded['wp:term'][0][0]['name']) ? $embedded['wp:term'][0][0]['name'] : '',
             'image'    => isset($embedded['wp:featuredmedia'][0]['source_url']) ? $embedded['wp:featuredmedia'][0]['source_url'] : '',
         ];
+    }
+    return $items;
+}
+
+// Some feeds give every item the same picture, usually the publisher's logo (Punch does).
+// If one image is used by more than half of a feed's items (and at least 3), it is not a
+// photo of the story, so it is dropped and the page shows the placeholder instead.
+function drop_repeated_images($items)
+{
+    $uses = array_count_values(array_filter(array_column($items, 'image')));
+    foreach ($items as $i => $item) {
+        $n = isset($uses[$item['image']]) ? $uses[$item['image']] : 0;
+        if ($n >= 3 && $n > count($items) / 2) {
+            $items[$i]['image'] = '';
+        }
     }
     return $items;
 }

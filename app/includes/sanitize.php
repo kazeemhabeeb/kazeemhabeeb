@@ -15,7 +15,7 @@ function sanitize_item($item)
 {
     return [
         'title'    => clean_text($item['title'], MAX_TITLE_LENGTH),
-        'link'     => clean_url($item['link']),
+        'link'     => clean_link($item['link']),
         'summary'  => clean_text($item['summary'], MAX_SUMMARY_LENGTH),
         'date'     => $item['date'],   // already rebuilt by to_local_datetime()
         'category' => clean_text($item['category'], MAX_CATEGORY_LENGTH),
@@ -37,8 +37,10 @@ function clean_text($html, $maxLength)
     $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     $text = strip_html($text);
 
-    // 3. The same footer when the feed sends it as plain text, and WordPress's "[…]" ending.
+    // 3. The same footer when the feed sends it as plain text, a "Read More: <link>" ending
+    //    (Punch) and WordPress's "[…]" ending.
     $text = preg_replace('/The post .*?appeared first on .*$/s', '', $text);
+    $text = preg_replace('/\s*(Read More|Continue reading)\b\s*:?\s*(https?:\/\/\S+)?\s*$/iu', '', $text);
     $text = preg_replace('/\s*\[(…|\.\.\.)\]\s*$/u', '', $text);
 
     // 4. Remove invisible control characters and collapse runs of spaces and new lines.
@@ -68,6 +70,27 @@ function shorten($text, $maxLength)
         $cut = mb_substr($cut, 0, $space, 'UTF-8');
     }
     return rtrim($cut) . '…';
+}
+
+// An article link: clean_url(), then remove tracking codes such as ?utm_source=... so the same
+// story always has the same link and is never saved twice (NFR-2.2).
+function clean_link($url)
+{
+    $url = clean_url($url);
+    $parts = parse_url($url);
+    if ($url === '' || !isset($parts['query'])) {
+        return $url;
+    }
+    parse_str($parts['query'], $params);
+    foreach (array_keys($params) as $name) {
+        if (stripos($name, 'utm_') === 0) {
+            unset($params[$name]);
+        }
+    }
+    $base = strtok($url, '?');
+    $query = http_build_query($params);
+    $fragment = isset($parts['fragment']) ? '#' . $parts['fragment'] : '';
+    return $base . ($query === '' ? '' : '?' . $query) . $fragment;
 }
 
 // Keep a link or image address only if it is a valid http/https URL (blocks javascript:, data:, file:).

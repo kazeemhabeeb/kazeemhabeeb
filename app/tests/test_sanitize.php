@@ -37,6 +37,11 @@ $checks = [
     'WordPress footer removed'            => clean_text('<p>Story.</p><p>The post <a href="#">X</a> appeared first on <a href="#">Site</a>.</p>', 300) === 'Story.',
     'WordPress [...] ending removed'      => clean_text('<p>Story text [&hellip;]</p>', 300) === 'Story text',
     'long summary shortened'              => mb_strlen(clean_text(str_repeat('word ', 1000), 2000), 'UTF-8') <= 2000,
+    'Punch "Read More: link" ending removed' => clean_text('Abia reforms, assuring all… Read More: https://punchng.com/next-four-years/', 300) === 'Abia reforms, assuring all…',
+    'tracking codes removed from link'    => clean_link('https://punchng.com/story/?utm_source=rss.punchng.com&utm_medium=web') === 'https://punchng.com/story/',
+    'other link parameters kept'          => clean_link('https://example.com/news?id=5&utm_campaign=x') === 'https://example.com/news?id=5',
+    'shared logo image dropped'           => array_column(drop_repeated_images([['image' => 'logo.png'], ['image' => 'logo.png'], ['image' => 'logo.png'], ['image' => 'photo.jpg']]), 'image') === ['', '', '', 'photo.jpg'],
+    'different photos kept'               => array_column(drop_repeated_images([['image' => 'a.jpg'], ['image' => 'b.jpg'], ['image' => 'c.jpg']]), 'image') === ['a.jpg', 'b.jpg', 'c.jpg'],
     '₦ and accents survive'               => clean_text('Adds ₦209bn in Ọ̀yọ́', 300) === 'Adds ₦209bn in Ọ̀yọ́',
 ];
 echo "\n=== Checks ===\n";

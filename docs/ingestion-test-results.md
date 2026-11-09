@@ -48,8 +48,19 @@ was widened (words that are also French, such as "a" and "on", left out) and the
 All 117 live articles then passed (lowest share 6.8%), while the French and Spanish test texts still
 scored 0%. The article was saved on the next run. This case is now in `app/tests/test_tier1.php`.
 
-### Other sources tried
+### Punch: three feed quirks found and fixed
 
-- **Punch** redirects its feed to `rss.punchng.com`, a separate address this test environment does not allow.
-  Not a problem on cPanel hosting.
+Punch's feed (`punchng.com/feed/`, served from `rss.punchng.com`) was added after that address was allowed.
+The first run saved 30 articles but showed three problems, now handled for every source:
+
+| Problem | Fix | Result after re-run |
+|---|---|---|
+| Every summary ended "Read More: https://…" | `clean_text()` removes a trailing "Read More"/"Continue reading" and its link | 0 summaries with "Read More" |
+| Every link carried tracking codes (`?utm_source=rss.punchng.com&utm_medium=web`); if Punch changed them, the same story would be saved twice | `clean_link()` removes `utm_` parameters and keeps any others | 0 links with tracking codes (NFR-2.2) |
+| Every item's image was the Punch logo | `drop_repeated_images()`: an image used by more than half of a feed's items (and at least 3) is a logo, not a story photo, so it is dropped and the placeholder is shown | Punch: no logo images saved; other sources' photos unchanged |
+
+Punch's feed also leaves `<category>` empty, so its articles have no category (they appear under "All").
+After the fix: 9 active sources, 149 articles saved; a repeat run saved 0 new and skipped 147 duplicates.
+
+### Other sources tried
 - **The Babylon Bee** feed returned no items on the test day (the publisher's feed was empty).
