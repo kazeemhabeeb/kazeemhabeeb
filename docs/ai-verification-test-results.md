@@ -60,3 +60,22 @@ retry with a prompt line saying the body may be a quote or teaser still gave 15,
 
 This is a limitation of summary-only input (RSS feeds rarely include the full article, and the system does not
 scrape pages: §2.5.1). It belongs in the report's Limitations alongside "cannot check recent events".
+
+## 4. Extra verification run for the review snapshot (9 November 2026)
+
+Seven more Pending articles were verified with the same code path (11 calls in total, including retries).
+
+| Article (source) | Result |
+|---|---|
+| Gavin Newsom Commutes All California Death Sentences (The Onion) | **0, Misinformation**: "from The Onion, a known satire publication, so the content is not factual" |
+| Spurning Point, USA (The Onion) | **10, Misinformation**: "known satire publication The Onion, not factual" |
+| Lagos governorship candidates clash over waste management (Premium Times) | 90, Real |
+| Kano anti-thuggery squad arrests suspected phone theft gang (Daily Post) | 90, Real |
+| 2027 Elections: Lagos APC Candidate Hamzat Promises 4,000… (Channels TV) | 75, Real |
+| Trump says Iran war 'highly unlikely' to resume (Vanguard) | 65, Real |
+| One Vanguard article (#117) | **HTTP 502 "upstream request failed"** on both tries; left Pending (NFR-2.1) |
+
+On the first try, 4 of 7 calls returned HTTP 502 from the RapidAPI service; 3 of those 4 succeeded on a retry
+20 seconds later. This matches the design: a failed call leaves the article Pending and the hourly run retries it,
+so a temporary service fault never shows a wrong label. The source rule worked: both satire articles scored at
+or near 0.
