@@ -19,6 +19,9 @@ says nothing.
 | 9 | **Keep article images** (`image_url`). Not required by the proposal; kept for usability. Only http/https URLs are stored and they are escaped on output. | Not in the proposal. Relates to the image-tag XSS risk in §1.2 (p. 3) |
 | 10 | Verdict rule in PHP: score ≥ 50 → Real, < 50 → Misinformation, no usable reply → Pending Verification. | §3.4.2B step 6 (p. 36); §3.7 (p. 41) |
 | 11 | Deleting a source deletes its articles (`ON DELETE CASCADE`). Needed because the foreign key would otherwise block the delete. | FR-3.2 (p. 31); NFR-2.2 (p. 32) |
+| 12 | Tier-1 rules. **Spam** (not saved, logged): no title or no valid link; mostly non-English text; title or category marked Sponsored, Advertorial or Promoted. **Clickbait pattern** (flagged, still sent to the AI): phrases such as "you won't believe", "what happened next", "will shock you", "this is why"; two or more exclamation marks; three or more ALL-CAPS words in the headline. | §2.5.1 (p. 28); §2.3 (p. 16); §1.5 (p. 4) English only |
+| 13 | Flags stored in three columns on `articles`: `is_clickbait` (yes/no, set by tier 1 **or** the AI), `emotional_manipulation` (yes/no), `bias_level` (none/low/high). | §3.1.1 (p. 29); §1.5 (p. 4); §3.6.1 (p. 38) "highly normalized" |
+| 14 | At most **9 AI calls per hourly run** (a setting), flagged articles first, then newest. Ingestion is not capped: every new article is still saved each hour. Articles over the cap stay Pending and are verified in a later hourly run. 9 per hour × 24 = 216 calls a day, inside the Pro plan's ~222 (100,000 credits ÷ 15 per call ÷ 30 days). | FR-1.1 (p. 30) hourly run; §1.6 (p. 5) usage caps; NFR-2.1 (p. 32); §2.5.1 (p. 28) flagged content first |
 
 ## To remember during the build
 
