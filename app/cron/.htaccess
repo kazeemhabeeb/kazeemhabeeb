@@ -1,0 +1,8 @@
+# This folder must never be opened from a browser (§3.8). The app reads it from PHP only.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>

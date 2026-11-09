@@ -120,8 +120,12 @@ function parse_ai_reply($text)
         return 'bias missing or not none/low/high';
     }
 
-    // Reason: cleaned like feed text, because it is shown on the article page.
-    $reason = isset($data['reason']) && is_string($data['reason']) ? clean_text($data['reason'], 500) : '';
+    // Reason: cleaned like feed text, because it is shown on the article page. Web addresses are removed
+    // and the length is capped, so an article that manipulates the AI cannot use "Why this score" to
+    // show readers a link or a long message.
+    $reason = isset($data['reason']) && is_string($data['reason']) ? clean_text($data['reason'], 1000) : '';
+    $reason = trim(preg_replace(['#\b(?:https?://|www\.)\S+#iu', '/\s{2,}/u'], ['', ' '], $reason));
+    $reason = shorten($reason, 300);
     if ($reason === '') {
         return 'reason missing';
     }

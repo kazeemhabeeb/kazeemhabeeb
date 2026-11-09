@@ -19,7 +19,9 @@ with sync_playwright() as p:
     print('3. search by source :', pg.inner_text('#articleCount'), '| DB Punch:', sql("SELECT COUNT(*) FROM articles a JOIN rss_sources s USING(source_id) WHERE s.website_name='Punch'"))
     pg.fill('#articleSearch','%'); pg.wait_for_timeout(900)
     print('4. search for "%"   :', pg.inner_text('#articleCount'), '(should be the number of titles containing a real % sign:', sql("SELECT COUNT(*) FROM articles WHERE title LIKE '%\\\\%%'") + ')')
-    pg.fill('#articleSearch','Trump rules out'); pg.wait_for_timeout(900)
+    # pick a Real article with an AI score from the current test data
+    title=sql("SELECT title FROM articles WHERE verification_status='Real' AND confidence_score IS NOT NULL ORDER BY article_id LIMIT 1")
+    pg.fill('#articleSearch',title[:40]); pg.wait_for_timeout(900)
     aid=pg.get_attribute('[data-reflag]','data-reflag')
     print('5. before re-flag   :', sql(f"SELECT verification_status, confidence_score, LEFT(verification_reason,30), emotional_manipulation, bias_level FROM articles WHERE article_id={aid}"))
     pg.select_option(f'[data-reflag="{aid}"]','Misinformation'); pg.wait_for_timeout(1000)
@@ -36,8 +38,9 @@ with sync_playwright() as p:
     pg.screenshot(path='/tmp/ar_delete.png')
     pg.click('#confirmDelete'); pg.wait_for_timeout(1000)
     print('   after delete     :', pg.inner_text('#articleMessage'), '| in DB:', sql(f"SELECT COUNT(*) FROM articles WHERE article_id={aid}"))
-    r=pg.request.post(B+'api/article_action.php', form={'action':'delete','id':'150'}, headers={'X-Requested-With':'fetch'})
-    print('9. delete, no token : HTTP', r.status, '| article 150 still there:', sql('SELECT COUNT(*) FROM articles WHERE article_id=150'))
+    other=sql('SELECT MIN(article_id) FROM articles')
+    r=pg.request.post(B+'api/article_action.php', form={'action':'delete','id':other}, headers={'X-Requested-With':'fetch'})
+    print('9. delete, no token : HTTP', r.status, f'| article {other} still there:', sql(f'SELECT COUNT(*) FROM articles WHERE article_id={other}'))
     pg.fill('#articleSearch',''); pg.wait_for_timeout(900); pg.click('[data-goto-page="2"]'); pg.wait_for_timeout(800)
     print('10. page 2 active   :', pg.inner_text('#articlePager .active'))
     sid=[c['value'] for c in pg.context.cookies() if c['name']=='trustfeed_admin'][0]

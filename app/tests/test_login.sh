@@ -11,7 +11,7 @@ echo "2. Wrong password:"; C -d "username=admin&password=wrong-password" $B/logi
 C -o /dev/null $B/login.php; BEFORE=$(sid)
 echo "3. Right password:"; C -D - -o /dev/null -d "username=admin&password=TrustFeed-Test-2026" $B/login.php | grep -i -E "^location|^set-cookie" | sed -E 's/trustfeed_admin=[^;]*/trustfeed_admin=(id)/; s/^/   /'
 AFTER=$(sid); [ -n "$BEFORE" ] && [ "$BEFORE" != "$AFTER" ] && echo "   session ID changed at login: yes" || echo "   session ID changed at login: NO ($BEFORE / $AFTER)"
-echo "4. Dashboard after login:"; C $B/dashboard.php | grep -o -E 'You are logged in[^<]*' | sed 's/^/   /'
+echo "4. Dashboard after login:"; C $B/dashboard.php | grep -o -E 'Total Posts Ingested' | sed 's/^/   /'
 echo "5. Logout by plain link (GET):"; C -o /dev/null -w "   HTTP %{http_code}\n" $B/logout.php
 echo "6. Logout POST with a forged token:"; C -o /dev/null -w "   HTTP %{http_code}\n" -d "csrf_token=forged" $B/logout.php
 TOKEN=$(C $B/dashboard.php | grep -o 'name="csrf-token" content="[^"]*"' | sed 's/.*content="//;s/"//')

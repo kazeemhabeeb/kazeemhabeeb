@@ -51,7 +51,7 @@ when a headline matches a clickbait rule; those articles go to the AI first (§2
 | Column | Type | Constraints | Source |
 |---|---|---|---|
 | log_id | INT | Primary key, auto-increment | Added |
-| log_type | VARCHAR(50) | Not null ('Execution', 'API timeout', 'API error', 'RSS feed failed', 'Spam filtered') | Added |
+| log_type | VARCHAR(50) | Not null ('Execution', 'API timeout', 'API error', 'RSS feed failed', 'Spam filtered', 'Login failed') | Added |
 | message | TEXT | Not null | Added |
 | created_at | DATETIME | Default current time | Added |
 

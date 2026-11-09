@@ -40,3 +40,10 @@ define('FEED_TIMEOUT_SECONDS', 15);   // give up on a slow feed; logged as RSS f
 define('SITE_NAME', 'TrustFeed');
 define('SESSION_TIMEOUT_MINUTES', 30); // admin is logged out after 30 idle minutes (NFR-1.2)
 define('TIMEZONE', 'Africa/Lagos');
+define('FORCE_HTTPS', true);              // send every visitor to https:// and add HSTS (§3.8). false only for local testing
+define('MAX_LOGIN_ATTEMPTS', 5);        // failed logins allowed per IP address in 15 minutes
+define('SESSION_MAX_HOURS', 8);         // admin must log in again after 8 hours, even if active
+
+// Feeds on local or private network addresses are refused (protects the server's internal services).
+// Only the automated tests, which serve feeds from 127.0.0.1, set this to true.
+define('ALLOW_PRIVATE_FEED_ADDRESSES', false);

@@ -23,6 +23,7 @@ $types = [
     'API error'       => ['bg-danger', 'table-danger'],
     'RSS feed failed' => ['bg-danger', 'table-danger'],
     'Spam filtered'   => ['bg-info text-dark', ''],
+    'Login failed'    => ['bg-warning text-dark', 'table-warning'],
 ];
 
 $type = (string) filter_input(INPUT_GET, 'type');
@@ -65,18 +66,19 @@ function logs_url($type, $page)
 echo admin_header('System Logs', 'logs');
 
 // FR-3.5 "highlighting API timeout events or failed RSS feed connections".
-$problems = $recent['API timeout'] + $recent['API error'] + $recent['RSS feed failed'];
+$problems = $recent['API timeout'] + $recent['API error'] + $recent['RSS feed failed'] + $recent['Login failed'];
 ?>
 <?php if ($problems): ?>
                         <div class="alert alert-warning">
                             <i class="fas fa-exclamation-triangle me-1"></i>
                             In the last 24 hours: <strong><?= $recent['API timeout'] ?></strong> API timeout(s),
                             <strong><?= $recent['API error'] ?></strong> API error(s) and
-                            <strong><?= $recent['RSS feed failed'] ?></strong> failed feed connection(s).
+                            <strong><?= $recent['RSS feed failed'] ?></strong> failed feed connection(s) and
+                            <strong><?= $recent['Login failed'] ?></strong> failed admin login(s).
                             Articles affected by API problems stay Pending Verification and are retried every hour.
                         </div>
 <?php else: ?>
-                        <div class="alert alert-success"><i class="fas fa-check me-1"></i> No API timeouts, API errors or failed feeds in the last 24 hours.</div>
+                        <div class="alert alert-success"><i class="fas fa-check me-1"></i> No API timeouts, API errors, failed feeds or failed logins in the last 24 hours.</div>
 <?php endif; ?>
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-list me-1"></i> System Logs <span class="text-muted small">(<?= number_format($count) ?>)</span></div>

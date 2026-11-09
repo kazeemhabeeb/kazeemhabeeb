@@ -46,7 +46,10 @@ function validate_source($db, $name, $url, $ignoreId, $mustRead)
     // Read the address once now, the same way the hourly script will (Objective 1: RSS or API).
     $download = fetch_url(prepare_source_url($url));
     if (!$download['ok']) {
-        return [$name, $url, 'Could not open that address (' . $download['error'] . '). Check it in a browser and try again.'];
+        // Only say why when the address was refused on purpose; otherwise a general message, so the form
+        // cannot be used to probe which internal ports are open.
+        $why = strpos($download['error'], 'blocked: ') === 0 ? ' (' . substr($download['error'], 9) . ')' : '';
+        return [$name, $url, 'Could not open that address' . $why . '. Check it in a browser and try again.'];
     }
     if (parse_source($download['body']) === null) {
         return [$name, $url, 'That address opened, but it is not an RSS feed or a WordPress news API (…/wp-json/wp/v2/posts).'];

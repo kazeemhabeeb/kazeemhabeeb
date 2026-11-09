@@ -13,9 +13,19 @@ define('NAV_CATEGORIES', 4);        // categories listed in the top bar
 // so even if a script tag ever got past sanitizing, the browser would refuse to run it.
 function send_security_headers()
 {
+    // §3.8 Transport Layer Security: move any http:// visit to https://, and tell browsers to use
+    // https:// only for the next year (HSTS).
+    if (FORCE_HTTPS && !is_https()) {
+        header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], true, 301);
+        exit;
+    }
+    if (is_https()) {
+        header('Strict-Transport-Security: max-age=31536000');
+    }
     header("Content-Security-Policy: default-src 'self'; script-src 'self'; "
          . "style-src 'self'; img-src 'self' https: http: data:; connect-src 'self'; "
-         . "frame-ancestors 'self'; base-uri 'self'; form-action 'self'");
+         . "frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+         . (is_https() ? '; upgrade-insecure-requests' : ''));   // load publishers' http images over https
     header('X-Content-Type-Options: nosniff');
     header('X-Frame-Options: SAMEORIGIN');
     header('Referrer-Policy: strict-origin-when-cross-origin');

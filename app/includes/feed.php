@@ -7,32 +7,105 @@
  * The text is still raw here; sanitize.php cleans it before anything is saved.
  */
 
-// Download a source with cURL (§3.5). Returns ['ok', 'body', 'error'].
-function fetch_url($url)
-{
-    $ch = curl_init($url);
-    curl_setopt_array($ch, [
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_MAXREDIRS      => 3,
-        CURLOPT_PROTOCOLS      => CURLPROTO_HTTP | CURLPROTO_HTTPS,   // no file:// or other schemes
-        CURLOPT_CONNECTTIMEOUT => 10,
-        CURLOPT_TIMEOUT        => FEED_TIMEOUT_SECONDS,               // §1.6: never hang the run
-        CURLOPT_USERAGENT      => SITE_NAME . ' news aggregator',
-        CURLOPT_ENCODING       => '',                                  // accept gzip
-    ]);
-    $body   = curl_exec($ch);
-    $status = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
-    $error  = curl_error($ch);
-    curl_close($ch);
+define('MAX_FEED_BYTES', 5 * 1024 * 1024);   // a feed reply larger than 5 MB is refused
+define('MAX_REDIRECTS', 3);
 
-    if ($body === false) {
-        return ['ok' => false, 'body' => '', 'error' => $error];
+// Is this address allowed to be fetched? Refuses local and private networks (127.x, 10.x, 192.168.x,
+// 169.254.x and other reserved ranges), so a feed URL or a redirect cannot make the server read its own
+// internal services (server-side request forgery). Returns ['ok', 'ip' (for pinning, or null), 'error'].
+function check_public_url($url, $allowPrivate = false)
+{
+    $host = parse_url($url, PHP_URL_HOST);
+    if (!is_string($host) || $host === '') {
+        return ['ok' => false, 'ip' => null, 'error' => 'the address has no host name'];
     }
-    if ($status < 200 || $status >= 300) {
-        return ['ok' => false, 'body' => '', 'error' => 'HTTP status ' . $status];
+    $host = trim($host, '[]');
+    $ips = filter_var($host, FILTER_VALIDATE_IP) ? [$host] : gethostbynamel($host);
+    if ($ips === false) {
+        // Could not look the name up here; cURL will fail to connect too (unless a proxy handles it).
+        return ['ok' => true, 'ip' => null, 'error' => ''];
     }
-    return ['ok' => true, 'body' => $body, 'error' => ''];
+    foreach ($ips as $ip) {
+        if (!$allowPrivate && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+            return ['ok' => false, 'ip' => null, 'error' => 'the address points to a private or local network'];
+        }
+    }
+    return ['ok' => true, 'ip' => $ips[0], 'error' => ''];
+}
+
+// Download a source with cURL (§3.5). Returns ['ok', 'body', 'error'].
+// Redirects are followed by hand (at most 3) so that every step is checked by check_public_url().
+function fetch_url($url, $allowPrivate = null)
+{
+    if ($allowPrivate === null) {
+        $allowPrivate = defined('ALLOW_PRIVATE_FEED_ADDRESSES') && ALLOW_PRIVATE_FEED_ADDRESSES;   // tests only
+    }
+
+    for ($hop = 0; $hop <= MAX_REDIRECTS; $hop++) {
+        $check = check_public_url($url, $allowPrivate);
+        if (!$check['ok']) {
+            return ['ok' => false, 'body' => '', 'error' => 'blocked: ' . $check['error']];
+        }
+
+        $body = '';
+        $tooBig = false;
+        $ch = curl_init($url);
+        $options = [
+            CURLOPT_FOLLOWLOCATION => false,
+            CURLOPT_PROTOCOLS      => CURLPROTO_HTTP | CURLPROTO_HTTPS,   // no file:// or other schemes
+            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_TIMEOUT        => FEED_TIMEOUT_SECONDS,               // §1.6: never hang the run
+            CURLOPT_USERAGENT      => SITE_NAME . ' news aggregator',
+            CURLOPT_ENCODING       => '',                                  // accept gzip
+            // Collect the reply ourselves and stop at MAX_FEED_BYTES (after unzipping), so a huge or
+            // "zip bomb" reply cannot use up the server's memory.
+            CURLOPT_WRITEFUNCTION  => function ($ch, $chunk) use (&$body, &$tooBig) {
+                if (strlen($body) + strlen($chunk) > MAX_FEED_BYTES) {
+                    $tooBig = true;
+                    return 0;   // tells cURL to stop
+                }
+                $body .= $chunk;
+                return strlen($chunk);
+            },
+        ];
+        if ($check['ip'] !== null) {
+            // Connect to the address we just checked, not one the name might point to a moment later.
+            $port = parse_url($url, PHP_URL_PORT) ?: (strtolower(parse_url($url, PHP_URL_SCHEME)) === 'https' ? 443 : 80);
+            $options[CURLOPT_RESOLVE] = [parse_url($url, PHP_URL_HOST) . ':' . $port . ':' . $check['ip']];
+        }
+        curl_setopt_array($ch, $options);
+        $ok       = curl_exec($ch);
+        $status   = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $redirect = curl_getinfo($ch, CURLINFO_REDIRECT_URL);
+        $error    = curl_error($ch);
+        curl_close($ch);
+
+        if ($tooBig) {
+            return ['ok' => false, 'body' => '', 'error' => 'the reply was larger than ' . (MAX_FEED_BYTES / 1048576) . ' MB'];
+        }
+        if ($ok === false) {
+            return ['ok' => false, 'body' => '', 'error' => $error];
+        }
+        if ($status >= 300 && $status < 400 && $redirect) {
+            if (clean_redirect($redirect) === '') {
+                return ['ok' => false, 'body' => '', 'error' => 'redirected to an address that is not http or https'];
+            }
+            $url = $redirect;   // checked again at the top of the loop
+            continue;
+        }
+        if ($status < 200 || $status >= 300) {
+            return ['ok' => false, 'body' => '', 'error' => 'HTTP status ' . $status];
+        }
+        return ['ok' => true, 'body' => $body, 'error' => ''];
+    }
+    return ['ok' => false, 'body' => '', 'error' => 'too many redirects'];
+}
+
+// A redirect target must be an http or https address.
+function clean_redirect($url)
+{
+    $scheme = strtolower((string) parse_url($url, PHP_URL_SCHEME));
+    return ($scheme === 'http' || $scheme === 'https') ? $url : '';
 }
 
 // WordPress only includes category names and images when "_embed" is in the URL,

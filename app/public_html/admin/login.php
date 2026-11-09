@@ -21,11 +21,19 @@ $username = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim((string) filter_input(INPUT_POST, 'username'));
     $password = (string) filter_input(INPUT_POST, 'password');
+    $admin = null;
     try {
-        $admin = ($username !== '' && $password !== '') ? check_login(db_connect(), $username, $password) : null;
+        $db = db_connect();
+        if (login_locked($db)) {
+            $error = 'Too many wrong passwords from your connection. Please wait 15 minutes and try again.';
+        } elseif ($username !== '' && $password !== '') {
+            $admin = check_login($db, $username, $password);
+            if (!$admin) {
+                record_failed_login($db, $username);
+            }
+        }
     } catch (mysqli_sql_exception $ex) {
         error_log('TrustFeed login: ' . $ex->getMessage());
-        $admin = null;
         $error = 'The login service is unavailable right now. Please try again later.';
     }
     if ($admin) {

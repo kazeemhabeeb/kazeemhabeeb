@@ -37,7 +37,7 @@ $lastRun = mysqli_fetch_assoc(mysqli_query($db,
 $sources = mysqli_fetch_all(mysqli_query($db,
     "SELECT s.website_name, s.status, COUNT(a.article_id) AS articles, MAX(a.publication_date) AS newest,
             (SELECT MAX(l.created_at) FROM logs l
-              WHERE l.log_type = 'RSS feed failed' AND l.message LIKE CONCAT('%(', s.rss_url, ')%')) AS last_failure
+              WHERE l.log_type = 'RSS feed failed' AND LOCATE(CONCAT('(', s.rss_url, ')'), l.message) > 0) AS last_failure
        FROM rss_sources s LEFT JOIN articles a ON a.source_id = s.source_id
       GROUP BY s.source_id ORDER BY s.status, s.website_name"), MYSQLI_ASSOC);
 $runStarted = $lastRun ? strtotime($lastRun['created_at']) - 15 * 60 : null;   // a run takes at most a few minutes

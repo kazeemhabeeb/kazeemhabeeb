@@ -26,7 +26,12 @@ require __DIR__ . '/../includes/tier1.php';
 require __DIR__ . '/../includes/ai.php';
 
 // Stop two runs overlapping if one ever takes longer than an hour.
-$lock = fopen(sys_get_temp_dir() . '/trustfeed-ingest.lock', 'c');
+// The lock file is kept in the app's own folder, not the server's shared /tmp.
+$lock = fopen(__DIR__ . '/../ingest.lock', 'c');
+if ($lock === false) {
+    error_log('TrustFeed ingestion: cannot create app/ingest.lock; check the folder permissions.');
+    exit(1);
+}
 if (!flock($lock, LOCK_EX | LOCK_NB)) {
     exit("Another ingestion run is still in progress.\n");
 }
@@ -84,7 +89,7 @@ while ($source = mysqli_fetch_assoc($sources)) {
             // Spam is not saved, so it reappears every hour while it is in the feed: log it only once.
             $alreadyLogged = false;
             if ($item['link'] !== '') {
-                $pattern = '%' . $item['link'] . '%';
+                $pattern = '%' . addcslashes($item['link'], '%_\\') . '%';
                 mysqli_stmt_bind_param($findSpamLog, 's', $pattern);
                 mysqli_stmt_execute($findSpamLog);
                 $alreadyLogged = mysqli_stmt_get_result($findSpamLog)->num_rows > 0;
