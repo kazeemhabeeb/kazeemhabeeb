@@ -60,6 +60,12 @@ $cases = [
     ['[OK] Pidgin English summary',
         item('Fuel price go up again for Lagos',
              'Motorists for Lagos dey complain as fuel price go up again, and the government say the price will come down soon for the people.')],
+    ['[OK] real BusinessDay article with few common words (9 Nov 2026)',
+        item('Kaduna’s dairy revolution targets Nigeria’s $1.5bn milk import market',
+             'Kaduna State’s emerging dairy industry could help Nigeria reduce its annual expenditure of more than $1.5 billion on imported milk')],
+    ['[SPAM] Spanish summary',
+        item('El presidente anuncia una reforma',
+             'El presidente del gobierno anunció el martes una importante reforma de las pensiones, según un comunicado oficial publicado por el ministerio.')],
     ['[OK] headline only, no summary (too short to judge language)',
         item('Starbucks Announces New Teen-Free Hours For Nervous Adults')],
 ];

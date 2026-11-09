@@ -18,9 +18,13 @@ $TIER1_CLICKBAIT_PHRASES = [
 ];
 
 // Common English words used to recognise English text (§1.5: English articles only).
+// Words that are also common in French, such as "a", "an", "on" and "en", are left out.
 $TIER1_ENGLISH_WORDS = [
     'the', 'and', 'of', 'to', 'is', 'for', 'that', 'with', 'was', 'has', 'have', 'are',
-    'from', 'by', 'this', 'will', 'said', 'his', 'her', 'their', 'it', 'be', 'at', 'as',
+    'from', 'by', 'this', 'will', 'said', 'says', 'his', 'her', 'their', 'it', 'its', 'be',
+    'at', 'as', 'were', 'been', 'not', 'but', 'also', 'they', 'we', 'our', 'can', 'could',
+    'would', 'than', 'more', 'after', 'over', 'into', 'about', 'which', 'who', 'what',
+    'when', 'how', 'why', 'while', 'new',
 ];
 
 // Well-known abbreviations that are written in capitals in normal news headlines.
@@ -73,7 +77,8 @@ function tier1_spam_reason($item)
 }
 
 // English if most letters are from the Latin alphabet and, for longer text,
-// at least 1 word in 20 is a common English word.
+// at least 3 words in 100 are common English words (real English news scored 6.8% or more
+// in the 9 November 2026 live test; French and Spanish scored 0%).
 function tier1_is_english($text)
 {
     global $TIER1_ENGLISH_WORDS;
@@ -94,7 +99,7 @@ function tier1_is_english($text)
             $common++;
         }
     }
-    return $common / count($words) >= 0.05;
+    return $common / count($words) >= 0.03;
 }
 
 // ---------------------------------------------------------------------------

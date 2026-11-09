@@ -136,7 +136,7 @@ while ($source = mysqli_fetch_assoc($sources)) {
 // Steps 5-6 (AI dispatch and classification) are added here in Sprint 2.
 
 $summary = sprintf(
-    'Hourly run finished in %.1f s: %d active sources read (%d failed), %d new articles saved (%d flagged as clickbait by tier 1), %d duplicate links skipped, %d spam filtered.',
+    'Hourly run finished in %.1f s: %d active sources read (%d failed), %d new article(s) saved (%d flagged as clickbait by tier 1), %d duplicate link(s) skipped, %d spam filtered.',
     microtime(true) - $runStart, $count['sources'], $count['failed'], $count['new'],
     $count['flagged'], $count['duplicates'], $count['spam']
 );
