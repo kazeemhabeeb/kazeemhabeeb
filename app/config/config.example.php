@@ -1,0 +1,41 @@
+<?php
+/*
+ * TrustFeed configuration.
+ *
+ * Copy this file to config.php in the same folder and fill in your values.
+ * config.php is never committed to Git, and this folder sits outside public_html,
+ * so the database password and API key cannot be opened from a browser (§3.8).
+ */
+
+// ---------------------------------------------------------------------------
+// Database (MySQLi, §3.5)
+// ---------------------------------------------------------------------------
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'trustfeed');
+define('DB_USER', 'trustfeed_user');
+define('DB_PASS', 'change-me');
+
+// ---------------------------------------------------------------------------
+// AI verification service: GPT-4o through RapidAPI (§3.5, decision 7)
+// The key is read from the RAPIDAPI_KEY environment variable when it is set;
+// otherwise paste it between the quotes in config.php (never in this example file).
+// ---------------------------------------------------------------------------
+define('RAPIDAPI_KEY', getenv('RAPIDAPI_KEY') ?: '');
+define('RAPIDAPI_HOST', 'chatgpt-42.p.rapidapi.com');
+define('RAPIDAPI_URL', 'https://chatgpt-42.p.rapidapi.com/gpt4');
+
+// ---------------------------------------------------------------------------
+// Ingestion and verification settings
+// ---------------------------------------------------------------------------
+define('VERDICT_THRESHOLD', 50);      // score >= 50 is Real, below is Misinformation (p. 36, p. 41)
+define('AI_MAX_CALLS_PER_RUN', 9);    // Pro plan budget: 9 per hourly run (decision 14, §1.6)
+define('AI_CALL_DELAY_SECONDS', 1);   // Pro plan allows 1 request per second
+define('AI_TIMEOUT_SECONDS', 30);     // give up on a slow AI reply; article stays Pending (NFR-2.1)
+define('FEED_TIMEOUT_SECONDS', 15);   // give up on a slow feed; logged as RSS feed failed (FR-3.5)
+
+// ---------------------------------------------------------------------------
+// Site settings
+// ---------------------------------------------------------------------------
+define('SITE_NAME', 'TrustFeed');
+define('SESSION_TIMEOUT_MINUTES', 30); // admin is logged out after 30 idle minutes (NFR-1.2)
+define('TIMEZONE', 'Africa/Lagos');
