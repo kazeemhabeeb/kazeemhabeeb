@@ -33,6 +33,8 @@ says nothing.
 | 23 | Sessions: `password_hash()` (bcrypt), new session ID at login, cookies HttpOnly + Secure + SameSite, logout after 30 minutes idle; every admin page **and** admin AJAX endpoint checks the session. | NFR-1.2 (p. 32); §3.8 (p. 42) |
 | 24 | The ingestion script runs only from the command line (cron) and refuses browser requests. | §3.8 (p. 42) "unauthorized access" |
 | 25 | Security test evidence: a test feed with `<script>` in a headline and an SQL injection string in a summary; screenshots go in Chapter 4. | §3.3.2 Sprint 4 (p. 34) |
+| 26 | **Pending Verification articles are shown on the public feed** with the yellow badge. NFR-2.1 and NFR-3.2 require it; §1.2 (p. 3) and §3.1.2 (p. 29) say verdicts come before the reader sees content, so the report explains that a Pending article is never shown unlabelled. | NFR-2.1 (p. 32); NFR-3.2 (p. 32); §3.3.2 Sprint 2 (p. 33) |
+| 27 | **No "the AI can be wrong" line in the interface.** It is not in the proposal and conflicts with §1.4 (p. 4); the AI's fallibility goes in the report's Limitations instead. | §1.4 (p. 4); §1.6 (p. 5) |
 
 ## To remember during the build
 
@@ -40,4 +42,4 @@ says nothing.
 - API key stored outside the public web root. §3.8 (p. 42)
 - cURL timeouts so a slow feed or AI reply cannot hang the run. §1.6 (p. 5)
 - Log per-source ingestion time as evidence for NFR-4.1 (p. 32).
-- Report notes: PDO/MySQLi wording in NFR-1.1; the AI score is the model's own estimate, not a measured probability; recent events cannot be checked (no web access).
+- Report notes: PDO/MySQLi wording in NFR-1.1; the AI score is the model's own estimate, not a measured probability; recent events cannot be checked (no web access); the AI can be wrong (hallucination risk, slide 6 and §2.3), stated in Limitations, not on screen; the §1.2/§3.1.2 vs NFR-2.1 wording on Pending articles.

@@ -301,7 +301,7 @@
         '<li>Bias: <span class="badge ' + biasCls + '">' + esc(f.bias.charAt(0).toUpperCase() + f.bias.slice(1)) + '</span></li></ul>';
     }
     var body = a.reason
-      ? '<p class="mb-2">' + esc(a.reason) + '</p>' + flagsHtml + '<div class="small text-muted">Explanation written by the AI verification service. It can be wrong.</div>'
+      ? '<p class="mb-2">' + esc(a.reason) + '</p>' + flagsHtml
       : '<p class="mb-0">This label was set by an administrator.</p>';
     return '<div class="card mb-4"><div class="card-header fw-bold">Why this score</div><div class="card-body">' + body +
       '<div class="small mt-2"><span class="req">[§3.1.1 explainable verification flags; §3.1.2 AI explainability metrics; §1.5 clickbait, emotional manipulation, bias; columns verification_reason, is_clickbait, emotional_manipulation, bias_level]</span></div></div></div>';
