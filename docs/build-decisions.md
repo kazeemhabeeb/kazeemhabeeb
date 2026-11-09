@@ -36,6 +36,7 @@ says nothing.
 | 26 | **Pending Verification articles are shown on the public feed** with the yellow badge. NFR-2.1 and NFR-3.2 require it; §1.2 (p. 3) and §3.1.2 (p. 29) say verdicts come before the reader sees content, so the report explains that a Pending article is never shown unlabelled. | NFR-2.1 (p. 32); NFR-3.2 (p. 32); §3.3.2 Sprint 2 (p. 33) |
 | 27 | **No "the AI can be wrong" line in the interface.** It is not in the proposal and conflicts with §1.4 (p. 4); the AI's fallibility goes in the report's Limitations instead. | §1.4 (p. 4); §1.6 (p. 5) |
 | 28 | Tier-1 rule details, so each rule stays fair: "Sponsored/Advertorial/Promoted" counts only at the **start of the title** or as the **whole category** (so "Officers promoted…" is news); known abbreviations (NNPC, CBN, EFCC, INEC…) do **not** count as ALL-CAPS words; "not English" means mostly non-Latin letters, or a 15+ word text where fewer than 3 words in 100 are common English words (headlines alone are too short to judge). The first version (1 in 20, shorter word list) wrongly rejected a real BusinessDay article in the 9 November 2026 live test; widened and re-tested on all 117 live articles. | §2.5.1 (p. 28); §1.5 (p. 4) |
+| 29 | **The AI only sees the feed's short summary**, not the full article. When a publisher's summary is a quote or teaser, GPT can misjudge a real story (P.M. News "Who is Alice Huang…?" scored 15). Recorded as a limitation in the report; the admin can correct such cases by re-flagging (FR-3.3). No page scraping. | §2.5.1 (p. 28); FR-3.3 (p. 31); `docs/ai-verification-test-results.md` |
 
 ## To remember during the build
 
@@ -43,4 +44,4 @@ says nothing.
 - API key stored outside the public web root. §3.8 (p. 42)
 - cURL timeouts so a slow feed or AI reply cannot hang the run. §1.6 (p. 5)
 - Log per-source ingestion time as evidence for NFR-4.1 (p. 32).
-- Report notes: PDO/MySQLi wording in NFR-1.1; the AI score is the model's own estimate, not a measured probability; recent events cannot be checked (no web access); the AI can be wrong (hallucination risk, slide 6 and §2.3), stated in Limitations, not on screen; the §1.2/§3.1.2 vs NFR-2.1 wording on Pending articles.
+- Report notes: PDO/MySQLi wording in NFR-1.1; the AI score is the model's own estimate, not a measured probability; recent events cannot be checked (no web access); the AI can be wrong (hallucination risk, slide 6 and §2.3), stated in Limitations, not on screen; the §1.2/§3.1.2 vs NFR-2.1 wording on Pending articles; summary-only input can mislead the AI (decision 29).
