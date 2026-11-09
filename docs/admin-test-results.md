@@ -84,3 +84,18 @@ Page: `app/public_html/admin/dashboard.php`. Every figure is counted from the da
 
 The "Last Hourly Run" box repeats the latest Execution log (FR-3.5), so the admin sees at a glance whether the
 hourly script is running. All pages were then reloaded in the browser with no console errors.
+
+## System logs (FR-3.5)
+
+Page: `app/public_html/admin/logs.php` (`logs.png`, 9 November 2026). Read-only; newest first; 25 per page.
+
+| FR-3.5 asks for | Shown as | Result |
+|---|---|---|
+| "record and display operational execution logs" | Every Execution, API timeout, API error, RSS feed failed and Spam filtered entry, with date/time, a coloured event badge and the details | ✓ 23 entries, the same as the `logs` table |
+| "highlighting API timeout events or failed RSS feed connections" | A banner counting them for the last 24 hours (2 API timeouts, 1 API error, 8 failed feeds), and those rows coloured yellow (timeouts) or red (errors, failed feeds) | ✓ 9 red and 2 yellow rows |
+| Review by type | Filter buttons with counts; each filter showed only its own type | ✓ |
+
+Other checks: an unknown filter in the address (`?type=DROP TABLE logs`) was ignored and all entries shown;
+a log message containing `<script>alert(1)</script>` was displayed as plain text and nothing ran; with 40
+temporary entries added, the page split into 3 pages (25, 25, 13 rows), "Older" was disabled on the last page,
+and the type filter was kept when paging. The temporary entries were then deleted.
