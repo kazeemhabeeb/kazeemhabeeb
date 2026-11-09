@@ -131,8 +131,8 @@ h3{font-size:17px;margin:0 0 8px}
           <tr><td><code>articles.image_url</code></td><td>New</td><td>Article image in the Blog Home layout; only http/https URLs, escaped on output</td><td>Not required by the PDF (design choice). Relates to the image-tag XSS risk in §1.2 (p. 3)</td></tr>
           <tr><td><code>logs</code> (4 columns)</td><td>New table</td><td>Store run summaries, API timeouts and failed feeds</td><td>FR-3.5 (p. 31) "record and display operational execution logs"; §1.5 (p. 4) "the general system logs"</td></tr>
           <tr><td><code>rss_sources.rss_url</code></td><td>TEXT → VARCHAR(500)</td><td>MySQL cannot put a UNIQUE index on TEXT</td><td>§3.6.2 (p. 39) requires it to be unique</td></tr>
-          <tr><td><code>articles.original_link</code></td><td>TEXT → VARCHAR(500)</td><td>Same reason; used to skip duplicates</td><td>§3.6.2 (p. 39) unique; NFR-2.2 (p. 31); Fig 3.2 (p. 36)</td></tr>
-          <tr><td><code>articles.confidence_score</code></td><td>NULL allowed</td><td>NULL means not verified yet (Pending)</td><td>NFR-2.1 (p. 31) "Pending Verification"</td></tr>
+          <tr><td><code>articles.original_link</code></td><td>TEXT → VARCHAR(500)</td><td>Same reason; used to skip duplicates</td><td>§3.6.2 (p. 39) unique; NFR-2.2 (p. 32); Fig 3.2 (p. 36)</td></tr>
+          <tr><td><code>articles.confidence_score</code></td><td>NULL allowed</td><td>NULL means not verified yet (Pending)</td><td>NFR-2.1 (p. 32) "Pending Verification"</td></tr>
         </tbody>
       </table>
     </div>
