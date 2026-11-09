@@ -48,3 +48,24 @@ Browser test: `app/tests/test_sources_browser.py` (9 November 2026).
 | i | Delete "Test feed (made-up items)" | Pop-up: "This will also delete its 4 article(s)" (`sources-delete-confirmation.png`); after confirming, the source and all 4 articles were gone (ON DELETE CASCADE) |
 | j | Add a source named `<script>alert("x")</script>Bee` | Stored as typed, displayed as plain text everywhere; no script ran |
 | k | Send a delete request without the CSRF token (as another website would) | Refused, HTTP 403; the source was not deleted |
+
+## Managing articles (FR-3.3)
+
+Page: `app/public_html/admin/articles.php` with `js/articles.js`. The table, search, re-flag and delete all work
+with AJAX (`admin/api/articles.php`, `admin/api/article_action.php`); every change sends the CSRF token.
+
+Browser test: `app/tests/test_articles_browser.py` (9 November 2026, 153 articles in the test database).
+
+| # | Check | Result |
+|---|---|---|
+| 1 | Open the page | 153 articles counted, 10 per page |
+| 2 | Type "naira" | 3 matches while typing, the same as a direct database query |
+| 3 | Type "Punch" (a source name) | 32 matches, all of Punch's articles |
+| 4 | Type "%" | Only the 2 titles that really contain a % sign (the % is not treated as "match anything") |
+| 5 | Re-flag "Trump rules out fresh war with Iran" from Real 90% to Misinformation | Saved; score, reason and the three flags cleared (decision 16) (`articles-reflag.png`) |
+| 6 | Open that article on the public site | "Misinformation" with no percentage, and "This label was set by an administrator." |
+| 7 | Re-flag it to Pending Verification | It is back in the AI queue for the next hourly run |
+| 8 | Delete it | Confirmation pop-up with its ID and title (`articles-delete-confirmation.png`); after confirming it is gone |
+| 9 | Delete request without the CSRF token | Refused, HTTP 403; nothing deleted |
+| 10 | Page 2 | Loads without reloading the page |
+| 11 | Search after 31 idle minutes | Sent to the login page with "You were logged out…" |
