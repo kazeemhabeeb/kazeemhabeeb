@@ -62,9 +62,9 @@ function admin_header($title, $active)
             <a class="navbar-brand ps-3" href="dashboard.php">{$site} Admin</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" type="button" aria-label="Toggle sidebar"><i class="fas fa-bars"></i></button>
             <ul class="navbar-nav ms-auto me-3 me-lg-4">
-                <li class="nav-item"><a class="nav-link" href="../index.php" target="_blank" rel="noopener"><i class="fas fa-external-link-alt fa-fw"></i> View site</a></li>
+                <li class="nav-item"><a class="nav-link" href="../index.php" target="_blank" rel="noopener" title="View site" aria-label="View site"><i class="fas fa-external-link-alt fa-fw"></i><span class="d-none d-md-inline"> View site</span></a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i> {$name}</a>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i><span class="d-none d-md-inline"> {$name}</span></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><form method="post" action="logout.php">{$csrfField}<button class="dropdown-item" type="submit">Logout</button></form></li>
                     </ul>
