@@ -9,7 +9,10 @@
 #   SSH_PORT         the SSH port shown there (Hostinger uses 65002)
 #   SSH_USER         the SSH username shown there (u...)
 #   SSH_PRIVATE_KEY  the private half of the key whose public half is added in hPanel SSH Access
-#   DEPLOY_PATH      the folder that contains the site's public_html, e.g. /home/u123/domains/trustfeed.example.com
+#   DEPLOY_PATH      the private app folder outside every website, e.g. /home/u633588168/trustfeed_app
+#
+# On Hostinger the subdomain's web folder (domains/habeeb.website/public_html/trustfeed) is replaced once by a
+# symlink to DEPLOY_PATH/public_html, so the private folders stay outside all public web folders (§3.8).
 
 name: Deploy to Hostinger
 
