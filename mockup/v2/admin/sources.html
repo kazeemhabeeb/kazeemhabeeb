@@ -58,14 +58,14 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">RSS Sources</h1>
                         <ol class="breadcrumb mb-4"><li class="breadcrumb-item active">RSS Sources</li></ol>
-                        <p class="small"><span class="req">[FR-3.2 add, edit, enable, disable or delete RSS feed source URLs]</span> <span class="req">[Schema: rss_sources]</span> <span class="req">[Quota rule: newest article from each active source per hourly run, max 9]</span></p>
+                        <p class="small"><span class="req">[FR-3.2 add, edit, enable, disable or delete RSS feed source URLs]</span> <span class="req">[Schema: rss_sources]</span> <span class="req">[Objective 1: RSS feeds and APIs; the script detects XML or JSON]</span></p>
                         <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-plus me-1"></i> Add New Source</div>
                             <div class="card-body">
                                 <div class="alert alert-danger d-none" id="addError"></div>
                                 <form class="row g-3 align-items-end" id="addSrc">
                                     <div class="col-md-3"><label class="form-label" for="sName">Website name</label><input class="form-control" id="sName" placeholder="e.g. Punch" /></div>
-                                    <div class="col-md-5"><label class="form-label" for="sUrl">RSS feed URL</label><input class="form-control" id="sUrl" placeholder="https://example.com/feed" /></div>
+                                    <div class="col-md-5"><label class="form-label" for="sUrl">Feed URL (RSS or API)</label><input class="form-control" id="sUrl" placeholder="https://example.com/feed or https://example.com/wp-json/wp/v2/posts" /></div>
                                     <div class="col-md-2"><label class="form-label" for="sStatus">Status</label><select class="form-select" id="sStatus"><option>Active</option><option>Inactive</option></select></div>
                                     <div class="col-md-2"><button class="btn btn-primary w-100" type="submit">Add Source</button></div>
                                 </form>
@@ -75,7 +75,7 @@
                             <div class="card-header"><i class="fas fa-rss me-1"></i> RSS Sources <span class="text-muted small">(<span id="activeCount">0</span> active)</span></div>
                             <div class="card-body table-responsive">
                                 <table class="table table-bordered table-striped align-middle mb-0">
-                                    <thead><tr><th>ID</th><th>Website Name</th><th>RSS URL</th><th>Status</th><th>Actions</th></tr></thead>
+                                    <thead><tr><th>ID</th><th>Website Name</th><th>Feed URL (RSS or API)</th><th>Status</th><th>Actions</th></tr></thead>
                                     <tbody id="sourceRows"></tbody>
                                 </table>
                             </div>
@@ -98,7 +98,7 @@
                     <div class="modal-body">
                         <div class="alert alert-danger d-none" id="editError"></div>
                         <div class="mb-3"><label class="form-label" for="eName">Website name</label><input class="form-control" id="eName" /></div>
-                        <div class="mb-3"><label class="form-label" for="eUrl">RSS feed URL</label><input class="form-control" id="eUrl" /></div>
+                        <div class="mb-3"><label class="form-label" for="eUrl">Feed URL (RSS or API)</label><input class="form-control" id="eUrl" /></div>
                         <div><label class="form-label" for="eStatus">Status</label><select class="form-select" id="eStatus"><option>Active</option><option>Inactive</option></select></div>
                     </div>
                     <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary" id="saveEdit">Save Changes</button></div>

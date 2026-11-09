@@ -107,6 +107,9 @@ h3{font-size:17px;margin:0 0 8px}
         <div class="row new"><div class="key"></div><div class="col">category <span class="tag">new</span></div></div>
         <div class="row new"><div class="key"></div><div class="col">image_url <span class="tag">new</span></div></div>
         <div class="row new"><div class="key"></div><div class="col">verification_reason <span class="tag">new</span></div></div>
+        <div class="row new"><div class="key"></div><div class="col">is_clickbait <span class="tag">new</span></div></div>
+        <div class="row new"><div class="key"></div><div class="col">emotional_manipulation <span class="tag">new</span></div></div>
+        <div class="row new"><div class="key"></div><div class="col">bias_level <span class="tag">new</span></div></div>
       </section>
 
       <section class="entity is-new pos-logs" aria-label="logs table, new">
@@ -118,7 +121,7 @@ h3{font-size:17px;margin:0 0 8px}
       </section>
     </div>
   </div>
-  <p class="caption">The relationship is unchanged: one RSS source has many articles. Deleting a source now also deletes its articles (ON DELETE CASCADE). <code>admins</code> and <code>logs</code> stand alone.</p>
+  <p class="caption">The relationship is unchanged: one RSS source has many articles. Deleting a source now also deletes its articles (ON DELETE CASCADE). <code>admins</code> and <code>logs</code> stand alone. <code>rss_url</code> holds either an RSS feed or a news API address.</p>
 
   <section>
     <h3>What changed and where the PDF calls for it</h3>
@@ -128,6 +131,7 @@ h3{font-size:17px;margin:0 0 8px}
         <tbody>
           <tr><td><code>articles.category</code></td><td>New</td><td>Filter the feed by category</td><td>FR-2.3 (p. 31) "filtering categories"; §2.2 (p. 9) "filtering the feed by category"</td></tr>
           <tr><td><code>articles.verification_reason</code></td><td>New</td><td>The AI's reason, shown as "Why this score"</td><td>§3.1.1 (p. 29) "explainable verification flags … persists the data into the primary database"; §3.1.2 (p. 30) "AI explainability metrics"</td></tr>
+          <tr><td><code>articles.is_clickbait</code>, <code>emotional_manipulation</code>, <code>bias_level</code></td><td>New</td><td>The AI's flags (clickbait also set by the tier-1 rules), shown as alert indicators</td><td>§3.1.1 (p. 29) "explainable verification flags" persisted, "alert indicators"; §1.5 (p. 4) clickbait, emotional manipulation, heavy bias; §2.5.1 (p. 28)</td></tr>
           <tr><td><code>articles.image_url</code></td><td>New</td><td>Article image in the Blog Home layout; only http/https URLs, escaped on output</td><td>Not required by the PDF (design choice). Relates to the image-tag XSS risk in §1.2 (p. 3)</td></tr>
           <tr><td><code>logs</code> (4 columns)</td><td>New table</td><td>Store run summaries, API timeouts and failed feeds</td><td>FR-3.5 (p. 31) "record and display operational execution logs"; §1.5 (p. 4) "the general system logs"</td></tr>
           <tr><td><code>rss_sources.rss_url</code></td><td>TEXT → VARCHAR(500)</td><td>MySQL cannot put a UNIQUE index on TEXT</td><td>§3.6.2 (p. 39) requires it to be unique</td></tr>

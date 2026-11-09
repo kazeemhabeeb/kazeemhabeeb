@@ -39,21 +39,29 @@ requirement · **Added** = needed for an agreed feature the schema does not cove
 | category | VARCHAR(100) | | Added: category filtering (FR-2.3, §2.2) |
 | image_url | VARCHAR(500) | NULL allowed | Added: design choice for a more readable feed (Usability, NFR-3.x). Taken from the feed's `<media:content>`, `<enclosure>` or first `<img>`; only http/https URLs are stored and they are escaped on output, which addresses the image-tag XSS risk in §1.2 (NFR-1.1, §3.8). NULL when the feed has no image |
 | verification_reason | TEXT | NULL allowed | Added: the AI's one-sentence reason, shown as "Why this score" on the article page (§3.1.1 explainable verification flags, §3.1.2 AI explainability metrics) |
+| is_clickbait | TINYINT(1) | NULL allowed | Added: 1 if tier 1 **or** the AI flags clickbait (§3.1.1 flags, §1.5, §2.5.1) |
+| emotional_manipulation | TINYINT(1) | NULL allowed | Added: the AI's emotional manipulation flag (§3.1.1, §1.5) |
+| bias_level | ENUM('none','low','high') | NULL allowed | Added: the AI's bias flag (§3.1.1, §1.5) |
+
+The three flag columns are NULL until the AI has verified the article.
 
 ## logs (FR-3.5, §1.5)
 
 | Column | Type | Constraints | Source |
 |---|---|---|---|
 | log_id | INT | Primary key, auto-increment | Added |
-| log_type | VARCHAR(50) | Not null ('Execution', 'API timeout', 'API error', 'RSS feed failed') | Added |
+| log_type | VARCHAR(50) | Not null ('Execution', 'API timeout', 'API error', 'RSS feed failed', 'Spam filtered') | Added |
 | message | TEXT | Not null | Added |
 | created_at | DATETIME | Default current time | Added |
 
 ## Decisions
 
-- **Manual re-flag (FR-3.3) clears the AI result.** When the admin changes the label, `confidence_score`
-  and `verification_reason` are set to NULL, so the badge shows the label without a percentage and the
+- **Manual re-flag (FR-3.3) clears the AI result.** When the admin changes the label, `confidence_score`,
+  `verification_reason` and the three flag columns are set to NULL, so the badge shows the label without a percentage and the
   article page says "This label was set by an administrator." No extra column is needed.
+
+- **Sources can be RSS feeds or news APIs** (WordPress REST API JSON). Both go in `rss_url`; the ingestion
+  script detects XML or JSON from the reply, so no extra column is needed (Objective 1).
 
 - **Deleting a source deletes its articles** (`ON DELETE CASCADE`). The admin's delete
   confirmation warns: "This will also delete its articles." §3.6 does not specify this.

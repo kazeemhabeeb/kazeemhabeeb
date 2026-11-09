@@ -7,7 +7,7 @@
 (function () {
   'use strict';
 
-  var STORE_KEY = 'trustfeed-mock-v2';
+  var STORE_KEY = 'trustfeed-mock-v3';
   var SESSION_KEY = 'trustfeed-admin';
   var DEMO_USER = 'admin';
   var DEMO_PASS = 'admin123';
@@ -17,7 +17,7 @@
       { id: 1, name: 'P.M. News', url: 'https://pmnewsnigeria.com/feed/', status: 'Active' },
       { id: 2, name: 'Premium Times', url: 'https://www.premiumtimesng.com/feed', status: 'Active' },
       { id: 3, name: 'Channels Television', url: 'https://www.channelstv.com/feed/', status: 'Active' },
-      { id: 4, name: 'BusinessDay', url: 'https://businessday.ng/feed/', status: 'Active' },
+      { id: 4, name: 'BusinessDay', url: 'https://businessday.ng/wp-json/wp/v2/posts', status: 'Active' }, // a news API source (Objective 1)
       { id: 5, name: 'The Onion', url: 'https://theonion.com/feed/', status: 'Active' },
       { id: 6, name: 'Viral Today', url: 'https://viraltoday.example/feed', status: 'Active' },
       { id: 7, name: 'Naija Truth Daily', url: 'https://naijatruthdaily.example/feed', status: 'Active' },
@@ -26,53 +26,54 @@
       { id: 10, name: 'Punch', url: 'https://punchng.com/feed/', status: 'Inactive' }
     ],
     articles: [
-      { id: 101, reason: "The reported gain is consistent with the stated market values, though the seven-day losing streak is not substantiated in the text.", source_id: 1, category: 'Business', date: '2026-10-09T22:59', score: 86, status: 'Real', views: 1204, image: true,
+      { id: 101, flags: { clickbait: false, emotional: false, bias: 'none' }, reason: "The reported gain is consistent with the stated market values, though the seven-day losing streak is not substantiated in the text.", source_id: 1, category: 'Business', date: '2026-10-09T22:59', score: 86, status: 'Real', views: 1204, image: true,
         title: 'Stock Market ends seven-day losing streak, adds ₦209bn',
         summary: 'The market capitalisation rose by 0.13 per cent to ₦161.260 trillion from ₦161.051 trillion recorded in the previous session, representing a gain of ₦209 billion.',
         link: 'https://pmnewsnigeria.com/2026/10/09/stock-market-ends-seven-day-losing-streak-adds-%e2%82%a6209bn/' },
-      { id: 102, reason: "Premium Times is a credible outlet, and the claim is plausible and neutrally worded, though the article gives little context to verify the timing.", source_id: 2, category: 'Politics', date: '2026-10-08T15:20', score: 82, status: 'Real', views: 876, image: true,
+      { id: 102, flags: { clickbait: false, emotional: false, bias: 'none' }, reason: "Premium Times is a credible outlet, and the claim is plausible and neutrally worded, though the article gives little context to verify the timing.", source_id: 2, category: 'Politics', date: '2026-10-08T15:20', score: 82, status: 'Real', views: 876, image: true,
         title: 'Macron to make state visit to Nigeria before end of October',
         summary: 'French President Emmanuel Macron will make a state visit to Nigeria before the end of October, officials said, as both countries seek closer trade and security cooperation.',
         link: 'https://www.premiumtimesng.com/' },
-      { id: 103, reason: "The claim is plausible and neutrally worded, though the brief report provides no date or supporting details.", source_id: 3, category: 'Education', date: '2026-10-08T12:05', score: 80, status: 'Real', views: 615, image: true,
+      { id: 103, flags: { clickbait: false, emotional: false, bias: 'none' }, reason: "The claim is plausible and neutrally worded, though the brief report provides no date or supporting details.", source_id: 3, category: 'Education', date: '2026-10-08T12:05', score: 80, status: 'Real', views: 615, image: true,
         title: "FG pays eight months' SSANU salary arrears, strike averted",
         summary: 'The Federal Government has paid eight months of salary arrears owed to members of the Senior Staff Association of Nigerian Universities, and the union has called off its planned strike.',
         link: 'https://www.channelstv.com/' },
-      { id: 104, reason: "The claim is plausible and comes from a reputable business outlet, though the brief text gives no date, figures, or supporting context.", source_id: 4, category: 'Business', date: '2026-10-08T09:40', score: 78, status: 'Real', views: 2650, image: true,
+      { id: 104, flags: { clickbait: false, emotional: false, bias: 'none' }, reason: "The claim is plausible and comes from a reputable business outlet, though the brief text gives no date, figures, or supporting context.", source_id: 4, category: 'Business', date: '2026-10-08T09:40', score: 78, status: 'Real', views: 2650, image: true,
         title: 'Naira reaches two-year high after rate cut',
         summary: "The naira strengthened against the dollar to its highest level in two years, shaking off fears that followed the central bank's recent interest rate cut.",
         link: 'https://businessday.ng/' },
-      { id: 105, reason: "The sensational, unsupported prediction and “share before it is deleted” wording are strong signs of clickbait rather than credible reporting.", source_id: 6, category: 'World', date: '2026-10-08T08:10', score: 5, status: 'Misinformation', views: 3311, image: true,
+      { id: 105, flags: { clickbait: true, emotional: true, bias: 'low' }, reason: "The sensational, unsupported prediction and “share before it is deleted” wording are strong signs of clickbait rather than credible reporting.", source_id: 6, category: 'World', date: '2026-10-08T08:10', score: 5, status: 'Misinformation', views: 3311, image: true,
         title: 'SHOCKING: Elon Musk warns over a billion people will DIE by 2030 from water shortages!!!',
         summary: 'In a video now spreading across social media, Elon Musk says more than a billion people will die of thirst by 2030 and urges viewers to share the message before it is deleted.',
         link: 'https://viraltoday.example/musk-water' },
-      { id: 110, reason: null, source_id: 1, category: 'News', date: '2026-10-07T18:30', score: null, status: 'Pending Verification', views: 98, image: false,
+      { id: 110, flags: null, reason: null, source_id: 1, category: 'News', date: '2026-10-07T18:30', score: null, status: 'Pending Verification', views: 98, image: false,
         title: 'Abducted 20 NYSC Corps members, one other regain freedom in Imo',
         summary: 'Twenty prospective corps members and one other person abducted on the Owerri-Onitsha road in Imo State have regained their freedom after a joint operation by the police, DSS and military.',
         link: 'https://pmnewsnigeria.com/2026/10/07/abducted-20-nysc-corps-members-one-other-regain-freedom-in-imo/' },
-      { id: 107, reason: "The article makes sweeping, unsupported accusations and uses inflammatory language to provoke anger rather than provide verifiable reporting.", source_id: 8, category: 'Politics', date: '2026-10-07T17:45', score: 5, status: 'Misinformation', views: 1540, image: true,
+      { id: 107, flags: { clickbait: false, emotional: true, bias: 'high' }, reason: "The article makes sweeping, unsupported accusations and uses inflammatory language to provoke anger rather than provide verifiable reporting.", source_id: 8, category: 'Politics', date: '2026-10-07T17:45', score: 5, status: 'Misinformation', views: 1540, image: true,
         title: 'This wicked government wants every Nigerian to starve. Wake up before it is too late!',
         summary: 'Only a fool would still believe anything this heartless government says. They are deliberately destroying the economy so ordinary Nigerians will suffer, and anyone who supports them is an enemy of the people.',
         link: 'https://lagoswire.example/wicked-government' },
-      { id: 108, reason: "The Onion is a satire publication, and the headline presents a humorous fictional announcement as news.", source_id: 5, category: 'Local', date: '2026-10-07T16:00', score: 5, status: 'Misinformation', views: 980, image: true,
+      { id: 108, flags: { clickbait: false, emotional: false, bias: 'none' }, reason: "The Onion is a satire publication, and the headline presents a humorous fictional announcement as news.", source_id: 5, category: 'Local', date: '2026-10-07T16:00', score: 5, status: 'Misinformation', views: 980, image: true,
         title: 'Starbucks Announces New Teen-Free Hours For Nervous Adults Who Just Want To Redeem Birthday Reward',
         summary: '',
         link: 'https://theonion.com/' },
-      { id: 106, reason: "The sensational headline promotes a baseless claim: 5G radio waves cannot spread coronavirus.", source_id: 7, category: 'Health', date: '2026-10-07T13:30', score: 4, status: 'Misinformation', views: 2087, image: true,
+      { id: 106, flags: { clickbait: true, emotional: false, bias: 'low' }, reason: "The sensational headline promotes a baseless claim: 5G radio waves cannot spread coronavirus.", source_id: 7, category: 'Health', date: '2026-10-07T13:30', score: 4, status: 'Misinformation', views: 2087, image: true,
         title: '5G masts are spreading coronavirus, scientists finally admit',
         summary: 'Scientists have finally confirmed that radiation from 5G masts weakens the immune system and spreads the coronavirus, a report shared widely on WhatsApp claims.',
         link: 'https://naijatruthdaily.example/5g-coronavirus' },
-      { id: 109, reason: "The sensational headline promotes an implausible diabetes cure and urges stopping medication without evidence.", source_id: 9, category: 'Health', date: '2026-10-07T11:15', score: 2, status: 'Misinformation', views: 1720, image: true,
+      { id: 109, flags: { clickbait: true, emotional: false, bias: 'none' }, reason: "The sensational headline promotes an implausible diabetes cure and urges stopping medication without evidence.", source_id: 9, category: 'Health', date: '2026-10-07T11:15', score: 2, status: 'Misinformation', views: 1720, image: true,
         title: 'Doctors HATE this one fruit that cures diabetes in 7 days!!!',
         summary: 'A viral post claims that eating a single tropical fruit every morning reverses type 2 diabetes within a week, with no need for medication or diet changes.',
         link: 'https://metropulse.example/fruit-diabetes' }
     ],
     logs: [
-      { t: '2026-10-09 23:00:41', type: 'Execution', msg: 'Hourly ingestion finished: 9 active feeds read, 1 new article saved, 8 duplicate URLs skipped, 1 article verified.' },
-      { t: '2026-10-08 16:00:39', type: 'Execution', msg: 'Hourly ingestion finished: 9 active feeds read, 1 new article saved, 8 duplicate URLs skipped, 1 article verified.' },
-      { t: '2026-10-08 09:00:12', type: 'RSS feed failed', msg: 'Could not connect to Metro Pulse (https://metropulse.example/rss). Feed skipped.' },
-      { t: '2026-10-07 19:00:37', type: 'API timeout', msg: 'Fact-check API request timed out for article #110. Article saved as Pending Verification.' },
-      { t: '2026-10-07 19:00:41', type: 'Execution', msg: 'Hourly ingestion finished: 9 active feeds read, 2 new articles saved, 7 duplicate URLs skipped, 1 article verified, 1 left pending.' }
+      { t: '2026-10-09 23:00:41', type: 'Execution', msg: 'Hourly run finished: 9 active sources read, 1 new article saved, 47 duplicate URLs skipped, 0 spam filtered, 1 sent for AI verification (limit 9), 1 verified, 0 left pending. Slowest source: 0.42 s.' },
+      { t: '2026-10-08 16:00:39', type: 'Execution', msg: 'Hourly run finished: 9 active sources read, 1 new article saved, 52 duplicate URLs skipped, 1 spam filtered, 1 sent for AI verification (limit 9), 1 verified, 0 left pending. Slowest source: 0.57 s.' },
+      { t: '2026-10-08 16:00:02', type: 'Spam filtered', msg: 'Tier 1: item "Sponsored: Win an iPhone 17 today" from Viral Today not saved (marked Sponsored).' },
+      { t: '2026-10-08 09:00:12', type: 'RSS feed failed', msg: 'Could not connect to Metro Pulse (https://metropulse.example/rss). Source skipped.' },
+      { t: '2026-10-07 19:00:37', type: 'API timeout', msg: 'AI verification request timed out for article #110. Article left as Pending Verification; it will be retried next hour.' },
+      { t: '2026-10-07 19:00:41', type: 'Execution', msg: 'Hourly run finished: 9 active sources read, 2 new articles saved, 49 duplicate URLs skipped, 0 spam filtered, 2 sent for AI verification (limit 9), 1 verified, 1 left pending. Slowest source: 0.61 s.' }
     ]
   };
 
@@ -125,6 +126,15 @@
     if (a.status === 'Real') return '<span class="badge bg-success">Real' + pct + '</span>';
     return '<span class="badge bg-danger">Misinformation' + pct + '</span>';
   }
+  // §3.1.1 alert indicators from the stored flags (is_clickbait, emotional_manipulation, bias_level)
+  function flagNames(a) {
+    var f = a.flags, list = [];
+    if (!f) return list;
+    if (f.clickbait) list.push('Clickbait');
+    if (f.emotional) list.push('Emotional manipulation');
+    if (f.bias === 'high') list.push('High bias');
+    return list;
+  }
   function verdictForScore(score) { return score >= 50 ? 'Real' : 'Misinformation'; }
   function toast(msg, kind) {
     var box = document.getElementById('mockToast');
@@ -157,7 +167,8 @@
   // =====================================================================================
   // Public site (Blog Home)
   // =====================================================================================
-  var feedState = { q: '', cat: '', page: 1 };
+  var feedState = { cat: '', page: 1 };
+  var REFRESH_MS = 5 * 60 * 1000; // FR-2.3: re-check for new articles every 5 minutes
   var PAGE_SIZE = 5;
 
   function renderNavCategories() {
@@ -191,37 +202,35 @@
       '<div class="card-body">' +
       '<div class="small text-muted">' + niceDate(a.date) + ' &middot; ' + esc(sourceName(a.source_id)) + ' &middot; ' + esc(a.category) + '</div>' +
       '<h2 class="card-title' + (featured ? '' : ' h4') + '"><a class="text-reset text-decoration-none" href="' + articleUrl(a) + '">' + esc(a.title) + '</a></h2>' +
-      '<p class="mb-2">' + badge(a) + '</p>' +
+      '<p class="mb-2">' + badge(a) + (flagNames(a).length ? ' <span class="small text-danger ms-1">&#9888; ' + esc(flagNames(a).join(', ')) + '</span>' : '') + '</p>' +
       '<p class="card-text">' + (a.summary ? esc(a.summary) : '<span class="text-muted">No summary was provided in the feed.</span>') + '</p>' +
       '<a class="btn btn-primary" href="' + articleUrl(a) + '">Read more →</a>' +
       '</div></div>';
   }
 
   function filteredArticles() {
-    var q = feedState.q.toLowerCase();
     return data.articles.slice().sort(byNewest).filter(function (a) {
-      if (feedState.cat && a.category !== feedState.cat) return false;
-      if (q && (a.title + ' ' + a.summary + ' ' + sourceName(a.source_id)).toLowerCase().indexOf(q) === -1) return false;
-      return true;
+      return !feedState.cat || a.category === feedState.cat;
     });
   }
 
-  function renderFeed() {
+  function renderFeed(silent) {
     var feed = document.getElementById('feed');
     if (!feed) return;
-    // mimic the AJAX request to api/articles.php (FR-2.3)
-    feed.innerHTML = '<div class="text-center text-muted py-5"><div class="spinner-border spinner-border-sm me-2" role="status"></div>Loading articles…</div>';
+    // mimic the AJAX request to api/articles.php (FR-2.3); the 5-minute refresh is silent
+    if (!silent) feed.innerHTML = '<div class="text-center text-muted py-5"><div class="spinner-border spinner-border-sm me-2" role="status"></div>Loading articles…</div>';
     setTimeout(function () {
+      load(); // pick up changes saved from the admin panel
       var list = filteredArticles();
       var pages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
       if (feedState.page > pages) feedState.page = pages;
       var pageItems = list.slice((feedState.page - 1) * PAGE_SIZE, feedState.page * PAGE_SIZE);
       var heading = document.getElementById('feedHeading');
       if (heading) {
-        heading.textContent = feedState.q ? 'Search results for "' + feedState.q + '"' : (feedState.cat || 'Latest News');
+        heading.textContent = feedState.cat || 'Latest News';
       }
       if (!pageItems.length) {
-        feed.innerHTML = '<div class="alert alert-info">No articles found. Try a different search word or choose another category.</div>';
+        feed.innerHTML = '<div class="alert alert-info">No articles found in this category.</div>';
       } else {
         var html = postCard(pageItems[0], true);
         var rest = pageItems.slice(1), left = [], right = [];
@@ -255,56 +264,47 @@
         }
         e.preventDefault();
         feedState.cat = cat.getAttribute('data-cat');
-        feedState.q = '';
         feedState.page = 1;
-        var q = document.getElementById('searchInput');
-        if (q) q.value = '';
         onChange();
       }
     });
-    var form = document.getElementById('searchForm');
-    if (form) {
-      form.addEventListener('submit', function (e) {
-        var value = document.getElementById('searchInput').value.trim();
-        if (!document.getElementById('feed')) {
-          try { sessionStorage.setItem('tf-q', value); } catch (err) {}
-          return; // go to index.html with the search
-        }
-        e.preventDefault();
-        feedState.q = value;
-        feedState.cat = '';
-        feedState.page = 1;
-        onChange();
-      });
-    }
   }
 
   function initFeedPage() {
     try {
-      var c = sessionStorage.getItem('tf-cat'), q = sessionStorage.getItem('tf-q');
+      var c = sessionStorage.getItem('tf-cat');
       if (c !== null) { feedState.cat = c; sessionStorage.removeItem('tf-cat'); }
-      if (q !== null) { feedState.q = q; sessionStorage.removeItem('tf-q'); var input = document.getElementById('searchInput'); if (input) input.value = q; }
     } catch (err) {}
-    initPublicWidgets(renderFeed);
+    initPublicWidgets(function () { renderFeed(false); });
     document.addEventListener('click', function (e) {
       var p = e.target.closest('[data-goto-page]');
       if (p && document.getElementById('feed')) {
         e.preventDefault();
         var n = parseInt(p.getAttribute('data-goto-page'), 10);
-        if (n >= 1) { feedState.page = n; renderFeed(); window.scrollTo(0, 0); }
+        if (n >= 1) { feedState.page = n; renderFeed(false); window.scrollTo(0, 0); }
       }
     });
-    renderFeed();
+    renderFeed(false);
+    setInterval(function () { renderFeed(true); }, REFRESH_MS);
   }
 
   // "Why this score": the reason returned by the AI (§3.1.1 explainable verification flags, §3.1.2)
   function whyBox(a) {
     if (a.status === 'Pending Verification') return '';
+    var f = a.flags, flagsHtml = '';
+    if (f) {
+      var yesNo = function (v) { return v ? '<span class="badge bg-danger">Yes</span>' : '<span class="badge bg-secondary">No</span>'; };
+      var biasCls = f.bias === 'high' ? 'bg-danger' : (f.bias === 'low' ? 'bg-warning text-dark' : 'bg-secondary');
+      flagsHtml = '<ul class="list-unstyled mb-2">' +
+        '<li class="mb-1">Clickbait: ' + yesNo(f.clickbait) + '</li>' +
+        '<li class="mb-1">Emotional manipulation: ' + yesNo(f.emotional) + '</li>' +
+        '<li>Bias: <span class="badge ' + biasCls + '">' + esc(f.bias.charAt(0).toUpperCase() + f.bias.slice(1)) + '</span></li></ul>';
+    }
     var body = a.reason
-      ? '<p class="mb-2">' + esc(a.reason) + '</p><div class="small text-muted">Explanation written by the AI verification service. It can be wrong.</div>'
+      ? '<p class="mb-2">' + esc(a.reason) + '</p>' + flagsHtml + '<div class="small text-muted">Explanation written by the AI verification service. It can be wrong.</div>'
       : '<p class="mb-0">This label was set by an administrator.</p>';
     return '<div class="card mb-4"><div class="card-header fw-bold">Why this score</div><div class="card-body">' + body +
-      '<div class="small mt-2"><span class="req">[§3.1.1 explainable verification flags; §3.1.2 AI explainability metrics; needs a verification_reason column]</span></div></div></div>';
+      '<div class="small mt-2"><span class="req">[§3.1.1 explainable verification flags; §3.1.2 AI explainability metrics; §1.5 clickbait, emotional manipulation, bias; columns verification_reason, is_clickbait, emotional_manipulation, bias_level]</span></div></div></div>';
   }
 
   function initArticlePage() {
@@ -384,6 +384,7 @@
     $('#statTotal').textContent = total;
     $('#statReal').textContent = real;
     $('#statFake').textContent = fake;
+    $('#statPending').textContent = pending;
     var rf = real + fake;
     var pr = rf ? Math.round(real / rf * 1000) / 10 : 0, pf = rf ? Math.round(fake / rf * 1000) / 10 : 0;
     $('#ratioBar').innerHTML =
@@ -415,10 +416,10 @@
     $('#activeCount').textContent = data.sources.filter(function (s) { return s.status === 'Active'; }).length;
   }
   function validSource(name, url, ignoreId) {
-    if (!name || !url) return 'Enter a website name and an RSS feed URL.';
-    if (!/^https?:\/\/\S+$/i.test(url)) return 'The RSS feed URL must start with http:// or https://.';
+    if (!name || !url) return 'Enter a website name and a feed URL.';
+    if (!/^https?:\/\/\S+$/i.test(url)) return 'The feed URL must start with http:// or https://.';
     for (var i = 0; i < data.sources.length; i++) {
-      if (data.sources[i].url.toLowerCase() === url.toLowerCase() && data.sources[i].id !== ignoreId) return 'That RSS feed URL is already in the list.';
+      if (data.sources[i].url.toLowerCase() === url.toLowerCase() && data.sources[i].id !== ignoreId) return 'That feed URL is already in the list.';
     }
     return '';
   }
@@ -513,6 +514,7 @@
       a.status = sel.value;
       a.score = null;   // the AI's score and reason no longer apply once the admin sets the label
       a.reason = null;
+      a.flags = null;
       save(); renderAdminArticles();
       toast('Article #' + a.id + ' re-flagged as ' + a.status + '.');
     });
@@ -540,7 +542,7 @@
   function initLogs() {
     if (!requireLogin()) return;
     wireLogout();
-    var cls = { 'Execution': 'bg-secondary', 'API timeout': 'bg-warning text-dark', 'API error': 'bg-danger', 'RSS feed failed': 'bg-danger' };
+    var cls = { 'Execution': 'bg-secondary', 'API timeout': 'bg-warning text-dark', 'API error': 'bg-danger', 'RSS feed failed': 'bg-danger', 'Spam filtered': 'bg-info text-dark' };
     $('#logRows').innerHTML = data.logs.slice().sort(function (a, b) { return a.t < b.t ? 1 : -1; }).map(function (l) {
       return '<tr><td class="text-nowrap">' + l.t + '</td><td><span class="badge ' + (cls[l.type] || 'bg-secondary') + '">' + esc(l.type) + '</span></td><td>' + esc(l.msg) + '</td></tr>';
     }).join('');
