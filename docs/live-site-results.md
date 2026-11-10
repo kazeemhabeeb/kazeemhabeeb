@@ -53,3 +53,34 @@ Cause: the AI has no web access, so a surprising but genuine statement by a publ
 claim. The headline style "[quote] — Name" reports what someone said; it does not assert the statement is true.
 This is the "cannot check recent events" limitation (decision 29 and §1.6), and it is why the admin can re-flag
 an article by hand (FR-3.3).
+
+### Follow-up tests on the Kalu article (10 November 2026)
+
+**Prompt sentence for quote headlines.** A trial sentence was added to the prompt: *A headline written as
+"<quoted words> — <Name>" reports what that named person said: judge whether the report of the statement is
+credible, not whether the statement itself is surprising.*
+
+| Article | Prompt | Score | Verdict |
+|---|---|---|---|
+| I sold arms to anyone with money — Kalu (real, Punch) | current (live site) | 35 | Misinformation |
+| same | current | 20 | Misinformation |
+| same | trial | 80 | Real |
+| same | trial | 30 | Misinformation |
+| I'm a godfather, but don't interfere in Abiodun's govt — Osoba (real, Punch) | trial | 85 | Real |
+| *I will hand over to Peter Obi next week — Tinubu* (invented quote on a fake blog) | trial | 10 | Misinformation |
+| Doctors HATE this one fruit that cures diabetes in 7 days!!! (fake) | trial | 10 | Misinformation |
+| Gavin Newsom Commutes All California Death Sentences (The Onion) | trial | 5 | Misinformation |
+
+The trial sentence did not weaken detection (the invented quote, the fake cure and the satire were all still
+caught), but it did not reliably fix the Kalu article either: the same prompt gave 80 and then 30. **The prompt
+was left unchanged**; the result is evidence of LLM variability (§2.3: inconsistent classifications for the same
+input). 5 of the 10 calls in this test returned HTTP 502 "upstream request failed" from the service.
+
+**Web access re-check.** In the RapidAPI playground with `"web_access": true`:
+- Asked directly about the Kalu story (only answerable by searching the web), the service replied
+  **"NO WEB ACCESS"**.
+- The full TrustFeed prompt for the Kalu article scored **45, Misinformation** ("minimal context or verification"),
+  with no sign of a web search.
+
+So `"web_access": false` stays in `ai.php`: it states what the service actually does. Across five runs on
+two endpoints, the same real article scored 35, 20, 80, 30 and 45. Replies took 17–28 seconds.
