@@ -53,7 +53,13 @@ try {
     $articles = [];
     foreach ($rows as $r) {
         // §3.1.1 alert indicators, shown on the card only when a flag is set (decision 19).
+        // A Pending article may hold the first opinion's flags while it waits for the second opinion
+        // (decision 32); those are not shown until the verdict is final.
         $alerts = [];
+        if ($r['verification_status'] === 'Pending Verification') {
+            $r['is_clickbait'] = $r['emotional_manipulation'] = $r['bias_level'] = null;
+            $r['confidence_score'] = null;
+        }
         if ((int) $r['is_clickbait'] === 1) {
             $alerts[] = 'Clickbait';
         }

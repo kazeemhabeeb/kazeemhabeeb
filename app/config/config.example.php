@@ -25,6 +25,19 @@ define('RAPIDAPI_HOST', 'chatgpt-42.p.rapidapi.com');
 define('RAPIDAPI_URL', 'https://chatgpt-42.p.rapidapi.com/gpt4');
 
 // ---------------------------------------------------------------------------
+// Second opinion: Search GPT on RapidAPI, which can search the web (decision 32).
+// A Misinformation verdict from GPT-4o on a non-satire article is checked again before readers see it.
+// Uses the same RAPIDAPI_KEY. Leave SEARCH_API_URL empty to switch the second opinion off.
+// Host and URL: RapidAPI -> Search GPT -> Code snippet tab.
+// ---------------------------------------------------------------------------
+define('SEARCH_API_HOST', '');
+define('SEARCH_API_URL', '');
+define('SEARCH_API_MODEL', 'GPT-5.6-Terra');
+define('SEARCH_API_TIMEOUT_SECONDS', 90);   // live test: 9.5-25 s per reply
+define('SECOND_OPINION_MAX_PER_RUN', 2);    // token plan: ~14,000-35,000 tokens per check
+define('SECOND_OPINION_MAX_WAITING', 10);   // older waiting articles get the first verdict (no pile-up)
+
+// ---------------------------------------------------------------------------
 // Ingestion and verification settings
 // ---------------------------------------------------------------------------
 define('VERDICT_THRESHOLD', 50);      // score >= 50 is Real, below is Misinformation (p. 36, p. 41)

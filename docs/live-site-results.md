@@ -84,3 +84,39 @@ input). 5 of the 10 calls in this test returned HTTP 502 "upstream request faile
 
 So `"web_access": false` stays in `ai.php`: it states what the service actually does. Across five runs on
 two endpoints, the same real article scored 35, 20, 80, 30 and 45. Replies took 17–28 seconds.
+
+### Charlie Kirk article and the web-search second opinion (10 November 2026)
+
+A real P.M. News story, *Erika Kirk condemns jokes on Charlie's assassination*, was scored **10, Misinformation**:
+"Article makes implausible claim about assassination of living public figure without credible sourcing". The
+model's knowledge ends before Charlie Kirk's death and it cannot search the web, so a real later event looked
+invented. This is more serious than the Kalu case: any real event after the training cutoff that contradicts
+what the model knew (deaths, appointments, elections) tends to be marked false.
+
+**Prompt sentence about the knowledge cutoff** (*"Your knowledge has a cutoff date; deaths, appointments,
+elections and other events after it are normal, so do not treat an article as false only because it contradicts
+what you knew before your cutoff."*):
+
+| Article | Prompt | Scores |
+|---|---|---|
+| Erika Kirk condemns jokes on Charlie's assassination (real) | current | 5, 85 |
+| same | with the cutoff sentence | 15, 70, 85, 15 |
+| I sold arms to anyone with money — Kalu (real) | with the cutoff sentence | 75 |
+| BREAKING: Davido is dead! … (invented death, blog) | with the cutoff sentence | 5 |
+| Former President Olusegun Obasanjo dies at 89 (invented, calm wording, blog) | with the cutoff sentence | 10 |
+| I will hand over to Peter Obi next week — Tinubu (invented quote, blog) | with the cutoff sentence | 5 |
+| Gavin Newsom Commutes All California Death Sentences (The Onion) | with the cutoff sentence | 0 |
+
+The sentence did not let fakes through, but it did not fix the real article either (2 of 4 runs still below
+50). Not adopted: the model cannot know facts it was never given.
+
+**Search GPT (RapidAPI, model GPT-5.6-Terra, `web_search` tool).** The same TrustFeed prompt for the Kirk article
+scored **88, Real**: "Independent reporting supports the events, though Erika Kirk did not name Dave Chappelle in
+her statement", citing a CNN story from that day. 9.5 s, 13,653 tokens. A general news question used 35,015
+tokens. Plans are by tokens (Basic $1 = 1M, Pro $5 = 5M, Ultra $25 = 25M, Mega $75 = 100M a month, hard limits),
+so web-checking all ~216 articles a day is not affordable; the second opinion checks only Misinformation
+verdicts (decision 32).
+
+**New `satire` field, live check on GPT-4o:** The Onion 0 (satire true), The Babylon Bee 0 (satire true), the
+Kirk article 10 (satire false, so it goes to the web check), an invented Davido death 10 (satire false, web
+check). Automated test: `app/tests/test_second_opinion.php` (14 checks, mock services).

@@ -62,7 +62,7 @@ CREATE TABLE articles (
 
 -- ---------------------------------------------------------------------------
 -- logs: execution runs and errors shown in the admin panel (FR-3.5) -- Added table
--- log_type: Execution, API timeout, API error, RSS feed failed, Spam filtered, Login failed
+-- log_type: Execution, API timeout, API error, RSS feed failed, Spam filtered, Login failed, Second opinion
 -- ---------------------------------------------------------------------------
 CREATE TABLE logs (
     log_id     INT         NOT NULL AUTO_INCREMENT,

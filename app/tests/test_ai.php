@@ -43,6 +43,11 @@ foreach ($cases as $name => $case) {
 }
 $a = parse_ai_reply(str_replace('Plausible.', '<script>alert(1)</script>Plausible <b>claim</b>.', $good));
 $checks['HTML in the reason is removed'] = is_array($a) && $a['reason'] === 'Plausible claim.';
+$a = parse_ai_reply(str_replace('Plausible.', 'Supported by reports. ([kvia.com](https://kvia.com/x/2026/11/10/a-b/))', $good));
+$checks['Search GPT citation link removed from the reason'] = is_array($a) && $a['reason'] === 'Supported by reports.';
+$checks['satire missing -> false']  = parse_ai_reply($good)['satire'] === false;
+$checks['satire true -> true']      = parse_ai_reply(str_replace('"bias"', '"satire":true,"bias"', $good))['satire'] === true;
+$checks['satire "yes" -> false (not a boolean)'] = parse_ai_reply(str_replace('"bias"', '"satire":"yes","bias"', $good))['satire'] === false;
 
 // 4. Failures from the service itself (mock server), each must come back as a loggable failure.
 $base = 'http://127.0.0.1:8095';
@@ -56,9 +61,17 @@ $r = call_ai('test', 'http://127.0.0.1:8099/nothing-here', 5);
 $checks['service unreachable -> API error'] = !$r['ok'] && $r['type'] === 'API error';
 $r = call_ai('test', "$base/good", 5);
 $checks['good reply -> ok']                = $r['ok'] && is_array(parse_ai_reply($r['text']));
+$r = call_web_ai('test', "$base/flow-web", 5);
+$checks['Search GPT request without the web prompt is refused by the mock -> API error'] = !$r['ok'];
+$r = call_web_ai(build_prompt(['title' => 'RECENT x', 'content_summary' => 's', 'original_link' => 'https://x.ng/a', 'publication_date' => '2026-11-10 10:00:00'], true), "$base/flow-web", 5);
+$checks['Search GPT chat.completion reply -> ok with tokens'] = $r['ok'] && $r['tokens'] === 13653 && parse_ai_reply($r['text'])['score'] === 88;
+$r = call_web_ai('test', "$base/server-down", 5);
+$checks['Search GPT 503 -> API error'] = !$r['ok'] && $r['type'] === 'API error';
 
 // 5. The prompt carries exactly the FR-1.2 fields.
 $prompt = build_prompt(['title' => 'T', 'content_summary' => null, 'original_link' => 'https://x.ng/a', 'publication_date' => '2026-11-09 10:00:00']);
+$web = build_prompt(['title' => 'T', 'content_summary' => null, 'original_link' => 'https://x.ng/a', 'publication_date' => '2026-11-09 10:00:00'], true);
+$checks['web prompt asks for a web search; first prompt does not'] = strpos($web, 'Search the web') !== false && strpos($prompt, 'Search the web') === false;
 $checks['prompt has title, body, source_url, publication_date'] = strpos($prompt, '"title":"T","body":"(headline only)","source_url":"https://x.ng/a","publication_date":"2026-11-09 10:00:00"') !== false;
 
 $failed = 0;

@@ -23,6 +23,7 @@ $types = [
     'API error'       => ['bg-danger', 'table-danger'],
     'RSS feed failed' => ['bg-danger', 'table-danger'],
     'Spam filtered'   => ['bg-info text-dark', ''],
+    'Second opinion'  => ['bg-primary', ''],
     'Login failed'    => ['bg-warning text-dark', 'table-warning'],
 ];
 
