@@ -120,3 +120,18 @@ verdicts (decision 32).
 **New `satire` field, live check on GPT-4o:** The Onion 0 (satire true), The Babylon Bee 0 (satire true), the
 Kirk article 10 (satire false, so it goes to the web check), an invented Davido death 10 (satire false, web
 check). Automated test: `app/tests/test_second_opinion.php` (14 checks, mock services).
+
+**Live check on the Hostinger server** (`tools/test_web_check.php`, web-check prompt from `ai.php`, two runs):
+
+| Article | Truth | Run 1 | Run 2 |
+|---|---|---|---|
+| Erika Kirk condemns jokes on Charlie's assassination (P.M. News) | Real | 401 | **88 Real** (22,511 tokens, 18.9 s) |
+| I sold arms to anyone with money — Kalu (Punch) | Real | 401 | **93 Real** (20,154 tokens, 12.5 s) |
+| Former President Olusegun Obasanjo dies at 89 (invented, blog) | Fake | 401 | **8 Misinformation** (15,969 tokens, 10.0 s) |
+| I will hand over to Peter Obi next week — Tinubu (invented, blog) | Fake | **2 Misinformation** (18,204 tokens, 31.5 s) | 401 |
+
+Every answer was correct, and the reasons cite the facts found ("Nigeria's constitution says the vice
+president—not Peter Obi—would succeed a resigning president"). 4 of 8 calls failed with HTTP 401 "Client
+Error, Invalid request or property", on different articles each run with the same key, so the failures are
+random on the service's side; failed calls use no tokens. `call_web_ai()` now retries a 401 or 5xx once after
+3 seconds; anything still failing stays Pending and is retried the next hour (NFR-2.1).

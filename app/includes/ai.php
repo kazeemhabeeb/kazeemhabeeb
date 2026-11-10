@@ -97,7 +97,7 @@ function rapidapi_post($url, $host, $body, $timeout)
     }
     if ($status < 200 || $status >= 300) {
         // 401/403: key problem; 429: rate limit or credits/tokens used up; 5xx: the service is down.
-        return ['ok' => false, 'type' => 'API error', 'error' => "HTTP status $status: " . mb_substr(trim($response), 0, 150)];
+        return ['ok' => false, 'type' => 'API error', 'status' => $status, 'error' => "HTTP status $status: " . mb_substr(trim($response), 0, 150)];
     }
     return ['ok' => true, 'body' => $response];
 }
@@ -125,19 +125,32 @@ function call_ai($prompt, $url = RAPIDAPI_URL, $timeout = AI_TIMEOUT_SECONDS)
 
 // Second opinion: Search GPT on RapidAPI, with its web_search tool (decision 32).
 // Returns ['ok' => true, 'text' => answer, 'tokens' => tokens used] or a failure like call_ai().
-function call_web_ai($prompt, $url = null, $timeout = null)
+// In the live test, about half the calls failed at random with HTTP 401 "Invalid request or property" (the same
+// request worked on the next run), so a 401 or 5xx reply is retried once after 3 seconds. Failed calls use no
+// tokens. Timeouts and 429 (rate limit or tokens used up) are not retried.
+function call_web_ai($prompt, $url = null, $timeout = null, $retryDelay = 3)
 {
-    $reply = rapidapi_post(
-        $url !== null ? $url : ai_setting('SEARCH_API_URL', ''),
-        ai_setting('SEARCH_API_HOST', ''),
-        [
-            'model'    => ai_setting('SEARCH_API_MODEL', 'GPT-5.6-Terra'),
-            'tools'    => [['type' => 'web_search']],
-            'messages' => [['role' => 'user', 'content' => $prompt]],
-        ],
-        $timeout !== null ? $timeout : ai_setting('SEARCH_API_TIMEOUT_SECONDS', 90)
-    );
+    for ($attempt = 1; $attempt <= 2; $attempt++) {
+        $reply = rapidapi_post(
+            $url !== null ? $url : ai_setting('SEARCH_API_URL', ''),
+            ai_setting('SEARCH_API_HOST', ''),
+            [
+                'model'    => ai_setting('SEARCH_API_MODEL', 'GPT-5.6-Terra'),
+                'tools'    => [['type' => 'web_search']],
+                'messages' => [['role' => 'user', 'content' => $prompt]],
+            ],
+            $timeout !== null ? $timeout : ai_setting('SEARCH_API_TIMEOUT_SECONDS', 90)
+        );
+        $status = isset($reply['status']) ? $reply['status'] : 0;
+        if ($reply['ok'] || $attempt === 2 || !($status === 401 || $status >= 500)) {
+            break;
+        }
+        sleep($retryDelay);
+    }
     if (!$reply['ok']) {
+        if ($attempt === 2) {
+            $reply['error'] .= ' (also failed on a retry)';
+        }
         return $reply;
     }
 
