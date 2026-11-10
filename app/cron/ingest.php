@@ -155,5 +155,9 @@ if ($slowest['name'] !== '') {
 }
 $summary .= sprintf(' AI verification: %d sent (limit %d), %d verified, %d failed; %d article(s) still Pending Verification.',
                     $ai['sent'], AI_MAX_CALLS_PER_RUN, $ai['verified'], $ai['failed'], $ai['pending']);
+if (second_opinion_enabled()) {
+    $summary .= sprintf(' Web-search second opinion: %d new Misinformation verdict(s) sent for checking, %d checked (%d changed to Real, %d confirmed), %d failed, %d tokens used.',
+                        $ai['to_web'], $ai['web_sent'], $ai['web_changed'], $ai['web_confirmed'], $ai['web_failed'], $ai['web_tokens']);
+}
 write_log($db, 'Execution', $summary);
 echo $summary, "\n";

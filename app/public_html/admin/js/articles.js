@@ -23,7 +23,9 @@
       var pct = a.score === null ? '' : ' &ndash; ' + a.score + '%';
       return '<span class="badge ' + (a.status === 'Real' ? 'bg-success' : 'bg-danger') + '">' + esc(a.status) + pct + '</span>';
     }
-    return '<span class="badge bg-warning text-dark">Pending Verification</span>';
+    // A Pending article with a score is waiting for the web-search second opinion (decision 32).
+    var web = a.score === null ? '' : ' &ndash; web check (first AI: ' + a.score + '%)';
+    return '<span class="badge bg-warning text-dark">Pending Verification' + web + '</span>';
   }
 
   function message(text, kind) {

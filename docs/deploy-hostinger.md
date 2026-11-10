@@ -92,3 +92,18 @@ hPanel → Advanced → Cron Jobs → Custom, every hour (`0 * * * *`):
 Every change merged into `main` deploys automatically. Two things stay manual:
 - **Database changes:** run the provided SQL file once (phpMyAdmin or `mysql` over SSH).
 - **config.php changes:** edit on the server; deployments never touch it.
+
+## Web-search second opinion (decision 32)
+
+Add to `config/config.php` on the server. Until `SEARCH_API_URL` is filled in, the second opinion stays off and the site works as before. The same
+`RAPIDAPI_KEY` is used.
+```php
+define('SEARCH_API_HOST', 'search-gpt.p.rapidapi.com');
+define('SEARCH_API_URL', 'https://search-gpt.p.rapidapi.com/');
+define('SEARCH_API_MODEL', 'GPT-5.6-Terra');
+define('SEARCH_API_TIMEOUT_SECONDS', 90);
+define('SECOND_OPINION_MAX_PER_RUN', 2);
+define('SECOND_OPINION_MAX_WAITING', 10);
+```
+No database change is needed. Live check (4 sample articles, nothing saved):
+`/opt/alt/php83/usr/bin/php ~/trustfeed_app/tools/test_web_check.php`
