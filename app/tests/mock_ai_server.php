@@ -33,6 +33,14 @@ switch ($path) {
         echo json_encode(['object' => 'chat.completion', 'choices' => [['index' => 0, 'message' => ['role' => 'assistant', 'content' => $content]]],
             'usage' => ['total_tokens' => 13653]]);
         break;
+    case '/flaky-web':    // 401 on odd calls, a good reply on even calls
+        $file = sys_get_temp_dir() . '/trustfeed_flaky_count';
+        $n = (int) @file_get_contents($file) + 1;
+        file_put_contents($file, $n);
+        if ($n % 2 === 1) { http_response_code(401); echo '{"error":"Client Error, Invalid request or property"}'; break; }
+        echo json_encode(['choices' => [['message' => ['content' => '{"credibility_score":88,"clickbait":false,"emotional_manipulation":false,"bias":"low","satire":false,"reason":"Confirmed."}']]], 'usage' => ['total_tokens' => 100]]);
+        break;
+    case '/always-401':   http_response_code(401); echo '{"error":"Client Error, Invalid request or property"}'; break;
     case '/good':          echo json_encode(['result' => '{"credibility_score":82,"clickbait":false,"emotional_manipulation":false,"bias":"none","reason":"Plausible and neutrally worded."}', 'status' => true]); break;
     default:               http_response_code(404); echo '{"message":"Endpoint does not exist"}';
 }

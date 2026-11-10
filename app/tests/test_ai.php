@@ -65,8 +65,15 @@ $r = call_web_ai('test', "$base/flow-web", 5);
 $checks['Search GPT request without the web prompt is refused by the mock -> API error'] = !$r['ok'];
 $r = call_web_ai(build_prompt(['title' => 'RECENT x', 'content_summary' => 's', 'original_link' => 'https://x.ng/a', 'publication_date' => '2026-11-10 10:00:00'], true), "$base/flow-web", 5);
 $checks['Search GPT chat.completion reply -> ok with tokens'] = $r['ok'] && $r['tokens'] === 13653 && parse_ai_reply($r['text'])['score'] === 88;
-$r = call_web_ai('test', "$base/server-down", 5);
-$checks['Search GPT 503 -> API error'] = !$r['ok'] && $r['type'] === 'API error';
+$r = call_web_ai('test', "$base/server-down", 5, 0);
+$checks['Search GPT 503 -> API error after a retry'] = !$r['ok'] && $r['type'] === 'API error' && strpos($r['error'], 'retry') !== false;
+@unlink(sys_get_temp_dir() . '/trustfeed_flaky_count');
+$r = call_web_ai('test', "$base/flaky-web", 5, 0);
+$checks['Search GPT random 401 -> retried once -> ok'] = $r['ok'] && parse_ai_reply($r['text'])['score'] === 88;
+$r = call_web_ai('test', "$base/always-401", 5, 0);
+$checks['Search GPT 401 twice -> API error'] = !$r['ok'] && strpos($r['error'], '401') !== false;
+$r = call_web_ai('test', "$base/rate-limit", 5, 0);
+$checks['Search GPT 429 -> not retried'] = !$r['ok'] && strpos($r['error'], 'retry') === false;
 
 // 5. The prompt carries exactly the FR-1.2 fields.
 $prompt = build_prompt(['title' => 'T', 'content_summary' => null, 'original_link' => 'https://x.ng/a', 'publication_date' => '2026-11-09 10:00:00']);
