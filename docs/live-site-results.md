@@ -135,3 +135,15 @@ president—not Peter Obi—would succeed a resigning president"). 4 of 8 calls 
 Error, Invalid request or property", on different articles each run with the same key, so the failures are
 random on the service's side; failed calls use no tokens. `call_web_ai()` now retries a 401 or 5xx once after
 3 seconds; anything still failing stays Pending and is retried the next hour (NFR-2.1).
+
+**Live hourly runs with the second opinion on (10 November 21:07 to 11 November 07:02, Lagos time).** Every web
+check failed with HTTP 400 "Client Error, Invalid request or property" (22 attempts on articles #469, #472 and
+#529), and the provider's own playground example ("What is the latest news in the UK?") failed the same way, so
+the service itself was down. Failed calls used no tokens (Search GPT quota stayed at 15.61%, all of it from the
+tests). Meanwhile the articles stayed Pending, as designed (NFR-2.1), with the same two retried every hour.
+
+**Switched off on 11 November 2026** (`SEARCH_API_URL` set to empty in the server's `config.php`). The waiting
+articles received GPT-4o's verdict at the next run. Conclusion for the report: a web-search second opinion fixes
+the training-cutoff problem (Kirk 10 → 88, Kalu → 93, fakes still 2 and 8), but this provider was too unreliable
+and its token cost too high to depend on; it remains in the code as future work. GPT-4o overnight load was low
+(0–3 new articles an hour from 01:00 to 06:00), well within 9 checks per run.
