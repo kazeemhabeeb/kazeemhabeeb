@@ -1,0 +1,502 @@
+[
+    {
+        "id": 1,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Premium Times",
+        "title": "EFCC appeals judgement lifting forfeiture order on $912,550 linked to ex-Warri refinery MD",
+        "content_summary": "EFCC faulted the Federal High Court judgement dismissing the asset forfeiture proceedings against $912,550 linked to the ex-MD of Warri refinery.",
+        "original_link": "https://www.premiumtimesng.com/news/top-news/924583-efcc-appeals-judgement-lifting-forfeiture-order-on-912550-linked-to-ex-warri-refinery-md.html",
+        "publication_date": "2026-11-12 05:19:57"
+    },
+    {
+        "id": 2,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Premium Times",
+        "title": "ADC accuses Tinubu, APC of obstructing opposition after Kaduna govt sealed Arewa House",
+        "content_summary": "The ADC also criticised the timing of the release of the court judgement nullifying David Mark’s leadership, alleging that the ruling APC is also using public authority to frustrate its political consultations ahead of the 2027 elections.",
+        "original_link": "https://www.premiumtimesng.com/news/top-news/924570-adc-accuses-tinubu-apc-of-obstructing-opposition-after-kaduna-govt-sealed-arewa-house.html",
+        "publication_date": "2026-11-11 23:50:55"
+    },
+    {
+        "id": 3,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Premium Times",
+        "title": "2027: SDP appoints Peter Obi’s ex-adviser as campaign coordinator",
+        "content_summary": "Mr Tanko was welcomed into the SDP campaign team by the party’s National Working Committee (NWC), its leaders and supporters.",
+        "original_link": "https://www.premiumtimesng.com/news/top-news/924567-2027-sdp-appoints-peter-obis-ex-adviser-as-campaign-coordinator.html",
+        "publication_date": "2026-11-11 23:37:06"
+    },
+    {
+        "id": 4,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Premium Times",
+        "title": "EFCC re-arraigns ex-Skye Bank chair Tunde Ayeni on N15.6bn fraud charges",
+        "content_summary": "This is the fourth time the EFCC has arraigned Mr Ayeni on the set of charges in the stop-start trial since May.",
+        "original_link": "https://www.premiumtimesng.com/news/top-news/924565-efcc-re-arraigns-ex-skye-bank-chair-tunde-ayeni-on-n15-6bn-fraud-charges.html",
+        "publication_date": "2026-11-11 23:27:50"
+    },
+    {
+        "id": 5,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Premium Times",
+        "title": "FG funds federal workers’ accrued pension rights through 2029 – Official",
+        "content_summary": "According to PenCom, the government has moved from a 21-month funding backlog to a 41-month surplus, while retirement benefits are now processed within 48 hours.",
+        "original_link": "https://www.premiumtimesng.com/business/business-news/924563-fg-funds-federal-workers-accrued-pension-rights-through-2029-official.html",
+        "publication_date": "2026-11-11 23:18:41"
+    },
+    {
+        "id": 6,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Premium Times",
+        "title": "Wale Omole, former OAU Vice-Chancellor, dies at 84",
+        "content_summary": "At OAU, Mr Omole rose from assistant lecturer to Professor of Animal Science in 1980.",
+        "original_link": "https://www.premiumtimesng.com/news/top-news/924559-wale-omole-former-oau-vice-chancellor-dies-at-84.html",
+        "publication_date": "2026-11-11 23:09:42"
+    },
+    {
+        "id": 7,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Premium Times",
+        "title": "COP31: HOMEF demands clarity over fossil fuel language in ongoing climate talks in Turkey",
+        "content_summary": "The organisation said the global response to climate change must prioritise protecting people and the environment over corporate interests.",
+        "original_link": "https://www.premiumtimesng.com/business/business-news/924556-cop31-homef-demands-clarity-over-fossil-fuel-language-in-ongoing-climate-talks-in-turkey.html",
+        "publication_date": "2026-11-11 22:58:48"
+    },
+    {
+        "id": 8,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Premium Times",
+        "title": "Ogun govt defends Awujale succession intervention, cites Fusengbuwa family disputes",
+        "content_summary": "The Ogun State Attorney General stated that the government intervention follows entitlement crises within the ruling house.",
+        "original_link": "https://www.premiumtimesng.com/news/top-news/924554-ogun-govt-defends-awujale-succession-intervention-cites-fusengbuwa-family-disputes.html",
+        "publication_date": "2026-11-11 22:46:11"
+    },
+    {
+        "id": 9,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Premium Times",
+        "title": "University sacks another four staff members, gives reason",
+        "content_summary": "This is the second time in a year that the university would sack its staff members.",
+        "original_link": "https://www.premiumtimesng.com/news/top-news/924552-university-sacks-another-four-staff-members-gives-reason.html",
+        "publication_date": "2026-11-11 22:11:49"
+    },
+    {
+        "id": 10,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "BusinessDay",
+        "title": "Afreximbank commits $75m SME finance facility to DBN",
+        "content_summary": "The African Export-Import Bank (Afreximbank) has committed a $75 million finance facility to the Development Bank of Nigeria (DBN) to",
+        "original_link": "https://businessday.ng/uncategorized/article/afreximbank-commits-75m-sme-finance-facility-to-dbn/",
+        "publication_date": "2026-11-12 07:25:17"
+    },
+    {
+        "id": 11,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "BusinessDay",
+        "title": "Investors pile N1.08trn into one-year bills at 15.89%",
+        "content_summary": "Investors significantly increased their appetite for longer-dated Nigerian Treasury bills at Wednesday’s auction, committing N1.08 trillion to the 364-day instrument",
+        "original_link": "https://businessday.ng/news/article/investors-pile-n1-08trn-into-one-year-bills-at-15-89/",
+        "publication_date": "2026-11-12 07:20:31"
+    },
+    {
+        "id": 12,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "BusinessDay",
+        "title": "Shirley Emehelu: From Nigeria to New Jersey’s second-highest office",
+        "content_summary": "A historic morning in Trenton On Monday, 9 November 2026, Shirley U. Emehelu placed her hand on the Bible at",
+        "original_link": "https://businessday.ng/news/article/shirley-emehelu-from-nigeria-to-new-jerseys-second-highest-office/",
+        "publication_date": "2026-11-12 06:09:08"
+    },
+    {
+        "id": 13,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "BusinessDay",
+        "title": "The Umrah and Absurdistanism; Normalising the abnormal",
+        "content_summary": "Absurditan is an imaginary country where the weird, unusual and abnormal are the norms. In such a place, it is",
+        "original_link": "https://businessday.ng/columnist/article/the-umrah-and-absurdistanism-normalising-the-abnormal/",
+        "publication_date": "2026-11-12 05:56:28"
+    },
+    {
+        "id": 14,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "BusinessDay",
+        "title": "Tinubu challenges Ondo voters to deliver 1.2million votes in 2027",
+        "content_summary": "President Bola Tinubu has raised the stakes for Ondo State ahead of the January 16, 2027 presidential election, urging voters",
+        "original_link": "https://businessday.ng/politics/article/tinubu-challenges-ondo-voters-to-deliver-1-2million-votes-in-2027/",
+        "publication_date": "2026-11-12 05:54:56"
+    },
+    {
+        "id": 15,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "BusinessDay",
+        "title": "Court rejects forged resignation letter in ADC leadership dispute",
+        "content_summary": "Federal High Court Justice Peter Lifu has ruled that a purported resignation letter presented to establish the exit of Nafiu",
+        "original_link": "https://businessday.ng/politics/article/court-rejects-forged-resignation-letter-in-adc-leadership-dispute/",
+        "publication_date": "2026-11-12 05:42:57"
+    },
+    {
+        "id": 16,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "BusinessDay",
+        "title": "2027 polls: 109 peace accord breaches recorded in ten weeks",
+        "content_summary": "The National Peace Committee has revealed that 26 states and the Federal Capital Territory recorded 109 breaches of the National",
+        "original_link": "https://businessday.ng/politics/article/2027-polls-109-peace-accord-breaches-recorded-in-ten-weeks/",
+        "publication_date": "2026-11-12 05:40:06"
+    },
+    {
+        "id": 17,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "BusinessDay",
+        "title": "How Obasanjo traded military might for farming and survived Abacha’s caging",
+        "content_summary": "Former President Olusegun Obasanjo has recounted why he ventured into farming after retiring from the Nigerian Army, as well as",
+        "original_link": "https://businessday.ng/politics/article/how-obasanjo-traded-military-might-for-farming-and-survived-abachas-caging/",
+        "publication_date": "2026-11-12 05:38:02"
+    },
+    {
+        "id": 18,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Punch",
+        "title": "Morning recap: Court ruling deepens ADC crisis, IG cancels police leave, other top stories",
+        "content_summary": "Read a recap of top stories making headlines, including a court ruling on the ADC crisis, the IG cancelling police leave, and Canada’s residency plan.",
+        "original_link": "https://punchng.com/morning-recap-court-ruling-deepens-adc-crisis-ig-cancels-police-leave-other-top-stories/",
+        "publication_date": "2026-11-12 08:04:54"
+    },
+    {
+        "id": 19,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Punch",
+        "title": "Indonesian VP resigns over high school certificate scandal",
+        "content_summary": "Indonesia’s Vice President Gibran Raka has resigned amid a scandal over his high school diploma, which was annulled by the country’s Supreme Court.",
+        "original_link": "https://punchng.com/indonesian-vp-resigns-over-high-school-certificate-scandal/",
+        "publication_date": "2026-11-12 07:58:23"
+    },
+    {
+        "id": 20,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Punch",
+        "title": "Police probe attack on Pantami’s convoy in Gombe",
+        "content_summary": "The Gombe State Police Command has confirmed an attack on the convoy of PDP governorship candidate, Isa Pantami, by suspected political thugs in Jekadafari",
+        "original_link": "https://punchng.com/police-probe-attack-on-pantamis-convoy-in-gombe/",
+        "publication_date": "2026-11-12 07:57:09"
+    },
+    {
+        "id": 21,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Punch",
+        "title": "Canada plans permanent residency for 100,000 workers, family members",
+        "content_summary": "Canada is introducing a time-limited measure to transition up to 100,000 workers and their families already living in the country to permanent residents.",
+        "original_link": "https://punchng.com/canada-plans-permanent-residency-for-100000-workers-family-members/",
+        "publication_date": "2026-11-12 07:28:20"
+    },
+    {
+        "id": 22,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Punch",
+        "title": "FG clears pension backlog, prefunds benefits till 2029",
+        "content_summary": "The Federal Government has cleared its 21-month pension backlog and is now pre-funding accrued pension rights for federal workers until December 2029.",
+        "original_link": "https://punchng.com/fg-clears-pension-backlog-prefunds-benefits-till-2029/",
+        "publication_date": "2026-11-12 07:26:26"
+    },
+    {
+        "id": 23,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Punch",
+        "title": "Floods: World Bank approves $500m Nigeria loan",
+        "content_summary": "The World Bank has approved a $500m loan for Nigeria to tackle flooding, restore degraded land, and reduce conflicts in 19 northern states and the FCT.",
+        "original_link": "https://punchng.com/floods-world-bank-approves-500m-nigeria-loan/",
+        "publication_date": "2026-11-12 07:24:33"
+    },
+    {
+        "id": 24,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Punch",
+        "title": "Two killed in New York building collapse",
+        "content_summary": "At least two people have been killed and over 10 injured after a three-storey apartment building collapse in Brooklyn, New York. Rescue operations are ongo",
+        "original_link": "https://punchng.com/two-killed-in-new-york-building-collapse/",
+        "publication_date": "2026-11-12 07:24:03"
+    },
+    {
+        "id": 25,
+        "label": "Real",
+        "group": "Real news (established outlet)",
+        "source": "Punch",
+        "title": "Widow sues Airtel, ATC for N232m over noise pollution",
+        "content_summary": "A widow, Sarah Akinya, has sued Airtel and ATC for N232m in damages over alleged noise pollution and nuisance from a telecom mast near her Lagos home.",
+        "original_link": "https://punchng.com/widow-sues-airtel-atc-for-n232m-over-noise-pollution/",
+        "publication_date": "2026-11-12 07:23:04"
+    },
+    {
+        "id": 26,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Onion",
+        "title": "Google Withholds Search For Schools That Ban AI",
+        "content_summary": "Google announced that schools which block AI use entirely would have their access to web search restricted, a move meant to curb growing calls to ban artificial intelligence in K-12 education. What do you think?",
+        "original_link": "https://theonion.com/google-withholds-search-for-schools-that-ban-ai/",
+        "publication_date": "2026-11-11 15:00:00"
+    },
+    {
+        "id": 27,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Onion",
+        "title": "Evolution Of The U.S. Flag",
+        "content_summary": "As America has changed over the centuries, so too has one of its most majestic symbols. Here is how the U.S. flag has evolved.",
+        "original_link": "https://theonion.com/evolution-of-the-u-s-flag-2/",
+        "publication_date": "2026-11-11 15:00:00"
+    },
+    {
+        "id": 28,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Onion",
+        "title": "Basketball Scouts See Potential In 7-Foot-5 Toddler",
+        "content_summary": "ORLANDO, FL—Noting that there was “just something about him” and that he possessed the kind of innate physical tools that could not be taught, basketball scouts confirmed Friday that they saw tremendous potential in 7-foot-5 toddler Miles Covington. “I know talent, and this kid has that ‘it’ factor—great length, a huge wingspan, wears size 17 Stride",
+        "original_link": "https://theonion.com/basketball-scouts-see-potential-in-7-foot-5-toddler/",
+        "publication_date": "2026-11-11 15:00:00"
+    },
+    {
+        "id": 29,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Onion",
+        "title": "God Announces Cutting Hair Will Hurt Now",
+        "content_summary": "THE HEAVENS—Noting that the change would take effect immediately for all 8.2 billion of His earthly creations, God Almighty, Our Heavenly Father, announced Monday that cutting hair would hurt now. “Going forward, cutting any hair on your body, from your head to your pubic region, will result in excruciating agony unlike anything you’ve ever experienced,” said",
+        "original_link": "https://theonion.com/god-announces-cutting-hair-will-hurt-now/",
+        "publication_date": "2026-11-11 15:00:00"
+    },
+    {
+        "id": 30,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Onion",
+        "title": "Cybertruck Discontinued",
+        "content_summary": "Elon Musk announced that Tesla will cease production of the Cybertruck in 2027, diverting resources to increase manufacturing of the company’s self-driving taxi, the Cybercab. What do you think?",
+        "original_link": "https://theonion.com/cybertruck-discontinued/",
+        "publication_date": "2026-11-10 22:19:51"
+    },
+    {
+        "id": 31,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Onion",
+        "title": "Pros And Cons Of Unions",
+        "content_summary": "Support for unions in the United States is the highest it’s been in decades, prompted by the rise of AI and income inequality. The Onion examines the pros and cons of labor unions. PRO They’re the only reason you’re not handcuffed to a mine cart right now. They’re the best way to get over a",
+        "original_link": "https://theonion.com/pros-and-cons-of-unions/",
+        "publication_date": "2026-11-10 21:07:48"
+    },
+    {
+        "id": 32,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Onion",
+        "title": "Jensen Huang Vents About Investigation To New Russian Girlfriend",
+        "content_summary": "LOS ALTOS HILLS, CA—Ranting at length as he shared details about his stressful work life, NVIDIA CEO Jensen Huang reportedly vented to his new Russian girlfriend Tuesday about the ongoing corporate investigation into his conduct at the company. “I’m telling you, Svetlana, you have no idea the insane amount of pressure I’m under,” Huang said",
+        "original_link": "https://theonion.com/jensen-huang-vents-about-investigation-to-new-russian-girlfriend/",
+        "publication_date": "2026-11-10 20:23:30"
+    },
+    {
+        "id": 33,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Onion",
+        "title": "New Amazon Drone Hovers Above Customer Until They Order Something",
+        "content_summary": "SEATTLE—With its announcement of a new technology that company executives touted as the future of online shopping, retail giant Amazon confirmed Thursday that it would launch a new fleet of drones that continuously hover above potential customers until they order something. “This fully electric, autonomous drone can locate and follow any consumers within range until they",
+        "original_link": "https://theonion.com/new-amazon-drone-hovers-above-customer-until-they-order-something/",
+        "publication_date": "2026-11-10 19:12:41"
+    },
+    {
+        "id": 34,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Onion",
+        "title": "Graceland Celebrates First Elvis Born In Captivity",
+        "content_summary": "MEMPHIS, TN—With a massive crowd gathering at the facility to witness a milestone event in the history of the species, Graceland celebrated this week as it welcomed the first-ever Elvis born in captivity. “After many years where we didn’t know if we would ever have another king, our visitors are thrilled to see this newborn Elvis",
+        "original_link": "https://theonion.com/graceland-celebrates-first-elvis-born-in-captivity/",
+        "publication_date": "2026-11-10 15:00:00"
+    },
+    {
+        "id": 35,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Onion",
+        "title": "Trump Gathers Cabinet In Situation Room To Watch Porn",
+        "content_summary": "WASHINGTON—According to administration sources, President Donald Trump gathered his Cabinet in the White House Situation Room on Friday to watch pornography, staring at a large-screen TV with laser focus while his advisors sat around him in hushed silence. “Operation horny MILF teacher bangs hot male student is a go,” said Trump, who leaned forward with tented",
+        "original_link": "https://theonion.com/trump-gathers-cabinet-in-situation-room-to-watch-porn/",
+        "publication_date": "2026-11-10 15:00:00"
+    },
+    {
+        "id": 36,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Onion",
+        "title": "Entenmann’s CEO Announces He Happy To Share Donut Secrets With Chinese Spies In Exchange For Sex",
+        "content_summary": "IRVING, TX— Revealing his openness to disclosing sensitive corporate information if properly incentivized, Entenmann’s CEO Larry Dunford announced Monday that he was happy to share donut-related secrets with Chinese spies in exchange for sex. “I’ll tell you whatever you want to know: recipes, ingredients, how we get the powdered sugar to stay on, you name",
+        "original_link": "https://theonion.com/entenmanns-ceo-announces-he-happy-to-share-donut-secrets-with-chinese-spies-in-exchange-for-sex/",
+        "publication_date": "2026-11-09 23:50:32"
+    },
+    {
+        "id": 37,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Onion",
+        "title": "2026 Midterms ‘Blue Tsunami’ By The Numbers",
+        "content_summary": "The Democrats retook the House, Senate, and many statewide offices after a massive wave of wins in the 2026 midterm election. The Onion breaks down the figures behind the Democrats’ “blue tsunami.” 54 Number of states Democrats now control ∞ Executive orders incoming $2.99 Price that swing voters expect to see at gas pumps real",
+        "original_link": "https://theonion.com/2026-midterms-blue-tsunami-by-the-numbers/",
+        "publication_date": "2026-11-09 22:07:49"
+    },
+    {
+        "id": 38,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Babylon Bee",
+        "title": "LeBron James Forced To Press Life Alert Button After Falling During Game",
+        "content_summary": "PHILADELPHIA, PA — One of the sports world's brightest stars suffered a significant health scare on Tuesday night, as LeBron James was forced to press his Life Alert button after falling during a game.",
+        "original_link": "https://babylonbee.com/news/lebron-james-forced-to-press-life-alert-button-after-falling-during-game/",
+        "publication_date": "2026-11-11 21:13:29"
+    },
+    {
+        "id": 39,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Babylon Bee",
+        "title": "Church Drummer Accidentally Summons Demon While Attempting To Play In 6/8 Time",
+        "content_summary": "LUBBOCK, TX — A drummer in a local megachurch praise band was horror-stricken after he accidentally summoned a demon while attempting to play in 6/8 time.",
+        "original_link": "https://babylonbee.com/news/church-drummer-accidentally-summons-demon-while-attempting-to-play-in-68-time/",
+        "publication_date": "2026-11-11 20:34:40"
+    },
+    {
+        "id": 40,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Babylon Bee",
+        "title": "Man Who Says He's Ready For Civil War Needs Wife's Permission To Go Golfing",
+        "content_summary": "BLOOMINGTON, MN — Local man Max Carter announced he is 100% ready for a civil war even though he needs his wife's permission to go golfing.",
+        "original_link": "https://babylonbee.com/news/man-who-says-hes-ready-for-civil-war-needs-wifes-permission-to-go-golfing/",
+        "publication_date": "2026-11-11 18:57:17"
+    },
+    {
+        "id": 41,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Babylon Bee",
+        "title": "Taco Bell Employee Fired For Passing Drug Test",
+        "content_summary": "ANAHEIM, CA — What had looked to be a promising career in the food service industry was abruptly cut short on Wednesday, as a local Taco Bell employee was fired for passing his drug test.",
+        "original_link": "https://babylonbee.com/news/taco-bell-employee-fired-for-passing-drug-test/",
+        "publication_date": "2026-11-11 18:20:22"
+    },
+    {
+        "id": 42,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Babylon Bee",
+        "title": "Baby Relieved He Made It Out Of The Womb Before Democrats Won Midterms",
+        "content_summary": "OVERLAND PARK, KS — A local baby was relieved to have narrowly avoided life-threatening danger last month by making it out of his mother's womb before Democrats won the midterm elections.",
+        "original_link": "https://babylonbee.com/news/baby-relieved-he-made-it-out-of-the-womb-before-democrats-won-midterms/",
+        "publication_date": "2026-11-11 17:39:51"
+    },
+    {
+        "id": 43,
+        "label": "Misinformation",
+        "group": "Satire publication",
+        "source": "The Babylon Bee",
+        "title": "Republicans Announce Plan To Do Exact Same Thing And Expect Different Results",
+        "content_summary": "WASHINGTON, D.C. — With the midterm elections now over and the nation's capital preparing for the incoming Democratic control of the legislative branch, Republicans announced a new plan to do exactly the same thing and expect different results.",
+        "original_link": "https://babylonbee.com/news/republicans-announce-plan-to-do-exact-same-thing-and-expect-different-results/",
+        "publication_date": "2026-11-11 17:14:15"
+    },
+    {
+        "id": 44,
+        "label": "Misinformation",
+        "group": "Fabricated hoax (written for the test)",
+        "source": "naijagistnow.blogspot.com",
+        "title": "BREAKING: Davido is dead! Singer dies in ghastly car crash on Third Mainland Bridge",
+        "content_summary": "Sources close to the family say Afrobeats star Davido died this morning after his car plunged off the bridge. His team has refused to comment. Share this to pray for his soul!!!",
+        "original_link": "https://naijagistnow.blogspot.com/2026/11/davido-dead-crash.html",
+        "publication_date": "2026-11-12 09:00:00"
+    },
+    {
+        "id": 45,
+        "label": "Misinformation",
+        "group": "Fabricated hoax (written for the test)",
+        "source": "naijagistnow.blogspot.com",
+        "title": "Former President Olusegun Obasanjo dies at 89",
+        "content_summary": "Former President Olusegun Obasanjo has died at the age of 89, a family source told our correspondent on Tuesday.",
+        "original_link": "https://naijagistnow.blogspot.com/2026/11/obasanjo-dies.html",
+        "publication_date": "2026-11-12 09:00:00"
+    },
+    {
+        "id": 46,
+        "label": "Misinformation",
+        "group": "Fabricated hoax (written for the test)",
+        "source": "naijagistnow.blogspot.com",
+        "title": "I will hand over to Peter Obi next week — Tinubu",
+        "content_summary": "President Bola Tinubu has told aides he will resign next week and hand power to Peter Obi, saying he is tired of governing Nigeria. Share this before it is deleted!",
+        "original_link": "https://naijagistnow.blogspot.com/2026/11/tinubu-hand-over-obi.html",
+        "publication_date": "2026-11-12 09:00:00"
+    },
+    {
+        "id": 47,
+        "label": "Misinformation",
+        "group": "Fabricated hoax (written for the test)",
+        "source": "naijagistnow.blogspot.com",
+        "title": "Doctors HATE this one fruit that cures diabetes in 7 days!!!",
+        "content_summary": "A viral post claims that eating a single tropical fruit every morning reverses type 2 diabetes within a week.",
+        "original_link": "https://naijagistnow.blogspot.com/2026/11/fruit-cures-diabetes.html",
+        "publication_date": "2026-11-12 09:00:00"
+    },
+    {
+        "id": 48,
+        "label": "Misinformation",
+        "group": "Fabricated hoax (written for the test)",
+        "source": "naijagistnow.blogspot.com",
+        "title": "CBN to replace naira with new West African \"Eco\" notes from December 1",
+        "content_summary": "The Central Bank of Nigeria will withdraw all naira notes from circulation on December 1 and replace them with the new Eco currency, an insider at the apex bank said on Wednesday.",
+        "original_link": "https://naijagistnow.blogspot.com/2026/11/cbn-naira-eco-december.html",
+        "publication_date": "2026-11-12 09:00:00"
+    },
+    {
+        "id": 49,
+        "label": "Misinformation",
+        "group": "Fabricated hoax (written for the test)",
+        "source": "naijagistnow.blogspot.com",
+        "title": "WAEC cancels all 2026 WASSCE results nationwide after massive leak",
+        "content_summary": "The West African Examinations Council has cancelled every 2026 WASSCE result in Nigeria and ordered all candidates to rewrite the examination in January, according to a memo seen by our reporter.",
+        "original_link": "https://naijagistnow.blogspot.com/2026/11/waec-cancels-2026-results.html",
+        "publication_date": "2026-11-12 09:00:00"
+    },
+    {
+        "id": 50,
+        "label": "Misinformation",
+        "group": "Fabricated hoax (written for the test)",
+        "source": "naijagistnow.blogspot.com",
+        "title": "NNPC announces free fuel for all motorists this weekend",
+        "content_summary": "The Nigerian National Petroleum Company says every motorist can fill their tank for free at NNPC stations from Friday to Sunday to celebrate record oil output. Forward this to every driver you know!",
+        "original_link": "https://naijagistnow.blogspot.com/2026/11/nnpc-free-fuel-weekend.html",
+        "publication_date": "2026-11-12 09:00:00"
+    }
+]
