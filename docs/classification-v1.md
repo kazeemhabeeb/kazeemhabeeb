@@ -47,3 +47,4 @@ Article: {"title":"<title>","body":"<summary>","source_url":"<link>","publicatio
 |---|---|---|---|
 | v1 | 12 Nov 2026 | Frozen for Chapters 4 and 5 | 95.9 % accuracy, 92.3 % precision, 100 % recall, F1 0.96 (`ai-evaluation-v1.md`) |
 | v2 | 12 Nov 2026 | Prompt: source judged first (established outlet starts high, unknown blog lower, satire low); short or cut-off feed summaries no longer lower the score. Adopted. Exact prompt in `ai-evaluation-v2.md` | 98.0 % accuracy, 100 % precision, 96.0 % recall, F1 0.98 (`ai-evaluation-v2.md`) |
+| v3 trial | 12 Nov 2026 | Unknown sources "start below 50". Not adopted: the errors moved to other articles (`ai-evaluation-v2.md`) | 95.8 % accuracy, 95.8 % precision, 95.8 % recall |

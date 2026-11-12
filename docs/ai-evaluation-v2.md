@@ -75,3 +75,29 @@ First identify the source from source_url. If it is a known satire publication, 
 
 Article: {"title":"<title>","body":"<summary>","source_url":"<link>","publication_date":"<date>"}
 ```
+
+## v3 trial: "start below 50" for unknown sources (not adopted)
+
+To stop an unrecognised satire article reaching 50, v3 changed one sentence: unknown sources "start below 50"
+instead of "start from a lower score". Same 50 articles, same script:
+
+| Measure | v1 | v2 | v3 trial |
+|---|---|---|---|
+| Accuracy | 95.9 % | **98.0 %** | 95.8 % |
+| Precision | 92.3 % | **100 %** | 95.8 % |
+| Recall | **100 %** | 96.0 % | 95.8 % |
+| F1 | 0.96 | **0.98** | 0.958 |
+| Answered | 49 | 49 | 48 (two HTTP 502s) |
+
+- The targeted article was fixed (LeBron James, Babylon Bee: 50 → 15, "a known satire publication").
+- But a different Babylon Bee article ("Taco Bell Employee Fired For Passing Drug Test") scored **80, Real**, with the
+  reason "Established news source and plausible claim": the model mistook the satire site for a news site in this run.
+  In v2 the same article scored 0.
+- A real Punch article on a foreign story ("Indonesian VP resigns over high school certificate scandal") scored 45
+  ("extraordinary claim… from a non-primary international source"); 70 in v2.
+
+**Conclusion:** the change did not improve the result; the errors moved to other articles. Between runs the model
+sometimes misidentifies a source or judges a borderline headline differently, so differences of one or two articles
+in 50 are within run-to-run variation. **v2 stays on the live site.** A deterministic fix would be a source type
+(news / satire) set by the administrator for each source, which is outside the approved design and is listed as
+future work.
