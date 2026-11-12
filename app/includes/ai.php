@@ -58,14 +58,14 @@ function build_prompt($article, $webSearch = false)
         . '{"credibility_score": <whole number 0-100, where 100 = fully credible>, "clickbait": true or false, '
         . '"emotional_manipulation": true or false, "bias": "none" or "low" or "high", "satire": true or false, '
         . '"reason": "<one short sentence>"}' . "\n"
-        // Classification v3 (12 Nov 2026; v2 with "start below 50" for unknown sources): the source is judged first and gives the starting point; the content
+        // Classification v2 (12 Nov 2026): the source is judged first and gives the starting point; the content
         // then lowers the score. A short or cut-off feed summary is not a sign of misinformation.
         . "First identify the source from source_url. If it is a known satire publication, the content is not factual: "
         . "it must score low and satire is true. If it is an established news organisation with editorial standards "
         . "(a national newspaper, broadcaster or news agency), start from a high score and lower it only for clear signs of "
         . "fabrication, such as claims that contradict well-known facts or extraordinary claims with no named source. "
-        . "If the source is unknown, a personal blog or a social-media page, start below 50: the content must be "
-        . "plausible and properly sourced to score 50 or more. "
+        . "If the source is unknown, a personal blog or a social-media page, start from a lower score: the content must be "
+        . "plausible and properly sourced to score high. "
         . "Then check the title and body, and lower the score for false or implausible claims, clickbait wording, "
         . "emotional manipulation and heavy bias. "
         . "The body is a short summary from the publisher's feed and may be cut off mid-sentence: do not lower the score "
