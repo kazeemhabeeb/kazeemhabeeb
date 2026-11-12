@@ -45,4 +45,4 @@ Article: {"title":"<title>","body":"<summary>","source_url":"<link>","publicatio
 
 | Version | Date | Change | Accuracy on set-v1 |
 |---|---|---|---|
-| v1 | 12 Nov 2026 | Frozen for Chapters 4 and 5 | see `ai-evaluation-v1.md` |
+| v1 | 12 Nov 2026 | Frozen for Chapters 4 and 5 | 95.9 % accuracy, 92.3 % precision, 100 % recall, F1 0.96 (`ai-evaluation-v1.md`) |
