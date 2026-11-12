@@ -1,4 +1,4 @@
-# Classification v1 (frozen 12 November 2026)
+# Classification versions (v1 frozen 12 November 2026; v2 adopted the same day)
 
 The version of the misinformation detection described in Chapters 4 and 5. Any later change (for example
 after supervisor feedback) becomes v2, is recorded here, and is measured again with the same test set
@@ -46,3 +46,4 @@ Article: {"title":"<title>","body":"<summary>","source_url":"<link>","publicatio
 | Version | Date | Change | Accuracy on set-v1 |
 |---|---|---|---|
 | v1 | 12 Nov 2026 | Frozen for Chapters 4 and 5 | 95.9 % accuracy, 92.3 % precision, 100 % recall, F1 0.96 (`ai-evaluation-v1.md`) |
+| v2 | 12 Nov 2026 | Prompt: source judged first (established outlet starts high, unknown blog lower, satire low); short or cut-off feed summaries no longer lower the score. Adopted. Exact prompt in `ai-evaluation-v2.md` | 98.0 % accuracy, 100 % precision, 96.0 % recall, F1 0.98 (`ai-evaluation-v2.md`) |
