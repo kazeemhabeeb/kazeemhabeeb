@@ -7,8 +7,10 @@
  * Runs on items that sanitize_item() has already cleaned.
  */
 
-// Words that mark paid content. Matched at the start of the title or as the whole category,
-// so a news headline such as "Officers promoted to new ranks" is not caught.
+// Words that mark paid content. Matched at the start of the title or at the start of the category,
+// so a news headline such as "Officers promoted to new ranks" is not caught. The category may be
+// longer ("Promoted Stories", "Sponsored Content"): Premium Times' paid posts use "Promoted Stories"
+// and were missed while the whole category had to match (12 November 2026).
 $TIER1_SPONSORED_WORDS = ['sponsored', 'advertorial', 'promoted', 'sponsored content', 'paid post'];
 
 // Clickbait phrases, checked in the title and summary.
@@ -69,7 +71,8 @@ function tier1_spam_reason($item)
     $title    = mb_strtolower($item['title'], 'UTF-8');
     $category = mb_strtolower(trim($item['category']), 'UTF-8');
     foreach ($TIER1_SPONSORED_WORDS as $word) {
-        if ($category === $word || preg_match('/^[\[\(]?' . preg_quote($word, '/') . '\b/u', $title)) {
+        $pattern = '/^[\[\(]?' . preg_quote($word, '/') . '\b/u';
+        if (preg_match($pattern, $category) || preg_match($pattern, $title)) {
             return 'marked ' . ucfirst($word);
         }
     }
