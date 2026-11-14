@@ -1,0 +1,82 @@
+References
+
+Alanazi, A., et al. (2025). Machine Learning Models to Identify and Classify Clickbait Headlines Accurately. Journal of Applied Artificial Intelligence, 6(1), 1–17. https://doi.org/10.48185/jaai.v6i1.1148
+Alarfaj, F. K., Muqadas, A., Khan, H. U., & Naz, A. (2026). Clickbait detection in news headlines using RoBERTa-Large language model and deep embeddings. Scientific Reports, 16, 691. https://doi.org/10.1038/s41598-025-30229-5
+Alnabhan, M. Q., & Branco, P. (2024). Fake news detection using deep learning: A systematic literature review. IEEE Access, 12, 114435–114459. https://doi.org/10.1109/ACCESS.2024.3435497
+Ansari, et al. (2026). AI-Based News Verification System Using Large Language Models and Retrieval-Augmented Generation. International Journal of Science and Research Archive, 18(3), 513–522. https://doi.org/10.30574/ijsra.2026.18.3.0471
+Ayoubi, A., Laaouina, A., Jeghal, A., & Tairi, H. (2026). An Improved Detection of Cross-Site Scripting (XSS) Attacks Using a Hybrid Approach Combining Convolutional Neural Networks and Support Vector Machine. Journal of Cybersecurity and Privacy, 6(1), 18. https://doi.org/10.3390/jcp6010018
+Barba, I., et al. (2025). Combined use of web scraping and AI-based models for business applications: Research evolution and future trends. Management Review Quarterly. https://doi.org/10.1007/s11301-025-00551-3
+Bhardwaj, A., Diwan, S., & Wang, Y. (2026). Beyond BeautifulSoup: Benchmarking LLM-Powered Web Scraping for Everyday Users. arXiv preprint arXiv:2601.06301.
+Bojja, et al. (2026). Clickbait Detection Using Contextual Embeddings and Deep Learning Techniques. COMSNETS 2026.
+Bucos, M., & Țucudean, A. (2023). Text Data Augmentation Techniques for Fake News Detection in the Romanian Language. Applied Sciences, 13(13), 7389. https://doi.org/10.3390/app13137389
+Choi, M., Kim, D., & Kim, J. (2026). Defining Abusive News Categories: Proposing a Detection Model for Digital Media Integrity. Applied Sciences, 16(7), 3190. https://doi.org/10.3390/app16073190
+Coman, C., Dalban, C. M., Bătrânu-Pințea, V., Aron, G., & Marina, L. (2026). Comparative Performance of AI-Generated Fake News Detection Pipelines on Romanian News Content. Information, 17(7), 698. https://doi.org/10.3390/info17070698
+Gao, Y., & Liu, X. (2023). Web Crawlers for News Aggregation Systems based on Graph Convolutional Neural Networks. 2023 International Conference on Computer Science and Automation Technology (CSAT). https://doi.org/10.1109/CSAT61646.2023.00178
+Herrera-Poyatos, et al. (2025). An overview of model uncertainty and variability in LLM-based sentiment analysis. Frontiers in Artificial Intelligence, 8:1609097. https://doi.org/10.3389/frai.2025.1609097
+Hoe, C. W., Raheem, M., & Abubacker, N. F. (2024). News Aggregation And Summarisation. Journal of Applied Technology and Innovation, 8(4), 51–59. https://doi.org/10.65136/jati.v8i4.102
+Hu, et al. (2024). Bad Actor, Good Advisor: Exploring the Role of Large Language Models in Fake News Detection. AAAI 2024, 22105–22113. https://doi.org/10.1609/aaai.v38i20.30214
+Kodakandla, P. (2023). Real-time data pipeline modernization: A comparative study of latency, scalability, and cost trade-offs in Kafka-Spark-BigQuery architectures. International Research Journal of Modernization in Engineering Technology and Science, 5(10), 3340–3349. https://doi.org/10.56726/IRJMETS45355
+Kostina, et al. (2025). Large Language Models For Text Classification: Case Study And Comprehensive Review. arXiv preprint arXiv:2501.08457.
+Kuntur, S., Ningrum, P. K., Wróblewska, A., Ganzha, M., & Paprzycki, M. (2026). Clickbait detection: Quick inference with maximum impact. Lecture Notes in Computer Science, 16787, 33–40.
+Lazarski, E., Al-Khassaweneh, M., & Howard, C. (2021). Using NLP for Fact Checking: A Survey. Designs, 5(3), 42. https://doi.org/10.3390/designs5030042
+Li, X. (2025a). Transformer Based News Text Classification. Applied and Computational Engineering, 160, 142–154. https://doi.org/10.54254/2755-2721/2025.TJ23582
+Li, Y. (2025b). Multimodal fake news detection using graph neural networks and attention mechanisms. Advances in Engineering Innovation. https://doi.org/10.54254/2977-3903/2025.20827
+Li, Y., Lu, W., Yu, H., & Wang, Y. (2026). Retrieval-Augmented Multimodal Model for Fake News Detection. SIGIR 2026, 969–980. https://doi.org/10.1145/3805712.3809605
+Lokhande, S., Modi, K., Mule, T., Patil, V., & Patil, S. (2025). Fake News Detection. International Journal of Scientific Research in Engineering and Management, 9(4). https://doi.org/10.55041/IJSREM44754
+Lotito, Q., Zanella, M., & Casari, P. (2021). Realistic Aspects of Simulation Models for Fake News Epidemics over Social Networks. Future Internet, 13(3), 76. https://doi.org/10.3390/fi13030076
+Mahajan, More, & Shah. (2025). Navigating Emotion in Code-Mixed Languages: Performance of ML and DL Models on Hindi-English Text. Procedia Computer Science, 258, 4029–4037. https://doi.org/10.1016/j.procs.2025.04.654
+Masood, M., Nawaz, M., Malik, K. M., Javed, A., Irtaza, A., et al. (2023). Deepfakes generation and detection: State-of-the-art, open challenges, countermeasures, and way forward. Applied Intelligence, 53(4), 3974–4026. https://doi.org/10.1007/s10489-022-03766-z
+Michaluk, et al. (2026). Click it or Leave it: Detecting and Spoiling Clickbait with Informativeness Measures and Large Language Models. arXiv preprint arXiv:2602.18171.
+Milner, et al. (2026). A browser-based verification assistant. EACL 2026 System Demonstrations, 154–162. https://doi.org/10.18653/v1/2026.eacl-demo.12
+Mogre, A. (2026). Comparing classical machine learning models using the full-article ISOT dataset and the short-claim LIAR dataset. American Journal of Student Research. https://doi.org/10.70251/HYJR2348.41519524
+Neupane, et al. (2025). Advanced News Aggregation and Content Generation Using LLMs and NLP Algorithms. European Journal of Applied Science, Engineering and Technology. https://doi.org/10.59324/ejaset.2025.3(2).24
+OpenAI. (2024). GPT-4o System Card. arXiv preprint arXiv:2410.21276.
+Papageorgiou, et al. (2025). Harnessing Large Language Models and Deep Neural Networks for Fake News Detection. Information, 16(4), 297. https://doi.org/10.3390/info16040297
+Patil, S., et al. (2024). Content HUB a Unified Content Aggregation Platform. International Research Journal of Innovations in Engineering and Technology (IRJIET), 8(4), 207–212. https://doi.org/10.47001/IRJIET/2024.804029
+Peng, X., Xu, Q., Feng, Z., Zhao, H., Tan, L., et al. (2024). Automatic News Generation and Fact-Checking System Based on Language Processing. arXiv preprint arXiv:2405.10492.
+Piasta, & Kotas. (2025). Comparative Analysis of Natural Language Processing Techniques in the Classification of Press Articles. Applied Sciences, 15(17), 9559. https://doi.org/10.3390/app15179559
+Pozzi, A., Barbierato, E., & Toti, D. (2023). Cryptoblend: An AI-Powered Tool for Aggregation and Summarization of Cryptocurrency News. Informatics, 10(1), 5. https://doi.org/10.3390/informatics10010005
+Rahaman, S. (2025). AI-Powered Fake News Detection System/NewsLogic. ResearchGate.
+Rahman, & Maryani. (2024). Optimizing Customer Satisfaction through Sentiment Analysis: A BERT-based Machine Learning Approach. IEEE Access, 12, 151476–151489. https://doi.org/10.1109/ACCESS.2024.3478835
+Repede, & Brad. (2025). A Review of Automatic Fake News Detection: From Traditional Methods to Large Language Models. Future Internet, 17(10), 435. https://doi.org/10.3390/fi17100435
+Roumeliotis, K. I., Tselikas, N. D., & Nasiopoulos, D. K. (2025). Fake News Detection and Classification: A Comparative Study of Convolutional Neural Networks, Large Language Models, and Natural Language Processing Models. Future Internet, 17(1), 28. https://doi.org/10.3390/fi17010028
+Saxena, & Yadav. (2026). TruthLens: Integrating LIME and SHAP feature attributions for news credibility. IJCRT.
+Singh, & Tripathi. (2026). An adversarially robust fake news detection system based on RoBERTa and continuous learning. arXiv preprint.
+Singh, B., Kumari, S., Kumari, R., & Gupta, A. K. (2026). VeriNews AI: Explainable Fake News Detection and Verification System. ResearchGate.
+Sittar, et al. (2026). Fake News Detection Through LLM-Driven Text Augmentation Across Media and Languages. Machine Learning and Knowledge Extraction, 8(4), 103. https://doi.org/10.3390/make8040103
+Tacuri, et al. (2025). Web Scraping by End Users. IEEE Access, 13, 205027–205044. https://doi.org/10.1109/ACCESS.2025.3636662
+Tan, X., Xu, Y., Wu, T., & Li, B. (2023). Detection of Reflected XSS Vulnerabilities Based on Paths-Attention Method. Applied Sciences, 13(13), 7895. https://doi.org/10.3390/app13137895
+Tanwar, K., Saini, H., & Bhagwani, K. (2025). Personalized News Aggregator with Sentiment Analysis. IJCRT, 13(4), g709–g721.
+Twaha, & Arfin. (2025). An AI-Driven Framework for Real-Time Fake News Detection: Developing a Machine Learning-Based Filter for News Platforms in the United States. International Journal of Future Engineering Innovations, 2(4), 158–169. https://doi.org/10.54660/IJFEI.2025.2.4.158-169
+Ulloa, et al. (2025). Beyond time delays: how web scraping distorts measures of online news consumption. Communication Methods and Measures, 19(3), 179–200. https://doi.org/10.1080/19312458.2025.2482538
+Venkatesan. (2024). Sentiment Analysis of Financial News using USE and BERT Language Models. MSc Project Publication.
+Wang, et al. (2024). Explainable Fake News Detection with Large Language Model via Defense Among Competing Wisdom. WWW 2024, 2452–2463.
+Wu, Guo, & Hooi. (2024). Fake News in Sheep's Clothing: Robust Fake News Detection Against LLM-Empowered Style Attacks. KDD 2024, 3367–3378. https://doi.org/10.1145/3637528.3671977
+Xu, et al. (2026). LiveFact: A Dynamic, Time-Aware Benchmark for LLM-Driven Fake News Detection. Proceedings of the ACL, 11881–11910.
+Yan, H., Feng, L., Yu, Y., Liao, W., Feng, L., et al. (2022). Cross-site scripting attack detection based on a modified convolution neural network. Frontiers in Computational Neuroscience, 16. https://doi.org/10.3389/fncom.2022.981739
+Yan, et al. (2025). MTPareto: A MultiModal Targeted Pareto Framework for Fake News Detection. arXiv preprint.
+Zeng, J., & Brennen, S. B. (2023). Misinformation. Internet Policy Review, 12(4). https://doi.org/10.14763/2023.4.1725
+Zhang, X., Akhter, S., Nassani, A. A., & Haffar, M. (2022). Impact of News Overload on Social Media News Curation: Mediating Role of News Avoidance. Frontiers in Psychology, 13. https://doi.org/10.3389/fpsyg.2022.865246
+
+Technical Documentation & Web Sources
+
+Amazon Web Services (AWS). (n.d.). Machine Learning (ML). Retrieved from AWS Glossary.
+Amazon Web Services (AWS). (n.d.). Sentiment Analysis. Retrieved from AWS Glossary.
+American Psychological Association. (n.d.). Misinformation. Retrieved from APA Dictionary of Psychology.
+Bootstrap Team. (2022). Bootstrap (Version 5.2.3) [Computer software]. Retrieved from https://getbootstrap.com/
+Cloudflare. (n.d.). Web/Content Scraping. Retrieved from Cloudflare Learning Center.
+Hostinger. (n.d.). hPanel Web Hosting Control Panel. Retrieved from https://www.hostinger.com/
+IBM. (2024). Application Programming Interface (API). Retrieved from IBM Topics.
+IBM. (n.d.). Natural Language Processing (NLP). Retrieved from IBM Topics.
+MDN Web Docs. (n.d.). Data/Input Sanitization. Retrieved from Mozilla Developer Network.
+MDN Web Docs. (n.d.). Really Simple Syndication (RSS). Retrieved from Mozilla Developer Network.
+Merriam-Webster. (n.d.). Clickbait. Retrieved from Merriam-Webster Dictionary.
+OWASP. (n.d.). Cross-Site Scripting (XSS). Retrieved from Open Worldwide Application Security Project.
+PHP Group. (n.d.-a). MySQLi Prepared Statements. Retrieved from PHP Manual, https://www.php.net/manual/en/mysqli.quickstart.prepared-statements.php
+PHP Group. (n.d.-b). password_hash. Retrieved from PHP Manual, https://www.php.net/manual/en/function.password-hash.php
+RapidAPI. (n.d.). RapidAPI Hub. Retrieved from https://rapidapi.com/
+Reddit Engineering. (2023). REV2 safety infrastructure: Real-time safety-rule processing. Retrieved from Reddit Engineering Blog.
+Reddit Engineering. (2026). Migrating a Kafka fleet from Amazon EC2 to Kubernetes using Strimzi. Retrieved from Reddit Engineering Blog.
+Start Bootstrap. (n.d.-a). Blog Home [Website template]. Retrieved from https://startbootstrap.com/template/blog-home
+Start Bootstrap. (n.d.-b). SB Admin [Website template]. Retrieved from https://startbootstrap.com/template/sb-admin
+TechTarget. (n.d.). Content Aggregator. Retrieved from TechTarget Network.
